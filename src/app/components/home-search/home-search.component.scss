@@ -1,0 +1,88 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.content-div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+}
+
+.drop-title{
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-family: var(--manrope);
+    margin: 10px;
+}
+
+.dropdown-div{
+//     --bs-gutter-x: 1.5rem;
+//     --bs-gutter-y: 0;
+//     display: flex;
+//     flex-wrap: wrap;
+//     margin-top: calc(-1 * var(--bs-gutter-y));
+//     margin-right: calc(-.5 * var(--bs-gutter-x));
+//     margin-left: calc(-.5 * var(--bs-gutter-x));
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.each-div{
+    width: 22vw;
+}
+
+.filter-div{
+   display: flex;
+  align-items: center;
+  width: 46vw;
+    border: 1px solid var(--bg-overlay);
+    border-radius: 6px;
+}
+
+.filter-inp{
+   background-color: var(--bg-primary) !important;
+    height: 30px !important;
+    width: 100%;
+    color: var(--text-secondary) !important;
+    border: none
+}
+
+::ng-deep .mat-mdc-select-value {
+    background-color: var(--bg-overlay) !important;
+    height: 30px !important;
+    width: 300px !important;
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+    padding: 0px 10px !important;
+}
+
+::ng-deep .mat-mdc-select-arrow svg{
+    left: 80% !important;
+} 
+
+::ng-deep .mat-mdc-select-value-text {
+    display: flex !important;
+    padding: 2px !important;
+}
+
+.date-inp{
+     background-color: var(--bg-primary) !important;
+    height: 30px !important;
+    width: 100%;
+    border: 1px solid var(--bg-overlay);
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+}
+

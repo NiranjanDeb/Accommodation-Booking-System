@@ -1,1 +1,121 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define the theme object.
+$accomodation_correction-theme: mat.define-theme((color: (theme-type: light,
+                primary: mat.$azure-palette,
+                tertiary: mat.$blue-palette,
+            ),
+            density: (scale: 0,
+            )));
+
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/Fonts/Recoleta/recoleta.scss";
+@import "./assets/Fonts/Manrope/manrope.scss";
+
+html,
+body {
+    height: 100%;
+    background: var(--bg-primary) !important;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+:root {
+    --brand-primary: #edc99e;
+    --brand-destructive: #ed9e9e;
+    --bg-primary: #101010;
+    --bg-secondary: #1c1c1c;
+    --bg-tertiary: #282828;
+    --text-primary: #ffffff;
+    --text-secondary: #d6d2ce;
+    --text-tertiary: #8f8b86;
+    --bg-overlay: #ffffff1f;
+    --input-focus: rgba(237, 201, 158, 0.2);
+    --input-error-focus: rgba(237, 158, 158, 0.2);
+    --table-hover: rgba(237, 201, 158, 0.1);
+    --recoleta: "Recoleta";
+    --manrope: "Manrope";
+    @include mat.all-component-themes($accomodation_correction-theme);
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.ac-input-control {
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid var(--bg-overlay);
+    font-family: var(--manrope);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-primary);
+
+    &:focus {
+        box-shadow: 0 0 0 4px var(--input-focus);
+    }
+
+    &::placeholder {
+        font-family: var(--manrope);
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--text-tertiary);
+    }
+}
+
+.ac-input-error:focus {
+    box-shadow: 0 0 0 4px var(--input-error-focus);
+}
+
+.ac-primary-btn {
+    background: var(--brand-primary) !important;
+    color: var(--bg-primary) !important;
+    border-radius: 4px !important;
+    border: none;
+    font-size: 16px;
+    font-weight: 600 !important;
+    font-family: var(--manrope) !important;
+    cursor: pointer;
+
+    &:disabled {
+        filter: brightness(60%);
+        cursor: default;
+    }
+}
+
+.ac-secondary-btn {
+    background: transparent;
+    color: var(--brand-primary);
+    border-radius: 4px;
+    border: 1px solid var(--brand-primary);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--manrope);
+    cursor: pointer;
+
+    &:disabled {
+        filter: brightness(60%);
+        cursor: default;
+    }
+}
+
+.title-text {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    font-family: var(--recoleta);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--text-secondary);
+}

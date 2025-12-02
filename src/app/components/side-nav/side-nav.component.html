@@ -1,0 +1,21 @@
+<div class="position-relative">
+    <div class="sidebar">
+        <div class="icon">
+            <div class="sidebar-header">
+                <span class="global-text">Accomodation Correction</span>
+            </div>
+        </div>
+
+        <div class="side-bar-wrapper">
+            <div class="tabList">
+                @for(list of menuItems; track list){
+                <a class="menu" [routerLink]="list.route" routerLinkActive="active">{{list.label}}</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="routerBody">
+        <router-outlet></router-outlet>
+    </div>
+</div>

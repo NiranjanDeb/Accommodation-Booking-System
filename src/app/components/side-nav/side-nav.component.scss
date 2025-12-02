@@ -1,0 +1,70 @@
+.position-relative {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 4px;
+    padding: 6px 8px 6px 2px;
+}
+
+.side-bar-wrapper {
+    flex-grow: 1;
+    margin-top: 32px;
+    margin-bottom: 20px;
+    gap: 12px;
+}
+
+.tabList{
+      display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu{
+  color: var(--text-primary);
+  font-size: 16px;
+  font-family: var(--manrope);
+  cursor: pointer;
+}
+
+.icon{
+    display: flex;
+    flex-direction: column;
+}
+
+.global-text {
+  font-family: var(--recoleta);
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--text-primary);
+  font-family: Recoleta;
+  line-height: 27.2px;
+  text-align: left;
+}
+
+.side-bar-wrapper {
+  flex-grow: 1;
+  margin-top: 32px;
+  margin-bottom: 20px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.routerBody {
+  flex-grow: 1;
+  overflow-y: auto;
+//   width: calc(100% - 250px);
+}
