@@ -9,9 +9,18 @@
         <div class="side-bar-wrapper">
             <div class="tabList">
                 @for(list of menuItems; track list){
-                <a class="menu" [routerLink]="list.route" routerLinkActive="active">{{list.label}}</a>
+                <a class="menu" [routerLink]="list.route" routerLinkActive="active">
+                    <img [src]="list.icon" alt="" class="menu-icon" />
+                    {{list.label}}</a>
                 }
             </div>
+        </div>
+        <hr>
+        <div class="footer-sidebar">
+            <a class="menu" href="/login">
+                <img src="logout.svg" alt="" class="menu-icon" />
+                Log out
+            </a>
         </div>
     </div>
 

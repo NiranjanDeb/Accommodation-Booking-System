@@ -23,7 +23,7 @@
     color: var(--text-secondary);
     font-size: 16px;
     font-family: var(--manrope);
-    margin: 10px;
+    margin: 5px;
 }
 
 .dropdown-div{
@@ -41,6 +41,8 @@
 
 .each-div{
     width: 22vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .filter-div{
@@ -61,7 +63,7 @@
 
 ::ng-deep .mat-mdc-select-value {
     background-color: var(--bg-overlay) !important;
-    height: 30px !important;
+    height: 37px !important;
     width: 300px !important;
     border-radius: 6px !important;
     color: var(--text-secondary) !important;
@@ -69,8 +71,15 @@
 }
 
 ::ng-deep .mat-mdc-select-arrow svg{
-    left: 80% !important;
+    // left: 0% !important;
+    // right: 10%;
+    transform: translate(-150%, -50%) !important;
+    color: var(--text-secondary);
 } 
+
+::ng-deep .mat-mdc-select-min-line{
+    padding: 4px;
+}
 
 ::ng-deep .mat-mdc-select-value-text {
     display: flex !important;
@@ -79,10 +88,32 @@
 
 .date-inp{
      background-color: var(--bg-primary) !important;
-    height: 30px !important;
-    width: 100%;
+    width: 90%;
     border: 1px solid var(--bg-overlay);
     border-radius: 6px !important;
     color: var(--text-secondary) !important;
+    padding: 10px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-div{
+    display: flex;
+    gap: 20px;
+    padding: 0px 40px 40px 40px
+}
+
+.list-div{
+    display: flex;
+    justify-content: center;
+}
+
+.img-div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 

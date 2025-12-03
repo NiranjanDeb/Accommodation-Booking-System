@@ -87,6 +87,8 @@ body {
     font-weight: 600 !important;
     font-family: var(--manrope) !important;
     cursor: pointer;
+    width: 100%;
+    height: 5vh;
 
     &:disabled {
         filter: brightness(60%);
@@ -103,6 +105,8 @@ body {
     font-weight: 600;
     font-family: var(--manrope);
     cursor: pointer;
+    width: 100%;
+    height: 5vh;
 
     &:disabled {
         filter: brightness(60%);
