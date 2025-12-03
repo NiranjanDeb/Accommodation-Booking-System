@@ -2,90 +2,96 @@
     <div class="title">
         <span class="title-text">Advance Search</span>
     </div>
-<div class="content-div">
-    <div class="dropdown-div">
-        <div class="each-div">
-            <span class="drop-title">Search Type</span>
-            <mat-select>
-        <mat-option value="fc">Profile</mat-option>
-        <mat-option value="fc">Bookings</mat-option>
-        <mat-option value="fc">Visits</mat-option>
-    </mat-select>
-        </div>
-         <div class="each-div">
-            <span class="drop-title">Search Reference</span>
-            <div class="filter-div">
-            <mat-select >
-        <mat-option value="fc">Search by Family Code</mat-option>
-        <mat-option value="fc">Search by Name</mat-option>
-        <mat-option value="fc">Search by Aadhaar Number</mat-option>
-        <mat-option value="fc">Search by Contact Number</mat-option>
-    </mat-select>
-    <input type="text" class="filter-inp">
+    <div class="content-div">
+        <div class="dropdown-div">
+            <div class="each-div">
+                <span class="drop-title">Search Type</span>
+
+                <mat-select (selectionChange)="onSelectType($event)">
+                    <mat-option value="profile">Profile</mat-option>
+                    <mat-option value="bookings">Bookings</mat-option>
+                    <mat-option value="visit">Visits</mat-option>
+                </mat-select>
+            </div>
+            <div class="each-div">
+                <span class="drop-title">Search Reference</span>
+                <div class="filter-div">
+                    <mat-select>
+                        <mat-option value="fc">Search by Family Code</mat-option>
+                        <mat-option value="fc">Search by Name</mat-option>
+                        <mat-option value="fc">Search by Aadhaar Number</mat-option>
+                        <mat-option value="fc">Search by Contact Number</mat-option>
+                    </mat-select>
+                    <input type="text" class="filter-inp">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="dropdown-div">
-         <div class="each-div">
-            <span class="drop-title">Booking Type</span>
-            <mat-select>
-                <mat-option value="fc">N/A</mat-option>
-                <mat-option value="fc">Regular Booking</mat-option>
-                <mat-option value="fc">Utsav Booking</mat-option>
+        @if(!isHide){
+        <div class="dropdown-div">
+            <div class="each-div">
+                <span class="drop-title">Booking Type</span>
+                <mat-select>
+                    <mat-option value="fc">N/A</mat-option>
+                    <mat-option value="fc">Regular Booking</mat-option>
+                    <mat-option value="fc">Utsav Booking</mat-option>
 
-    </mat-select>
+                </mat-select>
+            </div>
+            <div class="each-div">
+                <span class="drop-title">Accomodation Type</span>
+                <mat-select>
+                    <mat-option value="fc">N/A</mat-option>
+                    <mat-option value="fc">Individual</mat-option>
+                    <mat-option value="fc">Family</mat-option>
+                    <mat-option value="fc">Bulk</mat-option>
+                </mat-select>
+            </div>
+            <div class="each-div">
+                <span class="drop-title">Booking Status</span>
+                <mat-select>
+                    <mat-option value="fc">Pending</mat-option>
+                    <mat-option value="fc">Confirmed</mat-option>
+                    <mat-option value="fc">Cancelled</mat-option>
+                </mat-select>
+            </div>
         </div>
-         <div class="each-div">
-            <span class="drop-title">Accomodation Type</span>
-            <mat-select>
-        <mat-option value="fc">N/A</mat-option>
-        <mat-option value="fc">Individual</mat-option>
-        <mat-option value="fc">Family</mat-option>
-        <mat-option value="fc">Bulk</mat-option>
-    </mat-select>
-        </div>
-        <div class="each-div">
-            <span class="drop-title">Booking Status</span>
-            <mat-select>
-        <mat-option value="fc">Pending</mat-option>
-        <mat-option value="fc">Confirmed</mat-option>
-        <mat-option value="fc">Cancelled</mat-option>
-    </mat-select>
-        </div>
-    </div>
-    <div class="dropdown-div">
-         <div class="each-div">
-            <span class="drop-title">Pincodes</span>
-             <input type="text" class="date-inp">
-        </div>
-         <div class="each-div">
-            <span class="drop-title">District</span>
-            <mat-select>
-                <mat-option value="fc">Select District</mat-option>
-              
+        }
+        <div class="dropdown-div">
+            <div class="each-div">
+                <span class="drop-title">Pincodes</span>
+                <input type="text" class="date-inp">
+            </div>
+            <div class="each-div">
+                <span class="drop-title">District</span>
+                <mat-select>
+                    <mat-option value="fc">Select District</mat-option>
 
-    </mat-select>
+
+                </mat-select>
+            </div>
+            <div class="each-div">
+                <span class="drop-title">State</span>
+                <mat-select>
+                    <mat-option value="fc">Select State</mat-option>
+
+                </mat-select>
+            </div>
+
         </div>
-         <div class="each-div">
-            <span class="drop-title">State</span>
-            <mat-select>
-        <mat-option value="fc">Select State</mat-option>
-       
-    </mat-select>
+        @if(!isHide){
+        <div class="dropdown-div">
+            <div class="each-div">
+                <span class="drop-title">From Date</span>
+                <input type="text" class="date-inp">
+            </div>
+            <div class="each-div">
+                <span class="drop-title">To Date</span>
+                <input type="text" class="date-inp">
+            </div>
         </div>
-         
+        }
     </div>
-     <div class="dropdown-div">
-        <div class="each-div">
-           <span class="drop-title">From Date</span>
-           <input type="text" class="date-inp">
-        </div>
-           <div class="each-div">
-           <span class="drop-title">To Date</span>
-           <input type="text" class="date-inp">
-        </div>
-    </div>
-    </div>
+
     <div class="btn-div">
         <button class="ac-primary-btn">Reset</button>
         <button class="ac-secondary-btn">Search</button>
@@ -93,8 +99,8 @@
 
     <div class="list-div">
         <div class="img-div">
-        <img style="width: 150px;" src="search_placeholder_dark.png" alt="">
-        <span class="drop-title" style="text-align: end;">No Data Found</span>
+            <img style="width: 150px;" src="search_placeholder_dark.png" alt="">
+            <span class="drop-title" style="text-align: end;">No Data Found</span>
         </div>
     </div>
 </div>

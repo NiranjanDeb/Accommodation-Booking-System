@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -6,55 +6,55 @@
     box-sizing: border-box;
 }
 
-.title{
+.title {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.content-div{
+.content-div {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 40px;
 }
 
-.drop-title{
+.drop-title {
     color: var(--text-secondary);
     font-size: 16px;
     font-family: var(--manrope);
     margin: 5px;
 }
 
-.dropdown-div{
-//     --bs-gutter-x: 1.5rem;
-//     --bs-gutter-y: 0;
-//     display: flex;
-//     flex-wrap: wrap;
-//     margin-top: calc(-1 * var(--bs-gutter-y));
-//     margin-right: calc(-.5 * var(--bs-gutter-x));
-//     margin-left: calc(-.5 * var(--bs-gutter-x));
+.dropdown-div {
+    //     --bs-gutter-x: 1.5rem;
+    //     --bs-gutter-y: 0;
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     margin-top: calc(-1 * var(--bs-gutter-y));
+    //     margin-right: calc(-.5 * var(--bs-gutter-x));
+    //     margin-left: calc(-.5 * var(--bs-gutter-x));
     display: flex;
     gap: 30px;
     align-items: center;
 }
 
-.each-div{
+.each-div {
     width: 22vw;
     display: flex;
     flex-direction: column;
 }
 
-.filter-div{
-   display: flex;
-  align-items: center;
-  width: 46vw;
+.filter-div {
+    display: flex;
+    align-items: center;
+    width: 46vw;
     border: 1px solid var(--bg-overlay);
     border-radius: 6px;
 }
 
-.filter-inp{
-   background-color: var(--bg-primary) !important;
+.filter-inp {
+    background-color: var(--bg-primary) !important;
     height: 30px !important;
     width: 100%;
     color: var(--text-secondary) !important;
@@ -70,14 +70,14 @@
     padding: 0px 10px !important;
 }
 
-::ng-deep .mat-mdc-select-arrow svg{
+::ng-deep .mat-mdc-select-arrow svg {
     // left: 0% !important;
     // right: 10%;
     transform: translate(-150%, -50%) !important;
     color: var(--text-secondary);
-} 
+}
 
-::ng-deep .mat-mdc-select-min-line{
+::ng-deep .mat-mdc-select-min-line {
     padding: 4px;
 }
 
@@ -86,8 +86,8 @@
     padding: 2px !important;
 }
 
-.date-inp{
-     background-color: var(--bg-primary) !important;
+.date-inp {
+    background-color: var(--bg-primary) !important;
     width: 90%;
     border: 1px solid var(--bg-overlay);
     border-radius: 6px !important;
@@ -96,24 +96,23 @@
 }
 
 input:focus {
-  outline: none;
-  box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
 
-.btn-div{
+.btn-div {
     display: flex;
     gap: 20px;
     padding: 0px 40px 40px 40px
 }
 
-.list-div{
+.list-div {
     display: flex;
     justify-content: center;
 }
 
-.img-div{
+.img-div {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
-

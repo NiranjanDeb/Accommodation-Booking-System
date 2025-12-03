@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -7,13 +7,13 @@
     box-sizing: border-box;
 }
 
-.title{
+.title {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.small-title{
+.small-title {
     color: var(--text-secondary);
     margin: 0px;
 }
@@ -25,13 +25,13 @@
     padding: 10px 16px;
 }
 
-.searchBar{
+.searchBar {
     margin-top: 20px;
     display: flex;
     gap: 20px;
 }
 
-.btn{
+.btn {
     display: flex;
     gap: 10px;
 }
@@ -46,12 +46,11 @@
     padding: 0px 10px !important;
 }
 
-::ng-deep .mat-mdc-select-arrow svg{
+::ng-deep .mat-mdc-select-arrow svg {
     left: 80% !important;
-} 
+}
 
 ::ng-deep .mat-mdc-select-value-text {
     display: flex !important;
     padding: 2px !important;
 }
-

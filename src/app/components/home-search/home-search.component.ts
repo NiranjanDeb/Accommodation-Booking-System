@@ -12,4 +12,15 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class HomeSearchComponent {
 
+  isHide: boolean = false
+
+  onSelectType(event: any){
+    if(event.value == 'profile'){
+      this.isHide = true
+    }else{
+      this.isHide = false
+    }
+    
+  }
+
 }
