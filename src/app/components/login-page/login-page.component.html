@@ -3,24 +3,32 @@
         <div class="login-upper-section">
             <span class="login-title-text">Accomodation Correction</span>
             <div class="login-field-secton"></div>
+            <div class="accnt-selector"></div>
+            @if(!isVerifyOtp){
             <form>
                 <div class="input-field-container">
-                    <span class="input-level-text">Email address*</span>
+                    <span class="input-level-text">Family Code</span>
                     <div class="password-container">
                         <input type="text" class="input-field ac-input-control"
-                            placeholder="Enter your email address" />
+                            placeholder="Enter 12 Digit Family Code" />
                     </div>
                 </div>
 
+                <button class="login-button ac-primary-btn" type="button" (click)="sendOtp()">Login</button>
+            </form>
+        }@else{
+              <form>
                 <div class="input-field-container">
-                    <span class="input-level-text">Password*</span>
+                    <span class="input-level-text">Verify Otp</span>
                     <div class="password-container">
-                        <input type="text" class="input-field ac-input-control" placeholder="Enter your password" />
+                        <input type="text" class="input-field ac-input-control"
+                            placeholder="Enter 12 Digit Family Code" />
                     </div>
                 </div>
                 
-                <button class="login-button ac-primary-btn" type="button" (click)="onLogin()">Login</button>
+                <button class="login-button ac-primary-btn" type="button" (click)="onLogin()">Verify</button>
             </form>
+        }
         </div>
     </div>
 </div>
