@@ -7,7 +7,7 @@
             <div class="each-div">
                 <span class="drop-title">Search Type</span>
 
-                <mat-select (selectionChange)="onSelectType($event)">
+                <mat-select (selectionChange)="onSelectType($event)" [formControl]="searchType">
                     <mat-option value="profile">Profile</mat-option>
                     <mat-option value="bookings">Bookings</mat-option>
                     <mat-option value="visit">Visits</mat-option>
@@ -16,13 +16,13 @@
             <div class="each-div">
                 <span class="drop-title">Search Reference</span>
                 <div class="filter-div">
-                    <mat-select>
+                    <mat-select [formControl]="reference">
                         <mat-option value="fc">Search by Family Code</mat-option>
-                        <mat-option value="fc">Search by Name</mat-option>
-                        <mat-option value="fc">Search by Aadhaar Number</mat-option>
-                        <mat-option value="fc">Search by Contact Number</mat-option>
+                        <mat-option value="name">Search by Name</mat-option>
+                        <mat-option value="aadhar">Search by Aadhaar Number</mat-option>
+                        <mat-option value="number">Search by Contact Number</mat-option>
                     </mat-select>
-                    <input type="text" class="filter-inp">
+                    <input type="text" class="filter-inp" [formControl]="referenceInput">
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
         <div class="dropdown-div">
             <div class="each-div">
                 <span class="drop-title">Pincodes</span>
-                <input type="text" class="date-inp">
+                <input type="text" class="date-inp" [formControl]="pin">
             </div>
             <div class="each-div">
                 <span class="drop-title">District</span>
@@ -93,14 +93,114 @@
     </div>
 
     <div class="btn-div">
-        <button class="ac-primary-btn">Reset</button>
-        <button class="ac-secondary-btn">Search</button>
+        <button class="ac-primary-btn" (click)="reset()">Reset</button>
+        <button class="ac-secondary-btn" (click)="searchProfile()">Search</button>
     </div>
 
+    @if(profileData.length == 0){
     <div class="list-div">
         <div class="img-div">
             <img style="width: 150px;" src="search_placeholder_dark.png" alt="">
             <span class="drop-title" style="text-align: end;">No Data Found</span>
         </div>
     </div>
+    }@else{
+        <!-- <div class="card-details">
+        @for(item of profileData; track item){
+        <div class="family-details">
+            <div class="details">
+                <span class="common-header">Name </span> <span class="common-text">{{item.devoteeFirstName}}
+                   {{item.devoteeMiddleName || ''}} {{item.devoteeLastName}}</span>
+            </div>
+            <div class="details">
+                <span class="common-header">Gender</span> <span
+                    class="common-text">{{item.gender}}</span>
+            </div>
+            <div class="details">
+                <span class="common-header">Family Code</span> <span class="common-text">{{item.devoteeFamilyCode}}</span>
+            </div>
+            <div class="details">
+                <span class="common-header">Mobile Number</span> <span class="common-text">{{item.mobileNumber}}</span>
+            </div>
+             <div class="details">
+                <span class="common-header">Id</span> <span class="common-text">{{item.devoteeId}}</span>
+            </div>
+             <div class="details">
+                <span class="common-header">State</span> <span class="common-text">{{item.state || '-'}}</span>
+            </div>
+        </div>
+    }
+    </div> -->
+    <div class="table-container">
+    <table class="table">
+        <thead class="table-head">
+            <tr>
+              
+                <th>
+                    <span>Name</span>
+                </th>
+                 <th>
+                <span>Gender</span>
+               </th>
+                 <th>
+                    <span>Family Code</span>
+                </th>
+                 <th>
+                    <span>Mobile Number</span>
+                </th>
+                 <th>
+                    <span>Id</span>
+                </th>
+                 <th>
+                    <span>Address</span>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @for(row of profileData; track row){
+            <tr>
+                <!-- @for (colms of displayCountryColumnData; track colms){ -->
+                <!-- <td>
+                                @if(colms.clickable){
+                                    <span class="clickable" (click)="onCellClick(row[colms.id])">{{ row[colms.id] }}</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if(!colms.clickable){
+                                        <span>{{ row[colms.id] }}</span>
+                                        }
+                                    </td> -->
+                
+                <td>
+                    <!-- @if(row.gender === 'Male'){
+                        <img src="female-img.svg" alt="genderImg" style="width: 35px; height: 35px; padding-right: 5px"  >
+                    }@else{
+                        <img src="female-icon.png" alt="genderImg" style="width: 15px; height:15px; padding-right: 5px" >
+                    } -->
+                     {{ !row.isworker ? row.devoteeFirstName + ' ' + (row.devoteeMiddleName ? row.devoteeMiddleName + ' ' : '') + row.devoteeLastName : row.devoteeFirstName + ' ' + row.devoteeMiddleName + ' ' + row.devoteeLastName + ' ' + (row.workerType) }}
+
+                </td>
+                  <td>
+                    {{row.gender}} 
+                </td>
+                <td>
+                    {{row.devoteeFamilyCode}} 
+                </td>
+                <td>
+                    {{row.mobileNumber}} 
+                </td>
+                <td>
+                    {{row.devoteeId}} 
+                </td>
+                <td class="address-cell" [title]="(row.addressLane1 ? row.addressLane1 + ' ' : '') + row.district + ' ' + row.state">
+                    {{row.addressLane1}} {{row.district}} {{row.state}} 
+                </td>
+                <!-- } -->
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    }
 </div>

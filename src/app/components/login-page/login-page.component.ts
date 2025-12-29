@@ -1,10 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestMapper } from '../../request-mapper';
+import { AuthServiceService } from '../../services/auth-service.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
 })
@@ -12,10 +14,13 @@ export class LoginPageComponent implements OnInit {
 
 
 isVerifyOtp:boolean = false
+fc = new FormControl('')
+otp = new FormControl('')
 
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private authService: AuthServiceService
 
   ) {
 
@@ -41,7 +46,18 @@ isVerifyOtp:boolean = false
   }
 
   onLogin() {
-    this.router.navigate([RequestMapper.SIDENAV]);
+    const payload = {
+      fc : this.fc?.value,
+      otp: this.otp?.value
+    }
+
+    this.authService.getAuthenticate(payload).subscribe({
+      next: (res)=>{
+          localStorage.setItem('auth', res.data.token)
+           this.router.navigate([`${RequestMapper.SIDENAV}/${RequestMapper.PROFILE_SEARCH}`]);
+      }
+    })
+   
   }
 
 }
