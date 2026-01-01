@@ -101,5 +101,6 @@
 .routerBody {
   flex-grow: 1;
   overflow-y: auto;
+  scrollbar-width: none;
   //   width: calc(100% - 250px);
 }

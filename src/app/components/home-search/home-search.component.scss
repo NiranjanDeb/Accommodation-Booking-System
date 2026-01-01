@@ -1,10 +1,9 @@
 .main-container {
-    display: flex;
+       display: flex;
     flex-direction: column;
     padding: 40px;
-    height: 100vh;
+    max-inline-size: 230vh;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
 .title {
@@ -119,7 +118,8 @@ input:focus {
 }
 
 .table-container{
-    overflow-y: auto;
+       overflow-y: auto;
+    height: 60vh;
     scrollbar-width: none;
 }
 

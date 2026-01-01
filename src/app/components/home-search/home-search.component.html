@@ -17,7 +17,7 @@
             <div class="each-div">
                 <span class="drop-title">Search Reference</span>
                 <div class="filter-div">
-                    <mat-select [formControl]="reference">
+                    <mat-select [formControl]="reference" (selectionChange)="referenceSelection($event)">
                         @if(!isVisit){
                         <mat-option value="fc">Search by Family Code</mat-option>
                         <mat-option value="name">Search by Name</mat-option>
@@ -518,32 +518,41 @@
         
              <div class="mem-details">
             @for(item of bookingIdDetails[0].guestList; track item){
-
+        
             <div class="family-details">
+                 <div class="details">
+                <span class="common-header">Guest Type</span> <span class="common-text">{{item.guestType}}</span>
+            </div>
             <div class="details">
-                <span class="common-header">Name </span> <span class="common-text">{{item.familyMember.firstName}} {{item.familyMember.lastName}}</span>
+                <span class="common-header">Name </span> <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.firstName + ' ' + item.familyMember.lastName : item.coVisitor.firstName + ' ' + item.coVisitor.lastName}} </span>
             </div>
             <div class="details">
                 <span class="common-header">Gender</span> <span
-                    class="common-text">{{item.familyMember.gender}}</span>
+                    class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.gender : item.coVisitor.gender}}</span>
             </div>
             <div class="details">
-                <span class="common-header">Family Code</span> <span class="common-text">{{item.familyMember.familyCode}}</span>
+                <span class="common-header">Family Code</span> 
+                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.familyCode : item.coVisitor.familyCode || '-'}}</span>
             </div>
             <div class="details">
-                <span class="common-header">Mobile Number</span> <span class="common-text">{{item.familyMember.contact}}</span>
+                <span class="common-header">Mobile Number</span> 
+                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.contact : item.coVisitor.contact}}</span>
             </div>
              <div class="details">
-                <span class="common-header">Date of Birth</span> <span class="common-text">{{item.familyMember.dob}}</span>
+                <span class="common-header">Date of Birth</span> 
+                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.dob : item.coVisitor.dob}}</span>
             </div>
              <div class="details">
-                <span class="common-header">Aadhaar Number</span> <span class="common-text">{{item.familyMember.aadhaarNumber}}</span>
+                <span class="common-header">Aadhaar Number</span> 
+                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.aadhaarNumber : item.coVisitor.aadhaarNumber}}</span>
             </div>
              <div class="details">
-                <span class="common-header">Marital Status</span> <span class="common-text">{{item.familyMember.maritalStatus}}</span>
+                <span class="common-header">Marital Status</span> 
+                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.maritalStatus || '-' : item.coVisitor.maritalStatus || '-'}}</span>
             </div>
              <div class="details">
-                <span class="common-header">Relation</span> <span class="common-text">{{item.familyMember.relationshipWithPrimaryRequestor}}</span>
+                <span class="common-header">Relation</span> 
+                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.relationshipWithPrimaryRequestor : item.coVisitor.relationshipWithPrimaryRequestor}}</span>
             </div>
         </div>
     }

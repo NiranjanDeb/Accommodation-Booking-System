@@ -61,6 +61,12 @@ export class HomeSearchComponent implements OnInit {
 
   }
 
+  referenceSelection(event: any){
+    if(event.value){
+    this.referenceInput.setValue('')
+    }
+  }
+
   onSelectType(event: any) {
 
     if (event.value == 'profile') {
