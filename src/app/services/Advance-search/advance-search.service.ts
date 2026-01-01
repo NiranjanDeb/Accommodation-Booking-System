@@ -13,14 +13,32 @@ export class AdvanceSearchService {
   ) { }
 
   fetchProfile(payload: any): Observable<any>{
-    return this.http.post(ROUTES.PROFILE_SEARCH, payload)
+    return this.http.post(ROUTES.PROFILE_SEARCH, payload);
   }
 
   fetchProfileDetails(fc: any): Observable<any>{
-    return this.http.get(`${ROUTES.PROFILE_SEARCH}/${fc}`)
+    return this.http.get(`${ROUTES.PROFILE_DETAILS}/${fc}`);
   }
 
   fetchPincode(pin: any): Observable<any>{
-    return this.http.get(`${ROUTES.PINCODE}/${pin}`)
+    return this.http.get(`${ROUTES.PINCODE}/${pin}`);
   }
+
+  fetchStates():Observable<any>{
+    return this.http.get(ROUTES.STATES);
+  }
+
+  fetchBookingDetails(payload: any): Observable<any>{
+    return this.http.post(ROUTES.BOOKING_DETAILS, payload);
+  }
+
+  fetchBookingId(id: any): Observable<any>{
+    return this.http.get(`${ROUTES.BOOKING_ID}/${id}`);
+  }
+
+   fetchVisitDetails(payload: any): Observable<any>{
+    return this.http.post(ROUTES.VISIT_DETAILS, payload);
+  }
+
+
 }
