@@ -17,23 +17,24 @@
             <div class="each-div">
                 <span class="drop-title">Search Reference</span>
                 <div class="filter-div">
-                    <mat-select [formControl]="reference" (selectionChange)="referenceSelection($event)">
+                    <mat-select [formControl]="reference" (selectionChange)="referenceSelection($event)"
+                        placeholder="Select Reference">
                         @if(!isVisit){
-                        <mat-option value="fc">Search by Family Code</mat-option>
+                        <mat-option value="familyCode">Search by Family Code</mat-option>
                         <mat-option value="name">Search by Name</mat-option>
-                        <mat-option value="number">Search by Contact Number</mat-option>
+                        <mat-option value="mobileNumber">Search by Contact Number</mat-option>
                         <mat-option value="aadhaarNumber">Search by Aadhaar Number</mat-option>
 
                         @if(!isHide){
-                            <mat-option value="number">Search by Booking Id</mat-option>
+                        <mat-option value="number">Search by Booking Id</mat-option>
                         }
-                    }@else{
+                        }@else{
                         <mat-option value="aadhaarNumber">Search by Aadhaar Number</mat-option>
 
-                    }
+                        }
 
                     </mat-select>
-                    <input type="text" class="filter-inp" [formControl]="referenceInput">
+                    <input type="text" class="filter-inp" [formControl]="referenceInput" placeholder="Enter search key">
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
         <div class="dropdown-div">
             <div class="each-div">
                 <span class="drop-title">Booking Type</span>
-                <mat-select [formControl]="bookingType">
+                <mat-select [formControl]="bookingType" placeholder="Select booking type">
                     <!-- <mat-option value="fc">N/A</mat-option> -->
                     <mat-option value="Regular">Regular Booking</mat-option>
                     <mat-option value="Utsav">Utsav Booking</mat-option>
@@ -50,7 +51,7 @@
             </div>
             <div class="each-div">
                 <span class="drop-title">Accomodation Type</span>
-                <mat-select [formControl]="accoType">
+                <mat-select [formControl]="accoType" placeholder="Select Accommodation type">
                     <!-- <mat-option value="fc">N/A</mat-option> -->
                     <mat-option value="Individual">Individual</mat-option>
                     <mat-option value="Family">Family</mat-option>
@@ -59,7 +60,7 @@
             </div>
             <div class="each-div">
                 <span class="drop-title">Booking Status</span>
-                <mat-select [formControl]="bookingStatus">
+                <mat-select [formControl]="bookingStatus" placeholder="Select booking status">
                     <mat-option value="PENDING">Pending</mat-option>
                     <mat-option value="CONFIRMED">Confirmed</mat-option>
                     <mat-option value="CANCELLED">Cancelled</mat-option>
@@ -71,37 +72,40 @@
         <div class="dropdown-div">
             <div class="each-div">
                 <span class="drop-title">Pincodes</span>
-                <input type="text" class="date-inp" [formControl]="pin" maxlength="6" (keyup)="getPincodeDetails(pin)">
+                <input type="text" class="date-inp" [formControl]="pin" maxlength="6" (keyup)="getPincodeDetails(pin)"
+                    placeholder="Enter the pincode">
+            </div>
+
+            <div class="each-div">
+                <span class="drop-title">State</span>
+                @if(stateList.length <= 1){ <input type="text" id='state' class="date-inp" [formControl]="state"
+                    readOnly>
+                    }@else {
+
+                    <mat-select [formControl]="state" (selectionChange)="getDistrict($event)"
+                        placeholder="Select State">
+                        @for(st of stateList; track st){
+                        <mat-option [value]="st">{{st}}</mat-option>
+                        }
+                    </mat-select>
+                    }
             </div>
             <div class="each-div">
                 <span class="drop-title">District</span>
-                @if(districtList.length <= 1){
-                <input type="text" id='district' class="date-inp" [formControl]="district" readOnly>
-                }@else {
+                @if(districtList.length <= 1){ <input type="text" id='district' placeholder='Select state first'
+                    class="date-inp" [formControl]="district" readOnly>
+                    }@else {
 
                     <mat-select [formControl]="district">
                         @for(dist of districtList; track dist){
                         <mat-option [value]="dist">{{dist}}</mat-option>
                         }
                     </mat-select>
-                }
-            </div>
-            <div class="each-div">
-                <span class="drop-title">State</span>
-                @if(stateList.length <= 1){
-                <input type="text" id='state' class="date-inp" [formControl]="state" readOnly>
-                }@else {
-
-                    <mat-select [formControl]="state" (selectionChange)="getDistrict($event)">
-                        @for(st of stateList; track st){
-                        <mat-option [value]="st">{{st}}</mat-option>
-                        }
-                    </mat-select>
-                }
+                    }
             </div>
 
         </div>
-    }
+        }
         @if(!isHide || isVisit){
         <div class="dropdown-div">
             <div class="each-div">
@@ -118,7 +122,7 @@
 
     <div class="btn-div">
         <button class="ac-primary-btn" (click)="reset()">Reset</button>
-        <button class="ac-secondary-btn" (click)="searchProfile()">Search</button>
+        <button class="ac-secondary-btn" (click)="searchProfile(true)">Search</button>
     </div>
 
     <!-- @if(profileData.length == 0 && isprofile){
@@ -129,245 +133,251 @@
         </div>
     </div>
     } -->
-    @if(profileData.length > 0 && isprofile && !isVisit || bookingList.length > 0 && !isprofile && !isVisit || visitData.length > 0 && !isprofile && isVisit){
-    <div class="table-container">
-    <table class="table">
-        @if(isprofile && !isVisit){
-        <thead class="table-head">
-            <tr>
-              
-                <th>
-                    <span>Name</span>
-                </th>
-                 <th>
-                <span>Gender</span>
-               </th>
-                 <th>
-                    <span>Family Code</span>
-                </th>
-                 <th>
-                    <span>Mobile Number</span>
-                </th>
-                 <th>
-                    <span>Aadhaar Number</span>
-                </th>
-                 <th>
-                    <span>Address</span>
-                </th>
+    @if(profileData.length > 0 && isprofile && !isVisit || bookingList.length > 0 && !isprofile && !isVisit ||
+    visitData.length > 0 && !isprofile && isVisit){
+    <div class="table-container" infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="1000" (scrolled)="onScroll()" #tableContainer>
+        <table class="table">
+            @if(isprofile && !isVisit){
+            <thead class="table-head">
+                <tr>
 
-            </tr>
-        </thead>
-        <tbody class="table-body">
-            @if(profileData.length > 0){
-            @for(row of profileData; track row){
-            <tr (click)="getProfileDetails(row.devoteeFamilyCode, 'profile')">
-                <td>
-                     {{ !row.isworker ? row.devoteeFirstName + ' ' + (row.devoteeMiddleName ? row.devoteeMiddleName + ' ' : '') + row.devoteeLastName : row.devoteeFirstName + ' ' + row.devoteeMiddleName + ' ' + row.devoteeLastName + ' ' + (row.workerType) }}
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    <th>
+                        <span>Gender</span>
+                    </th>
+                    <th>
+                        <span>Family Code</span>
+                    </th>
+                    <th>
+                        <span>Mobile Number</span>
+                    </th>
+                    <th>
+                        <span>Aadhaar Number</span>
+                    </th>
+                    <th>
+                        <span>Address</span>
+                    </th>
 
-                </td>
-                  <td>
-                    {{row.gender}} 
-                </td>
-                <td>
-                    {{row.devoteeFamilyCode}} 
-                </td>
-                <td>
-                    {{row.mobileNumber}} 
-                </td>
-                <td>
-                    {{row.idNumber}} 
-                </td>
-                <td class="address-cell" [title]="(row.address1 ? row.address1 + ' ' : '') + (row.address2 ? row.address2 + ' ' : '') + (row.address3 ? row.address3 + ' ' : '') + row.district + ' ' + row.state">
-                    {{row.address1 + ' ' + row.address2 + ' ' + row.address3}} {{row.district}} {{row.state}} 
-                </td>
-                <!-- } -->
-            </tr>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @if(profileData.length > 0){
+                @for(row of profileData; track row){
+                <tr (click)="getProfileDetails(row.devoteeFamilyCode, 'profile')">
+                    <td>
+                        {{ !row.isworker ? row.devoteeFirstName + ' ' + (row.devoteeMiddleName ? row.devoteeMiddleName +
+                        ' ' : '') + row.devoteeLastName : row.devoteeFirstName + ' ' + row.devoteeMiddleName + ' ' +
+                        row.devoteeLastName + ' ' + (row.workerType) }}
+
+                    </td>
+                    <td>
+                        {{row.gender}}
+                    </td>
+                    <td>
+                        {{row.devoteeFamilyCode}}
+                    </td>
+                    <td>
+                        {{row.mobileNumber}}
+                    </td>
+                    <td>
+                        {{row.idNumber}}
+                    </td>
+                    <td class="address-cell"
+                        [title]="(row.address1 ? row.address1 + ' ' : '') + (row.address2 ? row.address2 + ' ' : '') + (row.address3 ? row.address3 + ' ' : '') + row.district + ' ' + row.state">
+                        {{row.address1 + ' ' + row.address2 + ' ' + row.address3}} {{row.district}} {{row.state}}
+                    </td>
+                    <!-- } -->
+                </tr>
+                }
+                <tr>
+                    <td style="display: none;">
+                        <div #anchor style="height: 1px;"></div>
+                    </td>
+                </tr>
+                }@else {
+                <tr>
+                    <td>
+                        No Records Found
+                    </td>
+                </tr>
+                }
+            </tbody>
+            }@else if(!isprofile && !isVisit) {
+            <thead class="table-head">
+                <tr>
+
+                    <th>
+                        <span>Name</span>
+                    </th>
+                    <th>
+                        <span>Booking Id</span>
+                    </th>
+                    <th>
+                        <span>Family Code</span>
+                    </th>
+                    <th>
+                        <span>Mobile Number</span>
+                    </th>
+                    <th>
+                        <span>Aadhaar Number</span>
+                    </th>
+                    <th>
+                        <span>Booking Type</span>
+                    </th>
+                    <th>
+                        <span>Accomodation Type</span>
+                    </th>
+                    <th>
+                        <span>Booking Status</span>
+                    </th>
+                    <th>
+                        <span>No. of guest</span>
+                    </th>
+                    <th>
+                        <span>From Date</span>
+                    </th>
+                    <th>
+                        <span>To Date</span>
+                    </th>
+                    <th>
+                        <span>Booking Date</span>
+                    </th>
+                    <th>
+                        <span>Address</span>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @if(bookingList.length > 0){
+                @for(row of bookingList; track row){
+                <tr (click)="getProfileDetails(row.bookingId, 'booking')">
+                    <td>
+                        {{ row.name }}
+                    </td>
+                    <td>
+                        {{row.bookingId}}
+                    </td>
+                    <td>
+                        {{row.familyCode}}
+                    </td>
+                    <td>
+                        {{row.mobileNumber || '-'}}
+                    </td>
+                    <td>
+                        {{row.aadhaarNumber}}
+                    </td>
+                    <td>
+                        {{row.bookingType}}
+                    </td>
+                    <td>
+                        {{row.accommodationType}}
+                    </td>
+                    <td>
+                        {{row.status}}
+                    </td>
+                    <td>
+                        {{row.guestCount}}
+                    </td>
+                    <td>
+                        {{row.fromDate}}
+                    </td>
+                    <td>
+                        {{row.toDate}}
+                    </td>
+                    <td>
+                        {{row.bookingDate}}
+                    </td>
+                    <td class="address-cell"
+                        [title]="(row.address1 ? row.address1 + ' ' : '') + (row.address2 ? row.address2 + ' ' : '') + (row.address3 ? row.address3 + ' ' : '') + row.district + ' ' + row.state">
+                        {{row.address1 + ' ' + row.address2 + ' ' + row.address3}} {{row.district}} {{row.state}}
+                    </td>
+                    <!-- } -->
+                </tr>
+                }
+                }@else{
+                <tr>
+                    <td>
+                        No Records Found
+                    </td>
+                </tr>
+                }
+            </tbody>
+            }@else{
+            <thead class="table-head">
+                <tr>
+
+                    <th>
+                        <span>Booking Id</span>
+                    </th>
+                    <th>
+                        <span>From Date</span>
+                    </th>
+                    <th>
+                        <span>To Date</span>
+                    </th>
+                    <th>
+                        <span>No. of guest</span>
+                    </th>
+                    <th>
+                        <span>Booking Status</span>
+                    </th>
+                    <th>
+                        <span>Booking Type</span>
+                    </th>
+                    <th>
+                        <span>Accommodation Type</span>
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                @if(visitData.length > 0){
+                @for(row of visitData; track row){
+                <tr (click)="getProfileDetails(row.bookingId, 'booking')">
+                    <td>
+                        {{row.bookingId}}
+                    </td>
+                    <td>
+                        {{row.fromDate}}
+                    </td>
+                    <td>
+                        {{row.toDate}}
+                    </td>
+                    <td>
+                        {{row.guestCount}}
+                    </td>
+                    <td>
+                        {{row.status}}
+                    </td>
+                    <td>
+                        {{row.bookingType}}
+                    </td>
+                    <td>
+                        {{row.accommodationType}}
+                    </td>
+
+
+                    <!-- } -->
+                </tr>
+                }
+                }@else {
+                <tr>
+                    <td>
+                        No Records Found
+                    </td>
+                </tr>
+                }
+            </tbody>
             }
-             <tr>
-        <td colspan="2">
-          <div #anchor style="height: 1px;"></div>
-        </td>
-      </tr>
-        }@else {
-            <tr>
-                <td>
-                    No Records Found
-                </td>
-            </tr>
-        }
-        </tbody>
-    }@else if(!isprofile && !isVisit) {
-          <thead class="table-head">
-            <tr>
-              
-                <th>
-                    <span>Name</span>
-                </th>
-                 <th>
-                <span>Booking Id</span>
-               </th>
-                 <th>
-                    <span>Family Code</span>
-                </th>
-                 <th>
-                    <span>Mobile Number</span>
-                </th>
-                 <th>
-                    <span>Aadhaar Number</span>
-                </th>
-                 <th>
-                    <span>Booking Type</span>
-                </th>
-                 <th>
-                    <span>Accomodation Type</span>
-                </th>
-                 <th>
-                    <span>Booking Status</span>
-                </th>
-                 <th>
-                    <span>No. of guest</span>
-                </th>
-                 <th>
-                    <span>From Date</span>
-                </th>
-                 <th>
-                    <span>To Date</span>
-                </th>
-                 <th>
-                    <span>Booking Date</span>
-                </th>
-                 <th>
-                    <span>Address</span>
-                </th>
-
-            </tr>
-        </thead>
-        <tbody class="table-body">
-            @if(bookingList.length > 0){
-            @for(row of bookingList; track row){
-            <tr (click)="getProfileDetails(row.bookingId, 'booking')">
-                <td>
-                     {{ row.name }}
-                </td>
-                  <td>
-                    {{row.bookingId}} 
-                </td>
-                <td>
-                    {{row.familyCode}} 
-                </td>
-                <td>
-                    {{row.mobileNumber || '-'}} 
-                </td>
-                <td>
-                    {{row.aadhaarNumber}} 
-                </td>
-                <td>
-                    {{row.bookingType}} 
-                </td>
-                <td>
-                    {{row.accommodationType}} 
-                </td>
-                <td>
-                    {{row.status}} 
-                </td>
-                <td>
-                    {{row.guestCount}} 
-                </td>
-                <td>
-                    {{row.fromDate}} 
-                </td>
-                <td>
-                    {{row.toDate}} 
-                </td>
-                <td>
-                    {{row.bookingDate}} 
-                </td>
-                <td class="address-cell" [title]="(row.address1 ? row.address1 + ' ' : '') + (row.address2 ? row.address2 + ' ' : '') + (row.address3 ? row.address3 + ' ' : '') + row.district + ' ' + row.state">
-                    {{row.address1 + ' ' + row.address2 + ' ' + row.address3}} {{row.district}} {{row.state}} 
-                </td>
-                <!-- } -->
-            </tr>
-            }
-        }@else{
-             <tr>
-                <td>
-                    No Records Found
-                </td>
-            </tr>
-        }
-        </tbody>
-    }@else{
-         <thead class="table-head">
-            <tr>
-              
-                <th>
-                    <span>Booking Id</span>
-                </th>
-                 <th>
-                <span>From Date</span>
-               </th>
-                 <th>
-                    <span>To Date</span>
-                </th>
-                 <th>
-                    <span>No. of guest</span>
-                </th>
-                 <th>
-                    <span>Booking Status</span>
-                </th>
-                 <th>
-                    <span>Booking Type</span>
-                </th>
-                 <th>
-                    <span>Accommodation Type</span>
-                </th>
-               
-
-            </tr>
-        </thead>
-        <tbody class="table-body">
-            @if(visitData.length > 0){
-            @for(row of visitData; track row){
-            <tr (click)="getProfileDetails(row.bookingId, 'booking')">
-                <td>
-                    {{row.bookingId}}
-                </td>
-                  <td>
-                    {{row.fromDate}} 
-                </td>
-                <td>
-                    {{row.toDate}} 
-                </td>
-                <td>
-                    {{row.guestCount}} 
-                </td>
-                <td>
-                    {{row.status}} 
-                </td>
-                <td>
-                    {{row.bookingType}} 
-                </td>
-                <td>
-                    {{row.accommodationType}} 
-                </td>
-
-               
-                <!-- } -->
-            </tr>
-            }
-        }@else {
-            <tr>
-                <td>
-                    No Records Found
-                </td>
-            </tr>
-        }
-        </tbody>
-    }
-    </table>
-</div>
+        </table>
+    </div>
     }@else {
-         <div class="list-div">
+    <div class="list-div">
         <div class="img-div">
             <img style="width: 150px;" src="search_placeholder_dark.png" alt="">
             <span class="drop-title" style="text-align: end;">No Data Found</span>
@@ -376,44 +386,80 @@
     }
 </div>
 }@else {
-    <div class="main-container">
-        @if(isprofile){   
+<div class="main-container">
+    @if(isprofile){
     <div class="title">
         <span style="color: var(--brand-primary); cursor: pointer;" (click)="back()"> Go back</span>
         <span class="title-text">Edit Members - ({{profileDetails[0].devoteeFamilyCode}})</span>
     </div>
-      <div class="card-details">
+    <div class="card-details">
         @for(item of profileDetails; track item){
         <div class="family-details">
+            <!-- @if(item.isPrimaryDevotee){
+                    <div class="pending-design" style="width: 21%;">
+                    <span class="pending">Primary Member</span>
+                </div>
+                } -->
+               @if(!item.isPrimaryDevotee){
             <div class="details">
-                <span class="common-header">Name </span> <span class="common-text">{{item.devoteeFirstName}}
-                   {{item.devoteeMiddleName || ''}} {{item.devoteeLastName}}</span>
+                <span class="common-text"> {{item.devoteeFirstName}}{{item.devoteeMiddleName || ''}}
+                    {{item.devoteeLastName}}
+                </span>
             </div>
+        }@else {
             <div class="details">
-                <span class="common-header">Gender</span> <span
-                    class="common-text">{{item.gender}}</span>
+                <div class="primary-devotee">
+               <span class="common-text">{{item.devoteeFirstName}}{{item.devoteeMiddleName || ''}}
+                    {{item.devoteeLastName}}</span>
+                    <img src="verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
+                    <div class="pending-design">
+                    <span class="pending">Primary Devotee</span>
+                    </div>
+                </div>
             </div>
+        }
             <div class="details">
-                <span class="common-header">Family Code</span> <span class="common-text">{{item.devoteeFamilyCode}}</span>
+                <span class="common-header">Status</span>
+                <div class="{{item.status == 'ACTIVE' ? 'confirmed-design' : 'pending-design'  }}">
+                <span class="{{item.status == 'ACTIVE' ? 'confirmed' : 'pending' }} "> {{item.status}}
+                </span>
+                </div>
             </div>
+            <!-- <div class="details">
+                <span class="common-header">Gender</span> <span class="common-text">{{item.gender}}</span>
+            </div> -->
+            <!-- <div class="details">
+                <span class="common-header">Family Code</span> <span
+                class="common-text">{{item.devoteeFamilyCode}}</span>
+            </div> -->
             <div class="details">
                 <span class="common-header">Mobile Number</span> <span class="common-text">{{item.mobileNumber}}</span>
             </div>
-             <div class="details">
-                <span class="common-header">Id</span> <span class="common-text">{{item.devoteeId}}</span>
+            <div class="details">
+                <span class="common-header">Aadhaar No.</span> <span class="common-text">{{item.idNumber}}</span>
             </div>
-             <div class="details">
-                <span class="common-header">State</span> <span class="common-text">{{item.state || '-'}}</span>
+            <div class="details">
+                <span class="common-header">Date of Birth</span> <span class="common-text">{{item.dateOfBirth}}</span>
+            </div>
+            <div class="details">
+                <span class="common-header">Relation</span> <span
+                    class="common-text">{{item.relationshipWithPrimaryDevotee}}</span>
+            </div>
+            <div class="edit">
+                <!-- <button class="btn-outline" style="width: 100%;" (click)="confirm(item.devoteeId, item)">
+                    Inactivate
+                </button> -->
+                <button class="ac-secondary-btn" (click)="editDetails(item.devoteeId, item)">Edit details</button>
             </div>
         </div>
-    }
+        }
     </div>
-}@else{
-     <div class="title">
+    }@else{
+    <div class="title">
         <span style="color: var(--brand-primary); cursor: pointer;" (click)="back()"> Go back</span>
         <span class="title-text">Booking Details - ({{bookingIdDetails[0].bookingId}})</span>
     </div>
-     <div class="line">
+    <div class="line">
     </div>
     <div class="booking-details-div">
         <div class="details-heading">
@@ -469,98 +515,109 @@
         </div>
         <div class="acco-details">
             <span class="mem-text">Accommodation Details</span>
-        <div class="acco-heading">
+            <div class="acco-heading">
 
-            <div class="acco-status">
-                <span class="left-side-text">
-                    Accommodation Name</span>
+                <div class="acco-status">
+                    <span class="left-side-text">
+                        Accommodation Name</span>
                     <span class="right-side-text">{{bookingIdDetails[0]?.accommodationDetails[0].guestHouseName}}</span>
-                <!-- } -->
-                <!-- @else {
+                    <!-- } -->
+                    <!-- @else {
                 <div class="shimmer" style="height:28px;width: 80px;"></div>
                 } -->
 
-            </div>
-            <div class="acco-status">
-                <span class="left-side-text">
-                    Room No</span>
+                </div>
+                <div class="acco-status">
+                    <span class="left-side-text">
+                        Room No</span>
                     <span class="right-side-text">{{bookingIdDetails[0]?.accommodationDetails[0].roomCode}}</span>
-                <!-- } -->
-                <!-- @else {
+                    <!-- } -->
+                    <!-- @else {
                 <div class="shimmer" style="height:28px;width: 80px;"></div>
                 } -->
 
-            </div>
-            <div class="acco-status">
-                <span class="left-side-text">
-                    Floor</span>
+                </div>
+                <div class="acco-status">
+                    <span class="left-side-text">
+                        Floor</span>
                     <span class="right-side-text">{{bookingIdDetails[0]?.accommodationDetails[0].floorNumber}}</span>
-                <!-- } -->
-                <!-- @else {
+                    <!-- } -->
+                    <!-- @else {
                 <div class="shimmer" style="height:28px;width: 80px;"></div>
                 } -->
 
-            </div>
-            <div class="acco-status">
-                <span class="left-side-text">
-                    Accomodation Address</span>
-                    <span class="right-side-text">{{bookingIdDetails[0]?.accommodationDetails[0].accommodationAddress}}</span>
-                <!-- } -->
-                <!-- @else {
+                </div>
+                <div class="acco-status">
+                    <span class="left-side-text">
+                        Accomodation Address</span>
+                    <span
+                        class="right-side-text">{{bookingIdDetails[0]?.accommodationDetails[0].accommodationAddress}}</span>
+                    <!-- } -->
+                    <!-- @else {
                 <div class="shimmer" style="height:28px;width: 80px;"></div>
                 } -->
 
+                </div>
             </div>
         </div>
+        <div class="mem-details-div">
+            <span class="mem-text">Family Members & visitors Information
+                ({{bookingIdDetails[0].guestList.length}})</span>
+
+            <div class="mem-details">
+                @for(item of bookingIdDetails[0].guestList; track item){
+
+                <div class="family-details">
+                    <div class="details">
+                        <span class="common-header">Guest Type</span> <span
+                            class="common-text">{{item.guestType}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Name </span> <span class="common-text">{{item.guestType ===
+                            'familyMember' ? item.familyMember.firstName + ' ' + item.familyMember.lastName :
+                            item.coVisitor.firstName + ' ' + item.coVisitor.lastName}} </span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Gender</span> <span class="common-text">{{item.guestType ===
+                            'familyMember' ? item.familyMember.gender : item.coVisitor.gender}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Family Code</span>
+                        <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.familyCode :
+                            item.coVisitor.familyCode || '-'}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Mobile Number</span>
+                        <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.contact :
+                            item.coVisitor.contact}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Date of Birth</span>
+                        <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.dob :
+                            item.coVisitor.dob}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Aadhaar Number</span>
+                        <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.aadhaarNumber
+                            : item.coVisitor.aadhaarNumber}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Marital Status</span>
+                        <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.maritalStatus
+                            || '-' : item.coVisitor.maritalStatus || '-'}}</span>
+                    </div>
+                    <div class="details">
+                        <span class="common-header">Relation</span>
+                        <span class="common-text">{{item.guestType === 'familyMember' ?
+                            item.familyMember.relationshipWithPrimaryRequestor :
+                            item.coVisitor.relationshipWithPrimaryRequestor}}</span>
+                    </div>
+                </div>
+                }
+            </div>
+
         </div>
-         <div class="mem-details-div">
-            <span class="mem-text">Family Members & visitors Information ({{bookingIdDetails[0].guestList.length}})</span>
-        
-             <div class="mem-details">
-            @for(item of bookingIdDetails[0].guestList; track item){
-        
-            <div class="family-details">
-                 <div class="details">
-                <span class="common-header">Guest Type</span> <span class="common-text">{{item.guestType}}</span>
-            </div>
-            <div class="details">
-                <span class="common-header">Name </span> <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.firstName + ' ' + item.familyMember.lastName : item.coVisitor.firstName + ' ' + item.coVisitor.lastName}} </span>
-            </div>
-            <div class="details">
-                <span class="common-header">Gender</span> <span
-                    class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.gender : item.coVisitor.gender}}</span>
-            </div>
-            <div class="details">
-                <span class="common-header">Family Code</span> 
-                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.familyCode : item.coVisitor.familyCode || '-'}}</span>
-            </div>
-            <div class="details">
-                <span class="common-header">Mobile Number</span> 
-                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.contact : item.coVisitor.contact}}</span>
-            </div>
-             <div class="details">
-                <span class="common-header">Date of Birth</span> 
-                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.dob : item.coVisitor.dob}}</span>
-            </div>
-             <div class="details">
-                <span class="common-header">Aadhaar Number</span> 
-                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.aadhaarNumber : item.coVisitor.aadhaarNumber}}</span>
-            </div>
-             <div class="details">
-                <span class="common-header">Marital Status</span> 
-                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.maritalStatus || '-' : item.coVisitor.maritalStatus || '-'}}</span>
-            </div>
-             <div class="details">
-                <span class="common-header">Relation</span> 
-                <span class="common-text">{{item.guestType === 'familyMember' ? item.familyMember.relationshipWithPrimaryRequestor : item.coVisitor.relationshipWithPrimaryRequestor}}</span>
-            </div>
-        </div>
+    </div>
     }
-    </div>
-
-         </div>
-    </div>
+</div>
 }
-    </div>
-}
-

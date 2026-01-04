@@ -1,0 +1,87 @@
+<div class="edit-page">
+    <div class="top-line"></div>
+
+    <div class="visitor">
+        <button class="close">
+            <img class="cross-icon" src="icons/profile-close.svg" alt="profile-close.img">
+
+        </button>
+        <span class="visitor-txt">Edit Member details</span>
+    </div>
+
+
+    <!-- <p class="form-header">Member status: <span class="active">Active • </span></p> -->
+
+    <form>
+        <div class="form">
+            <div>
+                <label class="form-txt" for="firstname">First Name</label>
+                <input type="text" id="firstname" formControlName="firstName" class="text-box-active">
+            </div>
+
+            <div>
+                <label class="form-txt" for="lastname">Last Name</label>
+                <input type="text" id="lastname" formControlName="lastName" class="text-box-active">
+            </div>
+
+            <div>
+                <label class="form-txt" for="lastname">Gender</label>
+                <input type="text" id="lastname" formControlName="gender" class="text-box-active">
+            </div>
+
+            <div>
+                <label class="form-txt" for="identityType">Identity Type</label>
+                <!-- <app-phil-select placeholder="(Select Identity Type)" [control]="getFormControlByname('identityType')"
+                    [options]="['AADHAAR CARD']" [isDisabled]="true"></app-phil-select> -->
+            </div>
+
+            <div>
+                <label class="form-txt" for="cardNumber">ID card number</label>
+                <input type="text" id="cardNumber" formControlName="identityNumber" class="text-box-active" required
+                    maxlength="12" readonly>
+                <!-- @if(editForm.get('identityNumber')?.invalid && editForm.get('identityNumber')?.touched){
+                <small style="color: var(--brand-destructive);">
+                    This is required.
+                </small>
+                } -->
+            </div>
+
+            <div>
+                <label class="form-txt" for="dateOfBirth">Date of Birth</label>
+                <input type="date" id="dob" formControlName="devoteeDateOfBirth" class="text-box-active" required
+                    >
+                <!-- @if(editForm.get('devoteeDateOfBirth')?.errors?.['futureDate']){
+                <small style="color: var(--brand-destructive);">
+                    Date cannot be in the future.
+                </small>
+                } @else if(editForm.get('devoteeDateOfBirth')?.invalid && editForm.get('devoteeDateOfBirth')?.touched){
+                <small style="color: var(--brand-destructive);">
+                    This is required.
+                </small>
+                } -->
+                <!-- <app-mat-calender [dateValue]="dob" (updatedDate)="currentDateChanges($event)"></app-mat-calender> -->
+
+            </div>
+
+            <div>
+                <div>
+                    <label class="form-txt" for="identityType">Marital Status</label>
+                    <!-- <app-phil-select placeholder="(Select marital status)"
+                        [control]="getFormControlByname('maritalStatus')" [options]="status" required></app-phil-select>
+                    @if(editForm.get('maritalStatus')?.invalid && editForm.get('maritalStatus')?.touched){
+                    <small style="color: var(--brand-destructive);">
+                        This is required.
+                    </small>
+                    } -->
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </form>
+    <button class="primary-btn">Save Changes</button>
+
+    <div class="down-line"></div>
+</div>

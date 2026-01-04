@@ -4,20 +4,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { EditDetailsPopupComponent } from './edit-details-popup/edit-details-popup.component';
+
 
 @Component({
   selector: 'app-home-search',
   standalone: true,
   imports: [MatSelectModule,
-    MatFormFieldModule, ReactiveFormsModule],
+    MatFormFieldModule, ReactiveFormsModule, InfiniteScrollDirective],
   templateUrl: './home-search.component.html',
   styleUrl: './home-search.component.scss',
   providers: [DatePipe]
 })
 export class HomeSearchComponent implements OnInit {
-  @ViewChild('anchor', { static: false }) anchor!: ElementRef;
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
 
 
+  searchType = new FormControl('profile');
   reference = new FormControl('');
   referenceInput = new FormControl('');
   pin = new FormControl('');
@@ -31,7 +36,6 @@ export class HomeSearchComponent implements OnInit {
 
   isVisit: boolean = false
   isHide: boolean = false;
-  searchType = new FormControl('');
   showEdit: boolean = false;
   profileData: any = [];
   pincodeList: any = [];
@@ -43,28 +47,55 @@ export class HomeSearchComponent implements OnInit {
   isprofile: boolean = false;
   bookingIdDetails: any = [];
   visitData: any = []
+  pageNo: number = 1
+  payload: any = {}
+  isAllDataLoaded: boolean = false
 
 
 
   constructor(
     private advanceService: AdvanceSearchService,
+    private dialog: MatDialog,
     private date: DatePipe
 
   ) { }
 
   ngOnInit(): void {
     this.getStates()
+    if(this.searchType?.value == 'profile'){
+       this.isHide = true
+      this.isprofile = true
+      this.isVisit = false
+       this.reference.setValue('fc')
+    }
 
   }
 
   ngAfterViewInit() {
+    this.tableContainer?.nativeElement.addEventListener(
+      'scroll',
+      this.onScroll.bind(this)
+    );
+  }
 
+   onScroll() {
+    this.pageNo += 1;
+     this.searchProfile(false)
+  
   }
 
   referenceSelection(event: any){
     if(event.value){
     this.referenceInput.setValue('')
+    if(this.searchType?.value == 'profile'){
+      this.pageNo = 1
+      this.profileData = []
+    }else{
+      this.bookingList = []
+      this.pageNo = 1
     }
+    }
+
   }
 
   onSelectType(event: any) {
@@ -74,20 +105,29 @@ export class HomeSearchComponent implements OnInit {
       this.isHide = true
       this.isprofile = true
       this.isVisit = false
-
+       this.reference.setValue('fc')
+       this.reset()
+       this.profileData = []
+       this.pageNo = 1
     } else if (event.value == 'visit') {
       this.isVisit = true
       this.isHide = false
       this.isprofile = false
+      this.reference.setValue('aadhaarNumber')
+       this.reset()
+       this.visitData = []
+       this.pageNo = 1
     } else {
       this.isHide = false
       this.isprofile = false
       this.isVisit = false
-
+       this.reference.setValue('')
+       this.reset()
+       this.bookingList = []
+       this.pageNo = 1
     }
   }
   reset() {
-    this.searchType.setValue('')
     this.reference.setValue('')
     this.referenceInput.setValue('')
     this.pin.setValue('')
@@ -101,8 +141,9 @@ export class HomeSearchComponent implements OnInit {
     this.districtList = []
   }
 
-  searchProfile() {
-    const payload = {
+  searchProfile(value?: boolean) {
+     this.payload = {
+      page:this.pageNo ,
       key: this.referenceInput?.value,
       keyType: this.reference?.value,
       pincode: Number(this.pin?.value),
@@ -115,67 +156,53 @@ export class HomeSearchComponent implements OnInit {
       toDate: this.date.transform(this.toDate?.value, 'yyyy-MM-dd'),
     }
     const cleanObj = Object.fromEntries(
-      Object.entries(payload).filter(([Keys, value]) => value !== null && value !== undefined && value !== '')
+      Object.entries(this.payload,).filter(([Keys, value]) => value !== null && value !== undefined && value !== '' && value !== 0)
     )
+    // if(!value){
     if (this.searchType.value == 'profile') {
       this.advanceService.fetchProfile(cleanObj).subscribe({
         next: (res) => {
-          if (res.data.length > 0)
-            this.profileData = res.data
+          if (this.profileData.length == 0){
+            this.profileData = res.data;
+            this.isAllDataLoaded = true
           console.log(this.profileData);
-          const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-              // this.loadNextPage(); 
-              console.log('working', this.anchor);
-
+          }else {
+            if(!value){
+            this.profileData = [...this.profileData, ...res.data];
             }
-          }, {
-            root: document.querySelector('.table-container'),
-            rootMargin: '50px'
-          });
-
-          observer.observe(this.anchor.nativeElement);
+          }
         }
       })
     } else if (this.searchType.value == 'visit') {
       this.advanceService.fetchVisitDetails(cleanObj).subscribe({
         next: (res) => {
-          this.visitData = res.data
+          if(this.visitData.length == 0){
+            this.visitData = res.data
+          }
+          if(!value){
+          this.visitData = [...this.visitData, ...res.data];
           console.log(this.visitData);
-          const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-              // this.loadNextPage(); 
-              console.log('working', this.anchor);
-
-            }
-          }, {
-            root: document.querySelector('.table-container'),
-            rootMargin: '50px'
-          });
-
-          observer.observe(this.anchor.nativeElement);
+          }
+          
         }
       })
     } else {
       this.advanceService.fetchBookingDetails(cleanObj).subscribe({
         next: (res) => {
-          this.bookingList = res.data;
+          if(this.bookingList.length == 0){
+            this.bookingList = res.data
+          // }else{
+          }
+            if(!value){
+          this.bookingList = [...this.bookingList, ...res.data];
           console.log(this.bookingList);
-          const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-              // this.loadNextPage(); 
-              console.log('working', this.anchor);
-
             }
-          }, {
-            root: document.querySelector('.table-container'),
-            rootMargin: '50px'
-          });
-
-          observer.observe(this.anchor.nativeElement);
+          // }
+          
         }
       })
     }
+  // }
   }
 
   getPincodeDetails(key: any) {
@@ -239,7 +266,7 @@ export class HomeSearchComponent implements OnInit {
     if (type == 'profile') {
       this.advanceService.fetchProfileDetails(event).subscribe({
         next: (res) => {
-          this.profileDetails = res.data
+          this.profileDetails = [...res.data.filter((item: any)=> item.isPrimaryDevotee), ...res.data.filter((item: any)=> !item.isPrimaryDevotee)]
           this.showEdit = true
           console.log(this.profileDetails);
 
@@ -255,6 +282,13 @@ export class HomeSearchComponent implements OnInit {
         }
       })
     }
+  }
+
+  editDetails(id: any, item: any){
+    this.dialog.open(EditDetailsPopupComponent,{
+      width: '800px',
+  maxWidth: '90vw',
+    })
   }
 
 }

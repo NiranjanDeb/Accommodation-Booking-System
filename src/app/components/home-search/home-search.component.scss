@@ -2,6 +2,7 @@
        display: flex;
     flex-direction: column;
     padding: 40px;
+    width: 1150px;
     max-inline-size: 230vh;
     box-sizing: border-box;
 }
@@ -81,6 +82,11 @@
     padding: 4px;
 }
 
+::ng-deep .mat-mdc-select-placeholder{
+    color: var(--text-secondary) !important;
+    display: flex !important;
+}
+
 ::ng-deep .mat-mdc-select-value-text {
     display: flex !important;
     padding: 2px !important;
@@ -121,6 +127,15 @@ input:focus {
        overflow-y: auto;
     height: 60vh;
     scrollbar-width: none;
+}
+
+.table .table-body tr{
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.table .table-body tr:hover {
+  background-color: var(--bg-overlay) !important;
 }
 
 table {
@@ -173,7 +188,7 @@ thead>tr>th {
 }
 
 tbody>tr>td {
-    background-color: var(--bg-primary);
+    // background-color: var(--bg-primary);
     padding: 16px;
     text-align: center;
     border-left: none;
@@ -197,15 +212,17 @@ tbody>tr>td {
 .card-details{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
+    // margin-top: 20px;
     gap: 20px;
     height: 78vh;
     overflow-y: auto;
     scrollbar-width: none;
+    padding: 40px;
 }
 
 .family-details {
     display: grid;
+    height: 40vh;
     flex: 0 0 calc(50% - 16px);
     border-radius: 1rem;
     border: 1px solid var(--bg-tertiary);
@@ -214,10 +231,16 @@ tbody>tr>td {
     box-sizing: border-box;
 }
 
+.primary-devotee{
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
 .common-header {
     font-family: var(--inter);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     justify-content: space-between;
     text-align: left;
     color: var(--text-tertiary);
@@ -228,9 +251,16 @@ tbody>tr>td {
 .common-text {
     font-family: var(--inter);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-secondary);
     text-align: left;
+}
+
+.edit {
+    height: 40px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .details {
@@ -272,7 +302,7 @@ tbody>tr>td {
     font-family: var(--inter);
     font-weight: 500;
     font-style: Medium;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
     letter-spacing: -1.6%;
     color: var(--text-tertiary);
@@ -283,7 +313,7 @@ tbody>tr>td {
     font-family: var(--inter);
     font-weight: 500;
     font-style: Medium;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
     letter-spacing: -1.6%;
     color: var(--text-secondary);
@@ -292,7 +322,7 @@ tbody>tr>td {
 .confirmed {
     font-family: var(--inter);
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.125rem;
     text-align: center;
     color: var(--brand-primary);
@@ -309,7 +339,7 @@ tbody>tr>td {
 .pending {
     font-family: var(--inter);
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.125rem;
     text-align: center;
     color: var(--text-secondary);
@@ -436,4 +466,9 @@ tbody>tr>td {
     gap: 8px;
     /* align-items: center; */
     flex-direction: column;
+}
+.mem-status{
+    display: flex;
+    flex-direction: column;
+    gap: 4px
 }
