@@ -1,12 +1,24 @@
 import { Component } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-change-primary-devotee',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './change-primary-devotee.component.html',
-  styleUrl: './change-primary-devotee.component.scss'
+  styleUrl: './change-primary-devotee.component.scss',
 })
 export class ChangePrimaryDevoteeComponent {
+  fc = new FormControl('');
 
+  allowNum(e: Event) {
+    const input = e.target as HTMLInputElement;
+    const val = input?.value;
+    if (!val) return;
+
+    const filtered = val.replace(/[^0-9]/g, '');
+    if (filtered !== val) {
+      this.fc.setValue(filtered, { emitEvent: false });
+    }
+  }
 }

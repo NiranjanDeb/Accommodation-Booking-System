@@ -25,6 +25,24 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.success-snackbar {
+  --mdc-snackbar-container-color: var(--bg-tertiary) !important;
+  --mdc-snackbar-supporting-text-color: #FFF !important;
+  background-color: var(--bg-tertiary) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  text-align: center;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #ac2448 !important;
+  --mdc-snackbar-supporting-text-color: #FFF !important;
+  background-color: #ac2448 !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  text-align: center;
+}
+
 :root {
     --brand-primary: #edc99e;
     --brand-destructive: #ed9e9e;

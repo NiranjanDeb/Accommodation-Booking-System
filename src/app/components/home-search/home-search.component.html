@@ -30,11 +30,9 @@
                         }
                         }@else{
                         <mat-option value="aadhaarNumber">Search by Aadhaar Number</mat-option>
-
                         }
-
                     </mat-select>
-                    <input type="text" class="filter-inp" [formControl]="referenceInput" placeholder="Enter search key">
+                    <input type="text" class="filter-inp" [formControl]="referenceInput" [maxlength]="searchMaxLen" (input)="filterReg($event)" placeholder="Enter search key">
                 </div>
             </div>
         </div>
@@ -72,13 +70,13 @@
         <div class="dropdown-div">
             <div class="each-div">
                 <span class="drop-title">Pincodes</span>
-                <input type="text" class="date-inp" [formControl]="pin" maxlength="6" (keyup)="getPincodeDetails(pin)"
+                <input type="text" class="date-inp" [formControl]="pin" maxlength="6" (input)="onPinInput($event, pin)"
                     placeholder="Enter the pincode">
             </div>
 
             <div class="each-div">
                 <span class="drop-title">State</span>
-                @if(stateList.length <= 1){ <input type="text" id='state' class="date-inp" [formControl]="state"
+                @if(stateList?.length <= 1){ <input type="text" id='state' class="date-inp" [placeholder]="'Select State'" [formControl]="state"
                     readOnly>
                     }@else {
 
@@ -92,7 +90,7 @@
             </div>
             <div class="each-div">
                 <span class="drop-title">District</span>
-                @if(districtList.length <= 1){ <input type="text" id='district' placeholder='Select state first'
+                @if(districtList?.length <= 1){ <input type="text" id='district' placeholder='Select state first'
                     class="date-inp" [formControl]="district" readOnly>
                     }@else {
 
@@ -121,8 +119,8 @@
     </div>
 
     <div class="btn-div">
-        <button class="ac-primary-btn" (click)="reset()">Reset</button>
-        <button class="ac-secondary-btn" (click)="searchProfile(true)">Search</button>
+        <button class="ac-secondary-btn" (click)="reset()">Reset</button>
+        <button class="ac-primary-btn" (click)="searchProfile(true)">Search</button>
     </div>
 
     <!-- @if(profileData.length == 0 && isprofile){

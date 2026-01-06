@@ -5,6 +5,7 @@
     width: 1150px;
     max-inline-size: 230vh;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .title {
@@ -36,7 +37,7 @@
     //     margin-right: calc(-.5 * var(--bs-gutter-x));
     //     margin-left: calc(-.5 * var(--bs-gutter-x));
     display: flex;
-    gap: 30px;
+    gap: 15px;
     align-items: center;
 }
 
