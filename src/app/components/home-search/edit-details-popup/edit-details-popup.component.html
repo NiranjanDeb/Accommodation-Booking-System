@@ -2,86 +2,145 @@
     <div class="top-line"></div>
 
     <div class="visitor">
-        <button class="close">
+        <button class="close" (click)="close()">
             <img class="cross-icon" src="icons/profile-close.svg" alt="profile-close.img">
 
         </button>
         <span class="visitor-txt">Edit Member details</span>
     </div>
 
-
-    <!-- <p class="form-header">Member status: <span class="active">Active • </span></p> -->
-
-    <form>
-        <div class="form">
-            <div>
-                <label class="form-txt" for="firstname">First Name</label>
-                <input type="text" id="firstname" formControlName="firstName" class="text-box-active">
+    <div class="mem-status">
+        <div class="drop-div">
+            <span class="mem-txt">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' +
+                data.devoteeLastName}}</span>
+            @if(!data.isPrimaryDevotee){
+            <div class="toggle-group">
+                <div class="toggle-div" [class.active-div]="!isActive" (click)="toggle()">
+                    <span>Active</span>
+                </div>
+                <div class="toggle-div" [class.active-div]="isActive" (click)="toggle()">
+                    <span>Inactive</span>
+                </div>
             </div>
+            }
+        </div>
 
-            <div>
-                <label class="form-txt" for="lastname">Last Name</label>
-                <input type="text" id="lastname" formControlName="lastName" class="text-box-active">
-            </div>
 
-            <div>
-                <label class="form-txt" for="lastname">Gender</label>
-                <input type="text" id="lastname" formControlName="gender" class="text-box-active">
-            </div>
+        <form [formGroup]="editDetails">
+            <div class="form">
+               
 
-            <div>
-                <label class="form-txt" for="identityType">Identity Type</label>
-                <!-- <app-phil-select placeholder="(Select Identity Type)" [control]="getFormControlByname('identityType')"
-                    [options]="['AADHAAR CARD']" [isDisabled]="true"></app-phil-select> -->
-            </div>
+                <div class="edit-div">
+                    <label class="form-txt" for="lastname">Gender</label>
+                    <div class="inline-div">
+                        @if(type != 'gender'){
+                        <input type="text" id="lastname" formControlName="gender" class="disable-text-inp"
+                            [class.text-box-active]="type == 'gender'">
+                        <img (click)="edit('gender')" class="icon" src="icons/pencil-line.svg"
+                            style="height: 20px; width: 20px;" alt="editImg">
+                        }@else if(type === 'gender'){
+                        <mat-select formControlName="gender" placeholder="(Select Gender)"
+                            (selectionChange)="getGender($event)">
+                            @for(item of genderArr; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+                        </mat-select>
+                        }
 
-            <div>
-                <label class="form-txt" for="cardNumber">ID card number</label>
-                <input type="text" id="cardNumber" formControlName="identityNumber" class="text-box-active" required
-                    maxlength="12" readonly>
-                <!-- @if(editForm.get('identityNumber')?.invalid && editForm.get('identityNumber')?.touched){
-                <small style="color: var(--brand-destructive);">
-                    This is required.
-                </small>
-                } -->
-            </div>
-
-            <div>
-                <label class="form-txt" for="dateOfBirth">Date of Birth</label>
-                <input type="date" id="dob" formControlName="devoteeDateOfBirth" class="text-box-active" required
-                    >
-                <!-- @if(editForm.get('devoteeDateOfBirth')?.errors?.['futureDate']){
-                <small style="color: var(--brand-destructive);">
-                    Date cannot be in the future.
-                </small>
-                } @else if(editForm.get('devoteeDateOfBirth')?.invalid && editForm.get('devoteeDateOfBirth')?.touched){
-                <small style="color: var(--brand-destructive);">
-                    This is required.
-                </small>
-                } -->
-                <!-- <app-mat-calender [dateValue]="dob" (updatedDate)="currentDateChanges($event)"></app-mat-calender> -->
-
-            </div>
-
-            <div>
-                <div>
-                    <label class="form-txt" for="identityType">Marital Status</label>
-                    <!-- <app-phil-select placeholder="(Select marital status)"
-                        [control]="getFormControlByname('maritalStatus')" [options]="status" required></app-phil-select>
-                    @if(editForm.get('maritalStatus')?.invalid && editForm.get('maritalStatus')?.touched){
-                    <small style="color: var(--brand-destructive);">
-                        This is required.
-                    </small>
-                    } -->
+                    </div>
                 </div>
 
+
+                <div class="edit-div">
+                    <label class="form-txt" for="dateOfBirth">Date of Birth</label>
+                    @if(!isDob){
+                    <div class="inline-div">
+
+                        <input type="text" id="dob" formControlName="dob" class="disable-text-inp" required>
+                        <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
+                            (click)="edit('dob')">
+                    </div>
+                    }@else{
+                    <input type="date" id="dob" formControlName="dob" class="text-box-active" required>
+                    }
+
+
+                </div>
+
+                <div class="edit-div">
+                    <div>
+                        <label class="form-txt" for="identityType">Marital Status</label>
+                        <div class="inline-div">
+                            @if(type != 'status'){
+                            <input type="text" id="lastname" formControlName="maritalStatus" class="disable-text-inp"
+                                [class.text-box-active]="type === 'status'">
+                            <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;"
+                                alt="editImg" (click)="edit('status')">
+                            }@else if(type == 'status'){
+                            <mat-select formControlName="maritalStatus" placeholder="(Select Marital Status)">
+                                @for(item of status; track item){
+                                <mat-option [value]="item">{{item}}</mat-option>
+                                }
+                               
+                            </mat-select>
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="edit-div">
+                    <label class="form-txt" for="lastname">Physically Challenges</label>
+                    <div class="inline-div">
+                        @if(type != 'challenge'){
+                        <input type="text" id="lastname" formControlName="physicallyChallenge" class="disable-text-inp"
+                            [class.text-box-active]="type === 'challenge'">
+                        <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
+                            (click)="edit('challenge')">
+                        }@else if(type == 'challenge'){
+                        <mat-select formControlName="physicallyChallenge" placeholder="(Select Disability)">
+                            @for(item of physicalDisabilityOptions; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+
+                        </mat-select>
+                        }
+                    </div>
+                </div>
+                <div class="edit-div">
+                    <label class="form-txt" for="lastname">Relation</label>
+                    <div class="inline-div">
+                        @if(type != 'relation'){
+                        <input type="text" id="lastname" formControlName="relation" class="disable-text-inp"
+                            [class.text-box-active]="type === 'relation'">
+                        <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
+                            (click)="edit('relation')">
+                        }@else if(type == 'relation'){
+                        <mat-select formControlName="relation" placeholder="(Select Relation)">
+                            @if(isMale){
+                            @for(item of maleRelationshipOptions; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+                            }@else{
+                            @for(item of femaleRelationshipOptions; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+                            }
+
+                        </mat-select>
+                        }
+                    </div>
+                </div>
             </div>
+        </form>
 
-
-
-        </div>
-    </form>
-    <button class="primary-btn">Save Changes</button>
+    </div>
+    <div class="btn-div">
+        <button class="ac-secondary-btn" (click)="reset()">Reset</button>
+        <button class="ac-primary-btn">Save Changes</button>
+    </div>
 
     <div class="down-line"></div>
 </div>

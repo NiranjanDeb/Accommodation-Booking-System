@@ -1,7 +1,13 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { catchError } from 'rxjs/operators';
 
 export const accoInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('auth')
+
+  const router = inject(Router)
+  const token = localStorage.getItem('userToken')
   
   if(req.url.includes('/auth/sign')){
 
@@ -16,5 +22,16 @@ export const accoInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
- return next(req);
+ return next(req).pipe(
+  catchError((error) => {
+
+      if (error.status === 401) {
+        // authService.logout();
+        localStorage.removeItem('auth')
+        router.navigate(['/login']);
+      }
+
+      return throwError(() => error);
+    })
+ );
 };

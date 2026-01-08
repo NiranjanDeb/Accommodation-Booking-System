@@ -1,0 +1,33 @@
+
+<div class="splash-container">
+@if(!showRetry){
+  <div class="splash-content">
+    <h2 class="title">Please be patient.</h2>
+    <p class="subtitle">
+      We’re running a few checks in the background. We’ll make it quick!
+    </p>
+
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <img
+      src="assets/splashscreen.svg"
+      alt="Namaste Hands"
+      class="namaste-img"
+    />
+  </div>
+  
+}@else{
+
+    <div class="retry-container" >
+    <h2 class="error-title">We are facing some issue while logging in</h2>
+    <p class="error-subtitle">Please click the button below to try again.</p>
+    <button class="retry-btn" (click)="onRetry()">Try Again</button>
+  </div>
+  
+}
+</div>

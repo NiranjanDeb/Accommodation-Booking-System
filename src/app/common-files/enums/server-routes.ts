@@ -1,4 +1,6 @@
-const BASE_URL = 'https://dev.op.acco.satsang.org.in/api/v1'
+import { environment } from "../../../environments/environment.development"
+
+const BASE_URL = environment.BASE_URL
 
 export const ROUTES = {
     LOG_IN : `${BASE_URL}/auth/sign`,

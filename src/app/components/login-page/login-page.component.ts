@@ -55,7 +55,7 @@ otp = new FormControl('')
 
     this.authService.getAuthenticate(payload).subscribe({
       next: (res)=>{
-          localStorage.setItem('auth', res.data.token)
+          localStorage.setItem('userToken', res.data.token)
            this.router.navigate([`${RequestMapper.SIDENAV}/${RequestMapper.PROFILE_SEARCH}`]);
       },
        error: (err) => {

@@ -1,0 +1,161 @@
+.splash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 0 16px;
+}
+
+.splash-content {
+  text-align: center;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  font-family: var(--recoleta);
+  font-size: 32px;
+}
+
+.subtitle {
+  color: var(--text-tertiary);
+  font-size: 16px;
+  margin-bottom: 50px;
+  line-height: 1.4;
+  font-family: var(--manrope);
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 80px;
+}
+
+.loader span {
+  width: 8px;
+  height: 8px;
+  background-color: #b19777;
+  border-radius: 50%;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.loader span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.loader span:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+
+.retry-container {
+  text-align: center;
+  margin-top: 100px;
+  color: #fff;
+
+  .error-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-family: var(--recoleta);
+    font-size: 32px;
+  }
+
+  .error-subtitle {
+    color: var(--text-tertiary);
+    font-size: 16px;
+    margin-bottom: 50px;
+    line-height: 1.4;
+    font-family: var(--manrope);
+  }
+
+  .retry-btn {
+    background-color: var(--brand-primary);
+    color: var(--bg-primary);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s ease;
+    font-family: var(--manrope);
+  }
+
+  .retry-btn:hover {
+    background-color: #a48765;
+  }
+}
+
+
+@keyframes bounce {
+
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+.namaste-img {
+  height: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .splash-container {
+    padding: 0 12px;
+  }
+
+  .splash-content {
+    margin-top: 20px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .loader {
+    gap: 6px;
+    margin-bottom: 40px;
+  }
+
+  .loader span {
+    width: 6px;
+    height: 6px;
+  }
+}
