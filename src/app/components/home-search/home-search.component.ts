@@ -57,10 +57,10 @@ export class HomeSearchComponent implements OnInit {
     private dialog: MatDialog,
     private date: DatePipe,
     private toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // this.getStates()
+    this.getStates()
     if (this.searchType?.value == 'profile') {
       this.isHide = true;
       this.isprofile = true;
@@ -76,10 +76,10 @@ export class HomeSearchComponent implements OnInit {
     );
   }
 
-   onScroll() {
+  onScroll() {
     this.pageNo += 1;
-     this.searchProfile(false)
-  
+    this.searchProfile(false)
+
   }
 
   referenceSelection(event: any) {
@@ -108,7 +108,7 @@ export class HomeSearchComponent implements OnInit {
         break;
       case 'name':
         this.searchMaxLen = 200;
-        regex = /[^A-Za-z]/g;
+        regex = /[^A-Za-z ]/g;
         break;
       case 'mobileNumber':
         this.searchMaxLen = 10;
@@ -234,6 +234,12 @@ export class HomeSearchComponent implements OnInit {
             this.visitData = [...this.visitData, ...res.data];
             console.log(this.visitData);
           }
+           this.toastService.success(res.message);
+        },
+         error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
+          }
         },
       });
     } else {
@@ -248,6 +254,12 @@ export class HomeSearchComponent implements OnInit {
             console.log(this.bookingList);
           }
           // }
+          this.toastService.success(res.message);
+        },
+         error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
+          }
         },
       });
     }
@@ -271,6 +283,12 @@ export class HomeSearchComponent implements OnInit {
             this.districtList.length == 1
               ? this.district.setValue(this.districtList[0])
               : this.districtList;
+          }
+          this.toastService.success(res.message);
+        },
+         error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
           }
         },
       });
@@ -302,10 +320,15 @@ export class HomeSearchComponent implements OnInit {
     this.advanceService.fetchStates().subscribe({
       next: (res) => {
         this.allStateDistrict = res.data
-        this.stateList = Object.keys(this.allStateDistrict)
+        this.stateList = Object.keys(this.allStateDistrict).sort((a , b)=>a.localeCompare(b))
         console.log(this.stateList);
 
-      }
+      },
+       error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
+          }
+        },
     })
   }
 
@@ -318,11 +341,16 @@ export class HomeSearchComponent implements OnInit {
     if (type == 'profile') {
       this.advanceService.fetchProfileDetails(event).subscribe({
         next: (res) => {
-          this.profileDetails = [...res.data.filter((item: any)=> item.isPrimaryDevotee), ...res.data.filter((item: any)=> !item.isPrimaryDevotee)]
+          this.profileDetails = [...res.data.filter((item: any) => item.isPrimaryDevotee), ...res.data.filter((item: any) => !item.isPrimaryDevotee)]
           this.showEdit = true
           console.log(this.profileDetails);
 
-        }
+        },
+         error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
+          }
+        },
       })
     } else {
       this.advanceService.fetchBookingId(event).subscribe({
@@ -331,15 +359,20 @@ export class HomeSearchComponent implements OnInit {
           this.showEdit = true
           console.log(this.bookingIdDetails);
 
-        }
+        },
+         error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
+          }
+        },
       })
     }
   }
 
-  editDetails(id: any, item: any){
-    this.dialog.open(EditDetailsPopupComponent,{
+  editDetails(id: any, item: any) {
+    this.dialog.open(EditDetailsPopupComponent, {
       width: '800px',
-  maxWidth: '90vw',
+      maxWidth: '90vw',
     })
   }
 }

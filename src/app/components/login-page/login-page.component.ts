@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RequestMapper } from '../../request-mapper';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ToastService } from '../../services/toast/toast.service';
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -20,7 +21,8 @@ otp = new FormControl('')
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private toastService: ToastService
 
   ) {
 
@@ -55,7 +57,12 @@ otp = new FormControl('')
       next: (res)=>{
           localStorage.setItem('auth', res.data.token)
            this.router.navigate([`${RequestMapper.SIDENAV}/${RequestMapper.PROFILE_SEARCH}`]);
-      }
+      },
+       error: (err) => {
+          if (err) {
+            this.toastService.error(err.error.message);
+          }
+        },
     })
    
   }

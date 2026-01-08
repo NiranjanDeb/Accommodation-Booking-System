@@ -25,22 +25,51 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.main-container {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+
 .success-snackbar {
-  --mdc-snackbar-container-color: var(--bg-tertiary) !important;
-  --mdc-snackbar-supporting-text-color: #FFF !important;
-  background-color: var(--bg-tertiary) !important;
-  color: #fff !important;
-  border-radius: 10px !important;
-  text-align: center;
+    --mdc-snackbar-container-color: var(--text-tertiary) !important;
+    --mdc-snackbar-supporting-text-color: var(--text-primary) !important;
+    background-color: var(--text-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-radius: 10px !important;
+    text-align: center;
+}
+
+.success-snackbar.mat-mdc-snack-bar-container {
+    border-radius: 20px !important;
+    margin-bottom: 30px !important;
+}
+
+.success-snackbar.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+    border-radius: 20px !important;
 }
 
 .error-snackbar {
-  --mdc-snackbar-container-color: #ac2448 !important;
-  --mdc-snackbar-supporting-text-color: #FFF !important;
-  background-color: #ac2448 !important;
-  color: #fff !important;
-  border-radius: 10px !important;
-  text-align: center;
+    --mdc-snackbar-container-color: var(--brand-destructive) !important;
+    --mdc-snackbar-supporting-text-color: var(--bg-primary) !important;
+    background-color: var(--brand-destructive) !important;
+    color: var(--bg-primary) !important;
+    border-radius: 12px !important;
+    text-align: center;
+
+
+}
+
+.error-snackbar.mat-mdc-snack-bar-container {
+    border-radius: 20px !important;
+    margin-bottom: 30px !important;
+}
+
+.error-snackbar.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+    border-radius: 20px !important;
 }
 
 :root {
@@ -97,16 +126,17 @@ body {
 }
 
 .ac-primary-btn {
-    background: var(--brand-primary) !important;
-    color: var(--bg-primary) !important;
-    border-radius: 4px !important;
-    border: none;
-    font-size: 16px;
-    font-weight: 600 !important;
-    font-family: var(--manrope) !important;
-    cursor: pointer;
     width: 100%;
-    height: 5vh;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    padding: 0.62rem 0.75rem 0.62rem 0.75rem;
+    background-color: var(--brand-primary);
+    border: none;
+    font-family: var(--inter);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--bg-primary);
+    cursor: pointer;
 
     &:disabled {
         filter: brightness(60%);
@@ -115,16 +145,19 @@ body {
 }
 
 .ac-secondary-btn {
-    background: transparent;
-    color: var(--brand-primary);
-    border-radius: 4px;
-    border: 1px solid var(--brand-primary);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: var(--manrope);
-    cursor: pointer;
     width: 100%;
-    height: 5vh;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    padding: 0.62rem 0.75rem 0.62rem 0.75rem;
+    background-color: transparent;
+    border: 1px solid var(--brand-primary);
+    ;
+    font-family: var(--inter);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--brand-primary);
+    cursor: pointer;
+
 
     &:disabled {
         filter: brightness(60%);
@@ -141,4 +174,3 @@ body {
     font-size: 28px;
     color: var(--text-secondary);
 }
-
