@@ -28,7 +28,7 @@ export const accoInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 401) {
         // authService.logout();
         localStorage.removeItem('auth')
-        router.navigate(['/login']);
+        router.navigate(['']);
       }
 
       return throwError(() => error);

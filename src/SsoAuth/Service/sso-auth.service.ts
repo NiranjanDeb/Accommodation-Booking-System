@@ -66,22 +66,22 @@ export class SsoAuthService {
     clearInterval(this.timerInterval);
   }
 
-  // public renewAccessToken() {
-  //   this.isRefreskTokenApiCalled = true;
-  //   this.http.get(`${environment.BASE_URL}`).subscribe({
-  //     next: (response: any) => {
-  //       // console.log('REFRESH');
-  //       // if already logged in then only accept the new token
-  //       if(localStorage.getItem('auth')){
-  //         localStorage.setItem('userToken', response?.data?.token);
-  //         this.initTimer();
-  //       }
-  //       this.isRefreskTokenApiCalled = false;
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //       this.isRefreskTokenApiCalled = false;
-  //     },
-  //   });
-  // }
+  public renewAccessToken() {
+    this.isRefreskTokenApiCalled = true;
+    this.http.get(`${environment.BASE_URL}/auth/refresh`).subscribe({
+      next: (response: any) => {
+        // console.log('REFRESH');
+        // if already logged in then only accept the new token
+        if(localStorage.getItem('auth')){
+          localStorage.setItem('userToken', response?.data?.token);
+          this.initTimer();
+        }
+        this.isRefreskTokenApiCalled = false;
+      },
+      error: (error) => {
+        console.log(error);
+        this.isRefreskTokenApiCalled = false;
+      },
+    });
+  }
 }

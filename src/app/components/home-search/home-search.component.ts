@@ -273,7 +273,8 @@ export class HomeSearchComponent implements OnInit {
           this.stateList = [];
           this.districtList = [];
           this.pincodeList = res.data;
-          console.log(this.pincodeList);
+          
+          if(this.pincodeList !== undefined){
 
           this.stateList = this.pincodeList?.state;
 
@@ -284,10 +285,18 @@ export class HomeSearchComponent implements OnInit {
               ? this.district.setValue(this.districtList[0])
               : this.districtList;
           }
+          
+        }else{
+           this.state.setValue('');
+           this.district.setValue('');
+        }
+
           this.toastService.success(res.message);
         },
          error: (err) => {
           if (err) {
+            this.state.setValue('');
+           this.district.setValue('');
             this.toastService.error(err.error.message);
           }
         },
@@ -296,6 +305,7 @@ export class HomeSearchComponent implements OnInit {
       this.state.setValue('');
       this.district.setValue('');
       this.districtList = [];
+      this.getStates()
       //  this.pin.valueChanges.subscribe(item =>{
       //   console.log(item);
 

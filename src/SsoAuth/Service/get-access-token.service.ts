@@ -12,8 +12,8 @@ import { ROUTES } from '../../app/common-files/enums/server-routes';
 export class GetAccessTokenService {
   constructor(private http: HttpClient) {}
   getAccessToken(payload: any): Observable<any> {
-    return this.http.post(`${ROUTES.LOG_IN}`, {
-      body: payload,
+    return this.http.post(ROUTES.LOG_IN, {
+     ...payload,
     });
   }
 }

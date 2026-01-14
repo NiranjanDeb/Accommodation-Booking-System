@@ -10,27 +10,27 @@ import { ChangeFcComponent } from './components/change-fc/change-fc.component';
 import { LoaderScreenComponent } from './components/loader-screen/loader-screen.component';
 
 export const routes: Routes = [
-    {
-        path: '', redirectTo: '/login', pathMatch: 'full'
-    },
+    // {
+    //     path: '', redirectTo: '/login', pathMatch: 'full'
+    // },
 
-    {
-        path: RequestMapper.LOGIN, component: LoginPageComponent
-    },
-//      {
-//     path: '',
-//     component: LoaderScreenComponent,
-//     // canActivate: [LoginGuard],
-//     // children: [
-//     //   {
-//     //     path: 'register',
-//     //     loadComponent: () =>
-//     //       import(
-//     //         './views/register-acco/register-acco.component'
-//     //       ).then((c) => c.RegisterAccoComponent)
-//     //   }
-//     // ]
-//   },
+    // {
+    //     path: RequestMapper.LOGIN, component: LoginPageComponent
+    // },
+     {
+    path: '',
+    component: LoaderScreenComponent,
+    // canActivate: [LoginGuard],
+    // children: [
+    //   {
+    //     path: 'register',
+    //     loadComponent: () =>
+    //       import(
+    //         './views/register-acco/register-acco.component'
+    //       ).then((c) => c.RegisterAccoComponent)
+    //   }
+    // ]
+  },
 
     {
         path:  RequestMapper.SIDENAV, component: SideNavComponent,

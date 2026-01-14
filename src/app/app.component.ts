@@ -50,7 +50,7 @@ export class AppComponent {
         }
         if (value && value <= ssoConfig.timeBeforeCallingRefreshInSecs && !this.authService.isRefreskTokenApiCalled) {
           console.log('REFRESH MEE');
-          // this.authService.renewAccessToken();
+          this.authService.renewAccessToken();
         }
       }
     });
