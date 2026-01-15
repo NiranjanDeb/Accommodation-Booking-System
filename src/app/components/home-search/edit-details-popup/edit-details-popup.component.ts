@@ -80,7 +80,11 @@ export class EditDetailsPopupComponent implements OnInit {
       physicallyChallenge: ['', Validators.required]
 
     })
+    console.log(this.data);
+    
     const devoteeDate = new Date(this.data.dateOfBirth)
+    console.log(devoteeDate);
+    
     const tempDate = this.date.transform(devoteeDate, 'dd/MM/yyyy');
 
     this.editDetails.get("gender")?.setValue(this.data.gender);

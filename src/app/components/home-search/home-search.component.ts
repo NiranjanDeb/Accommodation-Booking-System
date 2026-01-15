@@ -383,6 +383,7 @@ export class HomeSearchComponent implements OnInit {
     this.dialog.open(EditDetailsPopupComponent, {
       width: '800px',
       maxWidth: '90vw',
+      data: item
     })
   }
 }
