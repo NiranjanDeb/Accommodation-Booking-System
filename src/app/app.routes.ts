@@ -10,15 +10,15 @@ import { ChangeFcComponent } from './components/change-fc/change-fc.component';
 import { LoaderScreenComponent } from './components/loader-screen/loader-screen.component';
 
 export const routes: Routes = [
-    // {
-    //     path: '', redirectTo: '/login', pathMatch: 'full'
-    // },
+    {
+        path: '', redirectTo: RequestMapper.LOGIN, pathMatch: 'full'
+    },
 
     // {
     //     path: RequestMapper.LOGIN, component: LoginPageComponent
     // },
      {
-    path: '',
+    path: RequestMapper.LOGIN,
     component: LoaderScreenComponent,
     // canActivate: [LoginGuard],
     // children: [

@@ -4,6 +4,7 @@ const BASE_URL = environment.BASE_URL
 
 export const ROUTES = {
     LOG_IN : `${BASE_URL}/auth/sign-user`,
+    LOG_OUT: `${BASE_URL}/auth/logout`,
     PROFILE_SEARCH: `${BASE_URL}/devotee/profile-search`,
     PROFILE_DETAILS: `${BASE_URL}/devotee/profile`,
     PINCODE: `${BASE_URL}/common/pincode`,

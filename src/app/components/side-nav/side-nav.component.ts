@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
 import { MENU_ITEMS } from '../../common-files/enums/menu.enum';
+import { AuthServiceService } from '../../services/auth-service.service';
+import { SsoAuthService } from '../../../SsoAuth/Service/sso-auth.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -10,9 +12,26 @@ import { MENU_ITEMS } from '../../common-files/enums/menu.enum';
   styleUrl: './side-nav.component.scss'
 })
 export class SideNavComponent implements OnInit{
+  constructor(
+    private authService: AuthServiceService,
+    private ssoService: SsoAuthService
+  ){
+
+  }
 
   menuItems = MENU_ITEMS
   ngOnInit(): void {
+  }
+
+  logOut(){
+    this.authService.logoutUser().subscribe({
+      next: (res)=>{
+        localStorage.clear()
+        this.ssoService.logOut(true)
+        console.log('logout');
+        
+      }
+    })
   }
 
 }

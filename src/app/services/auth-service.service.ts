@@ -15,4 +15,8 @@ export class AuthServiceService {
   getAuthenticate(body: any): Observable<any>{
     return this.http.post(ROUTES.LOG_IN,  body)
   }
+
+  logoutUser(): Observable<any>{
+    return this.http.delete(ROUTES.LOG_OUT)
+  }
 }
