@@ -1,27 +1,127 @@
+@if(!showEdit){
 <div class="main-container">
     <div class="title">
         <span class="title-text">Update Family Code</span>
         <p class="small-title">Enter family code to proceed with the search.</p>
     </div>
 
-    <!-- <mat-form-field class=""> -->
-    <!-- <mat-select>
-        <mat-option value="fc">Serach by family code</mat-option>
-        <mat-option value="fc">Serach by name</mat-option>
-        <mat-option value="fc">Serach by aadhar card</mat-option>
-    </mat-select> -->
-    <!-- </mat-form-field> -->
+    <form [formGroup]="searchForm" (ngSubmit)="searchByFamilyCode()">
+        <div class="searchBar">
+            <input type="text" maxlength="12" class="searchInput ac-input-control" placeholder="Enter family code"
+                formControlName="familyCode" />
 
-    <div class="searchSection">
-        <form>
-            <div class="searchBar">
-                <input type="tel" maxlength="12" [formControl]="fc" (input)="allowNum($event)" class="searchInput ac-input-control"
-                    placeholder="Enter family code" />
-                    <div class="btn">
-                        <button class="ac-secondary-btn" type="reset">Reset</button>
-                    <button class="ac-primary-btn" type="submit">Search</button>
-                    </div>
+            <div class="btn">
+                <button type="button" class="ac-secondary-btn" (click)="reset()">
+                    Reset
+                </button>
+                <button type="submit" class="ac-primary-btn" [disabled]="searchForm.invalid">
+                    Search
+                </button>
             </div>
-        </form>
+        </div>
+    </form>
+
+    @if(profileList.length > 0){
+    <div class="table-container">
+        <table class="table">
+            <thead class="table-head">
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Family Code</th>
+                    <th>Mobile Number</th>
+                    <th>Aadhaar Number</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-body">
+                @for(row of profileList; track row){
+                <tr (click)="getProfileDetails(row.devoteeFamilyCode)">
+                    <td>
+                        {{row.devoteeFirstName}} {{row.devoteeMiddleName || ''}}
+                        {{row.devoteeLastName}}
+                    </td>
+                    <td>{{row.gender}}</td>
+                    <td>{{row.devoteeFamilyCode}}</td>
+                    <td>{{row.mobileNumber}}</td>
+                    <td>{{row.idNumber}}</td>
+                    <td>{{row.status}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    } @else {
+    <div class="list-div">
+        <div class="img-div">
+            <img style="width:150px" src="search_placeholder_dark.png" />
+            <span class="drop-title">No Data Found</span>
+        </div>
+    </div>
+    }
+</div>
+}
+@else {
+<div class="main-container">
+    <div class="title">
+        <span style="color: var(--brand-primary); cursor:pointer" (click)="back()">
+            Go back
+        </span>
+        <span class="title-text">
+            Update Family Code - ({{profileDetails[0]?.devoteeFamilyCode}})
+        </span>
+    </div>
+
+    <div class="card-details">
+        @for(item of profileDetails; track item){
+        <div class="family-details">
+            <div class="details">
+                <div class="name-row">
+
+                    <!-- PRIMARY DEVOTEE -->
+                    @if(item.isPrimaryDevotee){
+                    <div class="primary-devotee">
+                        <span class="tick-icon">✔</span>
+
+                        <span class="common-text">
+                            {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+                        </span>
+
+                        <div class="pending-design">
+                            <span class="pending">Primary Devotee</span>
+                        </div>
+                    </div>
+                    }
+
+                    <!-- NON-PRIMARY -->
+                    @else {
+                    <span class="common-text">
+                        {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+                    </span>
+                    }
+
+                </div>
+            </div>
+
+
+            <div class="details">
+                <span class="common-header">Mobile</span>
+                <span class="common-text">{{ item.mobileNumber }}</span>
+            </div>
+
+            <div class="details">
+                <span class="common-header">Aadhaar</span>
+                <span class="common-text">{{ item.idNumber }}</span>
+            </div>
+
+            <div class="edit">
+                <button class="ac-primary-btn" (click)="updateFamilyCode(item)">
+                    Update Family Code
+                </button>
+            </div>
+        </div>
+        }
     </div>
 </div>
+}

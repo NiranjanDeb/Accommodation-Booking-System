@@ -1,0 +1,30 @@
+<div class="edit-page">
+  <div class="top-line"></div>
+
+  <div class="visitor">
+    <button class="close" (click)="close()">
+      <img class="cross-icon" src="icons/profile-close.svg" />
+    </button>
+
+    <span class="visitor-txt">Confirm Primary Devotee</span>
+  </div>
+
+  <p class="form-header">
+    Are you sure you want to make
+    <span class="active">{{ data.name }}</span>
+    the primary devotee?
+  </p>
+
+<div class="action-row">
+  <button class="ac-secondary-btn" (click)="close()">
+    Cancel
+  </button>
+
+  <button class="primary-btn" (click)="continue()">
+    Continue
+  </button>
+</div>
+
+
+  <div class="down-line"></div>
+</div>
