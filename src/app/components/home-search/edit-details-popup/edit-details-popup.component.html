@@ -1,6 +1,6 @@
 <div class="edit-page">
     <div class="top-line"></div>
-
+@if(!isSubmitted){
     <div class="visitor">
         <button class="close" (click)="close()">
             <img class="cross-icon" src="icons/profile-close.svg" alt="profile-close.img">
@@ -139,8 +139,161 @@
     </div>
     <div class="btn-div">
         <button class="ac-secondary-btn" (click)="reset()">Reset</button>
-        <button class="ac-primary-btn">Save Changes</button>
+        <button class="ac-primary-btn" (click)="submit()">Save Changes</button>
     </div>
+}@else{
+
+     <div class="visitor">
+        <button class="close" (click)="close()">
+            <img class="cross-icon" src="icons/profile-close.svg" alt="profile-close.img">
+
+        </button>
+        <div class="message-div">
+        <span class="visitor-txt">Preview Details</span>
+        <small style="color: var(--text-secondary);">Your updates are almost ready! Please review the changed fields before submitting.</small>
+        </div>
+    </div>
+
+    <div class="mem-status">
+        <div class="drop-div">
+            <span class="mem-txt">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' +
+                data.devoteeLastName}}</span>
+            @if(!data.isPrimaryDevotee){
+            <div class="toggle-group">
+                <div class="toggle-div" [class.active-div]="!isActive">
+                    <span>Active</span>
+                </div>
+                <div class="toggle-div" [class.active-div]="isActive">
+                    <span>Inactive</span>
+                </div>
+            </div>
+            }
+        </div>
+
+
+        <form [formGroup]="editDetails">
+            <div class="form">
+               
+                @if(editDetails.get('gender')?.dirty){
+                <div class="edit-div">
+                    <label class="form-txt" for="lastname">Gender</label>
+                    <div class="inline-div">
+                        <!-- @if(type != 'gender'){ -->
+                        <input type="text" id="lastname" formControlName="gender" class="disable-text-inp"
+                             readonly>
+                        <!-- <img (click)="edit('gender')" class="icon" src="icons/pencil-line.svg"
+                            style="height: 20px; width: 20px;" alt="editImg">
+                        }@else if(type === 'gender'){
+                        <mat-select formControlName="gender" placeholder="(Select Gender)"
+                            (selectionChange)="getGender($event)">
+                            @for(item of genderArr; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+                        </mat-select>
+                        } -->
+
+                    </div>
+                </div>
+            }
+
+                @if(editDetails.get('dob')?.dirty){
+                <div class="edit-div">
+                    <label class="form-txt" for="dateOfBirth">Date of Birth</label>
+                    <!-- @if(!isDob){ -->
+                    <div class="inline-div">
+
+                        <input type="text" id="dob" formControlName="dob" class="disable-text-inp" required readonly> 
+                        <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
+                            (click)="edit('dob')"> -->
+                    </div>
+                    <!-- }@else{
+                    <input type="date" id="dob" formControlName="dob" class="text-box-active" required>
+                    } -->
+
+
+                </div>
+            }
+                @if(editDetails.get('maritalStatus')?.dirty){
+                <div class="edit-div">
+                    <div>
+                        <label class="form-txt" for="identityType">Marital Status</label>
+                        <div class="inline-div">
+                            <!-- @if(type != 'status'){ -->
+                            <input type="text" id="lastname" formControlName="maritalStatus" class="disable-text-inp"
+                               readonly>
+                            <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;"
+                                alt="editImg" (click)="edit('status')">
+                            }@else if(type == 'status'){
+                            <mat-select formControlName="maritalStatus" placeholder="(Select Marital Status)">
+                                @for(item of status; track item){
+                                <mat-option [value]="item">{{item}}</mat-option>
+                                }
+                               
+                            </mat-select>
+                            } -->
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+                @if(editDetails.get('physicallyChallenge')?.dirty){
+                <div class="edit-div">
+                    <label class="form-txt" for="lastname">Physically Challenges</label>
+                    <div class="inline-div">
+                        <!-- @if(type != 'challenge'){ -->
+                        <input type="text" id="lastname" formControlName="physicallyChallenge" class="disable-text-inp"
+                            readonly>
+                        <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
+                            (click)="edit('challenge')">
+                        }@else if(type == 'challenge'){
+                        <mat-select formControlName="physicallyChallenge" placeholder="(Select Disability)">
+                            @for(item of physicalDisabilityOptions; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+
+                        </mat-select>
+                        } -->
+                    </div>
+                </div>
+            }
+
+            @if(editDetails.get('relation')?.dirty){
+                <div class="edit-div">
+                    <label class="form-txt" for="lastname">Relation</label>
+                    <div class="inline-div">
+                        <!-- @if(type != 'relation'){ -->
+                        <input type="text" id="lastname" formControlName="relation" class="disable-text-inp"
+                           readonly>
+                        <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
+                            (click)="edit('relation')">
+                        }@else if(type == 'relation'){
+                        <mat-select formControlName="relation" placeholder="(Select Relation)">
+                            @if(isMale){
+                            @for(item of maleRelationshipOptions; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+                            }@else{
+                            @for(item of femaleRelationshipOptions; track item){
+                            <mat-option [value]="item">{{item}}</mat-option>
+                            }
+                            }
+
+                        </mat-select>
+                        } -->
+                    </div>
+                </div>
+            }
+            </div>
+        </form>
+
+    </div>
+    <div class="btn-div">
+        <button class="ac-secondary-btn" (click)="submit()">Cancel</button>
+        <button class="ac-primary-btn" (click)="finalSubmission()">continue</button>
+    </div>
+}
 
     <div class="down-line"></div>
 </div>

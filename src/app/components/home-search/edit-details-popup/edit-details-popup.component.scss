@@ -121,7 +121,7 @@
 
 .text-box-active {
     background-color: transparent !important;
-    width: 90%;
+    width: 100%;
     border: 1px solid var(--bg-overlay);
     border-radius: 6px !important;
     color: var(--text-secondary) !important;
@@ -238,4 +238,10 @@
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+.message-div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
 }
