@@ -69,6 +69,8 @@ export class EditDetailsPopupComponent implements OnInit {
   isDob: boolean = false
   type: string = ''
   isMale: boolean = false
+  isSubmitted: boolean = false
+
 
 
   ngOnInit(): void {
@@ -112,6 +114,7 @@ export class EditDetailsPopupComponent implements OnInit {
     this.editDetails.get('maritalStatus')?.setValue(this.data.isMarried)
     this.editDetails.get('physicallyChallenge')?.setValue(this.data.physicallyChallenges)
     this.editDetails.get('relation')?.setValue(this.data.relationshipWithPrimaryDevotee)
+    this.editDetails.markAsPristine()
   }
 
   getGender(event: any) {
@@ -123,6 +126,7 @@ export class EditDetailsPopupComponent implements OnInit {
 
   toggle() {
     this.isActive = !this.isActive
+
   }
 
   close() {
@@ -155,5 +159,34 @@ export class EditDetailsPopupComponent implements OnInit {
         this.editDetails.get('relation')?.enable()
         break;
     }
+  }
+
+  submit(){
+    this.isSubmitted = !this.isSubmitted
+    console.log(this.isSubmitted);
+    
+  }
+
+  otpDialog(){
+    
+  }
+
+  finalSubmission(){
+    const payload = {
+      devoteeId: this.data.devoteeId,
+      dateOfBirth: this.editDetails.get('dob')?.value,
+      gender: this.editDetails.get('gender')?.value,
+      isMarried: this.editDetails.get('maritalStatus')?.value,
+      physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
+      relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
+    }
+    const cleanObj = Object.fromEntries(
+      Object.entries(payload).filter(
+        ([Keys, value]) =>
+          value !== null && value !== undefined && value !== ''
+      )
+    );
+    console.log(cleanObj);
+    
   }
 }
