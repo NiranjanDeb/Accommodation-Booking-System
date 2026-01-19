@@ -5,6 +5,6 @@ export const environment = {
 //   CONFIG_KEY_2: 'requisition.regular.window.max.night.value',
   SSO_URL: 'https://sso.test.satsang.org.in',
   activityLogoutTimeInMins: 980,
-  localhostUrl: ``,
+  localhostUrl: `http://localhost:4200`,
   timeBeforeCallingRefreshInSecs: 840
 };
