@@ -26,14 +26,6 @@
     display: flex;
     gap: 10px;
 }
-.main-container {
-       display: flex;
-    flex-direction: column;
-    padding: 40px;
-    width: 1150px;
-    max-inline-size: 230vh;
-    box-sizing: border-box;
-}
 
 .title {
     display: flex;
@@ -149,87 +141,50 @@ input:focus {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin-top: 36px;
+}
+.table-container {
+  overflow-y: auto;
+  height: 60vh;
+  scrollbar-width: none;
 }
 
-.table-container{
-       overflow-y: auto;
-    height: 60vh;
-    scrollbar-width: none;
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--bg-overlay);
+  border-radius: 12px;
 }
 
-.table .table-body tr{
+thead th {
+  background-color: var(--bg-secondary);
+  color: var(--text-tertiary);
+  font-family: var(--manrope);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+}
+
+tbody td {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--bg-overlay);
+  font-family: var(--manrope);
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+tbody tr {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.table .table-body tr:hover {
-  background-color: var(--bg-overlay) !important;
+tbody tr:hover {
+  background-color: var(--bg-overlay);
 }
-
-table {
-    border-collapse: separate;
-    border-spacing: 0px;
-    border-left: 1px solid var(--bg-overlay);
-    border-right: 1px solid var(--bg-overlay);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    table-layout: fixed;
-    width: 1110px;
-    overflow-x: auto;
-}
-
-
-.table-head tr:first-child th:first-child {
-    border-top-left-radius: 12px;
-}
-
-.table-head tr:first-child th:last-child {
-    border-top-right-radius: 12px;
-}
-
-.table-head tr:last-child td:first-child {
-    border-bottom-left-radius: 12px;
-}
-
-.table-head tr:last-child td:last-child {
-    border-bottom-right-radius: 12px;
-}
-
-thead>tr>th {
-    word-break: break-word;
-    background-color: var(--bg-secondary);
-    color: var(--text-tertiary) !important;
-    font-family: var(--manrope);
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 21.86px;
-    // min-width: 100px;
-    padding: 16px;
-    border-top: 1px solid var(--bg-overlay);
-    border-bottom: none;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    width: 120px;
-}
-
-tbody>tr>td {
-    // background-color: var(--bg-primary);
-    padding: 16px;
-    text-align: center;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid var(--bg-overlay);
-    word-wrap: break-word;
-    font-family: var(--manrope);
-    font-weight: 500;
-    font-size: 16px;
-    color: var(--text-secondary);
-    //   cursor: pointer;
-}
-
 .address-cell {
   max-width: 220px;       /* adjust as needed */
   white-space: nowrap;

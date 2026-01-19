@@ -62,12 +62,12 @@
     </table>
   </div>
   } @else {
-  <div class="list-div">
-    <div class="img-div">
-      <img style="width:150px" src="search_placeholder_dark.png" />
-      <span class="drop-title">No Data Found</span>
+   <div class="list-div">
+        <div class="img-div">
+            <img style="width: 150px;" src="icons/search_placeholder_dark.png" alt="">
+            <span class="drop-title" style="text-align: end;">No Data Found</span>
+        </div>
     </div>
-  </div>
   }
 </div>
 } @else {
@@ -96,7 +96,7 @@
         <!-- ✔ PRIMARY DEVOTEE (NO RADIO) -->
         @if(item.isPrimaryDevotee){
           <div class="primary-devotee">
-            <span class="tick-icon">✔</span>
+             <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
 
             <span class="common-text">
               {{ item.devoteeFirstName }} {{ item.devoteeLastName }}

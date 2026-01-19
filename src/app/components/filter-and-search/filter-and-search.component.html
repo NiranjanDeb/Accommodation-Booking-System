@@ -1,7 +1,7 @@
 @if(!showDetails){
 <div class="main-container">
     <div class="title">
-        <span class="title-text">Worker Details</span>
+        <span class="title-text">Worker Detailsss</span>
         <p class="small-title">
             Enter worker family code to proceed with the search.
         </p>
@@ -56,8 +56,8 @@
     } @else {
     <div class="list-div">
         <div class="img-div">
-            <img style="width:150px" src="search_placeholder_dark.png" />
-            <span class="drop-title">No Data Found</span>
+            <img style="width: 150px;" src="icons/search_placeholder_dark.png" alt="">
+            <span class="drop-title" style="text-align: end;">No Data Found</span>
         </div>
     </div>
     }
@@ -70,7 +70,7 @@
             Go back
         </span>
         <span class="title-text">
-            Worker Details - ({{ workerDetails[0]?.devoteeFamilyCode }})
+            Worker Detailsss - ({{ workerDetails[0]?.devoteeFamilyCode }})
         </span>
     </div>
 
@@ -80,7 +80,7 @@
 
             <div class="section-header">
                 <span class="section-title">
-                    Data According to Accommodation
+                     Accommodation Data
                 </span>
             </div>
 
@@ -93,7 +93,7 @@
 
                             @if(item.isPrimaryDevotee){
                             <div class="primary-devotee">
-                                <span class="tick-icon">✔</span>
+                                <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
 
                                 <span class="common-text">
                                     {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
@@ -143,7 +143,7 @@
 
             <div class="section-header right">
                 <span class="section-title">
-                    Data According to Philanthropy
+                    Philanthropy Data
                 </span>
                 <span class="count-badge">
                     {{ philanthropyMembers.length }}
