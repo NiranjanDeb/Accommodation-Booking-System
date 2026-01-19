@@ -1,11 +1,3 @@
-.main-container {
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    gap: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-}
 
 .title {
     display: flex;
@@ -35,20 +27,7 @@
     display: flex;
     gap: 10px;
 }
-.main-container {
-       display: flex;
-    flex-direction: column;
-    padding: 40px;
-    width: 1150px;
-    max-inline-size: 230vh;
-    box-sizing: border-box;
-}
 
-.title {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
 
 .content-div {
     display: flex;
@@ -176,17 +155,11 @@ input:focus {
 }
 
 table {
-    border-collapse: separate;
-    border-spacing: 0px;
-    border-left: 1px solid var(--bg-overlay);
-    border-right: 1px solid var(--bg-overlay);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    table-layout: fixed;
-    width: 1110px;
-    overflow-x: auto;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--bg-overlay);
+  border-radius: 12px;
 }
 
 
@@ -612,6 +585,20 @@ tbody>tr>td {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.img-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 36px;
+}
+.drop-title {
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-family: var(--manrope);
+    margin: 5px;
 }
 
 .pending-design {
