@@ -67,6 +67,32 @@ export class HomeSearchComponent implements OnInit {
       this.isVisit = false;
       this.reference.setValue('familyCode');
     }
+    // console.log(this.referenceInput.value);
+    
+    this.referenceInput.valueChanges.subscribe(item=>{
+      if(this.reference.value == 'name'){
+      if(typeof item == 'string' && item.length < 3){
+        this.profileData = []
+        this.bookingList = []
+        this.visitData = []
+        console.log(item);
+      }
+    }else if(this.reference.value == 'mobileNumber'){
+      if(typeof item == 'string' && item.length < 10){
+        this.profileData = []
+        this.bookingList = []
+        this.visitData = []
+        console.log('contact', item);
+      }
+    }else{
+       if(typeof item == 'string' && item.length < 12){
+        this.profileData = []
+        this.bookingList = []
+        this.visitData = []
+        console.log('family', item);
+      }
+    }
+    })
   }
 
   ngAfterViewInit() {
@@ -181,6 +207,9 @@ export class HomeSearchComponent implements OnInit {
     this.fromDate.setValue('');
     this.toDate.setValue('');
     this.districtList = [];
+    this.profileData = [];
+    this.visitData = []
+    this.bookingList = []
   }
 
   searchProfile(value?: boolean) {
