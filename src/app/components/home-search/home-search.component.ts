@@ -168,31 +168,23 @@ export class HomeSearchComponent implements OnInit {
   }
 
   onSelectType(event: any) {
+     this.pageNo = 1;
+     this.reset();
     if (event.value == 'profile') {
       console.log(event.value);
-      this.isHide = true;
-      this.isprofile = true;
+      this.isHide = this.isprofile = true;
       this.isVisit = false;
       this.reference.setValue('fc');
-      this.reset();
       this.profileData = [];
-      this.pageNo = 1;
     } else if (event.value == 'visit') {
       this.isVisit = true;
-      this.isHide = false;
-      this.isprofile = false;
+      this.isHide = this.isprofile = false;
       this.reference.setValue('aadhaarNumber');
-      this.reset();
       this.visitData = [];
-      this.pageNo = 1;
     } else {
-      this.isHide = false;
-      this.isprofile = false;
-      this.isVisit = false;
+      this.isHide = this.isprofile = this.isVisit = false;
       this.reference.setValue('');
-      this.reset();
       this.bookingList = [];
-      this.pageNo = 1;
     }
   }
   reset() {
@@ -213,6 +205,7 @@ export class HomeSearchComponent implements OnInit {
   }
 
   searchProfile(value?: boolean) {
+    if(value) this.profileData = this.bookingList = this.visitData = []
     this.payload = {
       page: this.pageNo,
       key: this.referenceInput?.value,
@@ -236,10 +229,10 @@ export class HomeSearchComponent implements OnInit {
     if (this.searchType.value == 'profile') {
       this.advanceService.fetchProfile(cleanObj).subscribe({
         next: (res) => {
-          if (this.profileData.length == 0) {
-            this.profileData = res.data;
+          if (this.profileData.length == 0 ) {
+            // this.profileData = []
+            this.profileData = [...res.data];
             this.isAllDataLoaded = true;
-            console.log(res);
           } else {
             if (!value) {
               this.profileData = [...this.profileData, ...res.data];
@@ -412,7 +405,8 @@ export class HomeSearchComponent implements OnInit {
     this.dialog.open(EditDetailsPopupComponent, {
       width: '800px',
       maxWidth: '90vw',
-      data: item
+      data: item,
+      disableClose: true
     })
   }
 }

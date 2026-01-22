@@ -24,7 +24,7 @@ export class EditDetailsPopupComponent implements OnInit {
   
   status: string[] = ['Married', 'Single', 'Others'];
 
-  genderArr: string[] = ['Male', 'Female']
+  genderArr: string[] = ['Male', 'Female'];
 
   physicalDisabilityOptions: string[] = [
     'Not Applicable',
@@ -66,10 +66,12 @@ export class EditDetailsPopupComponent implements OnInit {
 
   showEdit: boolean = false;
   isActive: boolean = false;
-  isDob: boolean = false
-  type: string = ''
-  isMale: boolean = false
-  isSubmitted: boolean = false
+  isDob: boolean = false;
+  type: string = '';
+  isMale: boolean = false;
+  isSubmitted: boolean = false;
+  showOtp: Boolean = false;
+  otp = new FormControl('');
 
 
 
@@ -81,7 +83,7 @@ export class EditDetailsPopupComponent implements OnInit {
       relation: ['', Validators.required],
       physicallyChallenge: ['', Validators.required]
 
-    })
+    });
     console.log(this.data);
     
     const devoteeDate = new Date(this.data.dateOfBirth)
@@ -168,10 +170,11 @@ export class EditDetailsPopupComponent implements OnInit {
   }
 
   otpDialog(){
-    
+    this.showOtp = false
   }
 
   finalSubmission(){
+    this.showOtp = true
     const payload = {
       devoteeId: this.data.devoteeId,
       dateOfBirth: this.editDetails.get('dob')?.value,
@@ -188,5 +191,16 @@ export class EditDetailsPopupComponent implements OnInit {
     );
     console.log(cleanObj);
     
+  }
+
+   allowNum(e: Event) {
+    const input = e.target as HTMLInputElement;
+    const val = input?.value;
+    if (!val) return;
+
+    const filtered = val.replace(/[^0-9]/g, '');
+    if (filtered !== val) {
+      this.otp.setValue(filtered, { emitEvent: false });
+    }
   }
 }
