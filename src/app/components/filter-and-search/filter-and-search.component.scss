@@ -76,9 +76,8 @@ tbody tr:hover {
   gap: 24px;
   width: calc(90vw - 280px);
   margin: 0 auto;
-  flex-shrink: 0;   
+  flex-shrink: 0;
 }
-
 
 .section-header {
   display: flex;
@@ -109,18 +108,14 @@ tbody tr:hover {
   font-weight: 600;
 }
 
-
-
 .card-details {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  grid-template-columns: 1fr;
   gap: 20px;
-
   height: 75vh;
   overflow-y: auto;
   scrollbar-width: none;
 }
-
 
 .family-details {
   border-radius: 1rem;
@@ -130,8 +125,21 @@ tbody tr:hover {
   gap: 16px;
 }
 
+.family-details-accomodation {
+  border-radius: 1rem;
+  border: 1px solid var(--bg-tertiary);
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  width: 61%;
+}
 
 .family-details.is-primary {
+  border-color: var(--brand-primary);
+  background-color: var(--bg-secondary);
+}
+
+.family-details-accomodation.is-primary {
   border-color: var(--brand-primary);
   background-color: var(--bg-secondary);
 }
@@ -150,8 +158,10 @@ tbody tr:hover {
 
 .common-text {
   font-family: var(--inter);
+  font-weight: 400;
   font-size: 16px;
   color: var(--text-secondary);
+  text-align: left;
 }
 
 .name-row {
@@ -178,16 +188,26 @@ tbody tr:hover {
   justify-content: center;
 }
 
-.pending {
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
+.pending-design {
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  gap: 0.25rem;
+  border-radius: 0.625rem;
+  border-radius: 0.625rem;
   background-color: var(--bg-tertiary);
-  color: #fff;
+  border: 1px solid var(--separator);
+}
+
+.pending {
+  font-family: var(--inter);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.125rem;
+  text-align: center;
+  color: var(--text-secondary);
 }
 
 .worker-type {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--brand-primary);
 }
@@ -202,15 +222,10 @@ tbody tr:hover {
   width: 30%;
 }
 
-
 .names-only-card {
   border-radius: 1rem;
   border: 1px solid rgba(255, 215, 0, 0.6);
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 215, 0, 0.08),
-    transparent
-  );
+  background: linear-gradient(to bottom, rgba(255, 215, 0, 0.08), transparent);
   padding: 16px;
 }
 
@@ -241,17 +256,24 @@ tbody tr:hover {
   color: var(--text-tertiary);
 }
 .img-div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 36px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 36px;
 }
 .drop-title {
-    color: var(--text-secondary);
-    font-size: 16px;
-    font-family: var(--manrope);
-    margin: 5px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-family: var(--manrope);
+  margin: 5px;
 }
-
-
+.edit-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}

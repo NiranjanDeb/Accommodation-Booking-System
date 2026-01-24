@@ -7,23 +7,14 @@
 
   <form [formGroup]="searchForm" (ngSubmit)="searchByFamilyCode()">
     <div class="searchBar">
-      <input
-        type="text"
-        maxlength="12"
-        class="searchInput ac-input-control"
-        placeholder="Enter family code"
-        formControlName="familyCode"
-      />
+      <input type="text" maxlength="12" class="searchInput ac-input-control" placeholder="Enter family code"
+        formControlName="familyCode" />
 
       <div class="btn">
         <button type="button" class="ac-secondary-btn" (click)="reset()">
           Reset
         </button>
-        <button
-          type="submit"
-          class="ac-primary-btn"
-          [disabled]="searchForm.invalid"
-        >
+        <button type="submit" class="ac-primary-btn" [disabled]="searchForm.invalid">
           Search
         </button>
       </div>
@@ -62,21 +53,18 @@
     </table>
   </div>
   } @else {
-   <div class="list-div">
-        <div class="img-div">
-            <img style="width: 150px;" src="icons/search_placeholder_dark.png" alt="">
-            <span class="drop-title" style="text-align: end;">No Data Found</span>
-        </div>
+  <div class="list-div">
+    <div class="img-div">
+      <img style="width: 150px;" src="icons/search_placeholder_dark.png" alt="">
+      <span class="drop-title" style="text-align: end;">No Data Found</span>
     </div>
+  </div>
   }
 </div>
 } @else {
 <div class="main-container">
   <div class="title">
-    <span
-      style="color: var(--brand-primary); cursor:pointer"
-      (click)="back()"
-    >
+    <span style="color: var(--brand-primary); cursor:pointer" (click)="back()">
       Go back
     </span>
     <span class="title-text">
@@ -84,79 +72,76 @@
     </span>
   </div>
 
-<div class="card-details">
-  @for(item of profileDetails; track item){
+  <div class="card-details">
+    @for(item of profileDetails; track item){
 
-  <div class="family-details" [class.is-primary]="item.isPrimaryDevotee">
+    <div class="family-details" [class.is-primary]="item.isPrimaryDevotee">
 
-    <!-- NAME ROW -->
-    <div class="details">
-      <div class="name-row">
+      <!-- NAME ROW -->
+      <div class="details">
+        <div class="name-row">
 
-        <!-- ✔ PRIMARY DEVOTEE (NO RADIO) -->
-        @if(item.isPrimaryDevotee){
+          @if(item.isPrimaryDevotee){
           <div class="primary-devotee">
-             <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
-
             <span class="common-text">
               {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
-              
-  @if(item.workerType){
-    <span class="worker-type">({{ item.workerType }})</span>
-  }
+
+
+              @if(item.workerType){
+              <span class="worker-type">({{ item.workerType }})</span>
+              }
             </span>
+
+
+            <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
+
 
             <div class="pending-design">
               <span class="pending">Primary Devotee</span>
             </div>
+
           </div>
-        }
+          }
+          @else {
+          <span class="common-text">
+            {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+            @if(item.workerType){
+            <span class="worker-type">({{ item.workerType }})</span>
+            }
+          </span>
+          }
 
-        <!-- ⭕ NON-PRIMARY (CLICKABLE) -->
-        @else {
-          <div
-            class="selectable-devotee"
-            (click)="confirmPrimaryChange(item, $event)"
-          >
-            <span class="custom-radio"></span>
-
-            <span class="common-text">
-              {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
-            </span>
-          </div>
-        }
-
+        </div>
       </div>
-    </div>
 
-    <!-- FAMILY CODE -->
-    <div class="details">
-      <span class="common-header">Family Code</span>
-      <span class="common-text">{{ item.devoteeFamilyCode }}</span>
-    </div>
+      <!-- FAMILY CODE -->
+      <div class="details">
+        <span class="common-header">Family Code</span>
+        <span class="common-text">{{ item.devoteeFamilyCode }}</span>
+      </div>
 
-    <!-- MOBILE -->
-    <div class="details">
-      <span class="common-header">Mobile</span>
-      <span class="common-text">{{ item.mobileNumber }}</span>
-    </div>
+      <!-- MOBILE -->
+      <div class="details">
+        <span class="common-header">Mobile</span>
+        <span class="common-text">{{ item.mobileNumber }}</span>
+      </div>
 
-    <!-- AADHAAR -->
-    <div class="details">
-      <span class="common-header">Aadhaar</span>
-      <span class="common-text">{{ item.idNumber }}</span>
-    </div>
+      <!-- AADHAAR -->
+      <div class="details">
+        <span class="common-header">Aadhaar</span>
+        <span class="common-text">{{ item.idNumber }}</span>
+      </div>
 
-    <!-- EDIT -->
-    <div class="edit">
+
+      <!-- <div class="edit">
       <button class="ac-secondary-btn" (click)="editDetails(item)">
         Edit details
       </button>
-    </div>
+    </div> -->
 
+    </div>
+    }
   </div>
-  }
-</div>
 
 
 

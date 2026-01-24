@@ -1,7 +1,7 @@
 @if(!showDetails){
 <div class="main-container">
     <div class="title">
-        <span class="title-text">Worker Details</span>
+        <span class="title-text">Profile & Identity</span>
         <p class="small-title">
             Enter worker family code to proceed with the search.
         </p>
@@ -70,7 +70,7 @@
             Go back
         </span>
         <span class="title-text">
-            Worker Detailsss - ({{ workerDetails[0]?.devoteeFamilyCode }})
+            Edit Profile & Identity Details - ({{ workerDetails[0]?.devoteeFamilyCode }})
         </span>
     </div>
 
@@ -80,31 +80,38 @@
 
             <div class="section-header">
                 <span class="section-title">
-                     Accommodation Data
+                    Accommodation Data
                 </span>
             </div>
 
             <div class="card-details">
                 @for(item of workerDetails; track item){
-                <div class="family-details" [class.is-primary]="item.isPrimaryDevotee">
+                <div class="family-details-accomodation" [class.is-primary]="item.isPrimaryDevotee">
 
                     <div class="details">
                         <div class="name-row">
 
                             @if(item.isPrimaryDevotee){
                             <div class="primary-devotee">
-                                <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
-
                                 <span class="common-text">
                                     {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+
+
                                     @if(item.workerType){
                                     <span class="worker-type">({{ item.workerType }})</span>
                                     }
                                 </span>
 
+
+                                <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;"
+                                    alt="badge-img">
+
+
                                 <div class="pending-design">
                                     <span class="pending">Primary Devotee</span>
                                 </div>
+                                <img src="icons/edit-line.png" class="edit-icon" alt="edit" (click)="editName(item)" />
+
                             </div>
                             }
                             @else {
@@ -114,6 +121,7 @@
                                 <span class="worker-type">({{ item.workerType }})</span>
                                 }
                             </span>
+                            <img src="icons/edit-line.png" class="edit-icon" alt="edit" (click)="editName(item)" />
                             }
 
                         </div>
@@ -122,16 +130,17 @@
                     <div class="details">
                         <span class="common-header">Mobile</span>
                         <span class="common-text">{{ item.mobileNumber }}</span>
+
+
                     </div>
 
                     <div class="details">
                         <span class="common-header">Aadhaar</span>
-                        <span class="common-text">{{ item.idNumber }}</span>
-                    </div>
+                        <span class="common-text">{{ item.idNumber }}
+                            <img src="icons/edit-line.png" class="edit-icon" alt="edit" (click)="editAadhaar(item)" />
 
-                    <div class="details">
-                        <span class="common-header">Worker Type</span>
-                        <span class="common-text">{{ item.workerType || '-' }}</span>
+                        </span>
+
                     </div>
 
                 </div>

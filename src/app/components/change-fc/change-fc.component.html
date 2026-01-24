@@ -81,22 +81,31 @@
 
                     @if(item.isPrimaryDevotee){
                     <div class="primary-devotee">
-                        <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
-
                         <span class="common-text">
                             {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+
+
+                            @if(item.workerType){
+                            <span class="worker-type">({{ item.workerType }})</span>
+                            }
                         </span>
+
+
+                        <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
+
 
                         <div class="pending-design">
                             <span class="pending">Primary Devotee</span>
                         </div>
+
                     </div>
                     }
-
-                 
                     @else {
                     <span class="common-text">
                         {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+                        @if(item.workerType){
+                        <span class="worker-type">({{ item.workerType }})</span>
+                        }
                     </span>
                     }
 

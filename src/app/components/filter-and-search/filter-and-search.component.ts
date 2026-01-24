@@ -9,6 +9,9 @@ import {
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
+import { EditNameComponent } from '../filter-and-search/edit-name/edit-name.component';
+import { EditAdhaarComponent } from '../filter-and-search/edit-adhaar/edit-adhaar.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-filter-and-search',
@@ -32,7 +35,8 @@ export class FilterAndSearchComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private advanceService: AdvanceSearchService
+    private advanceService: AdvanceSearchService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -72,10 +76,10 @@ export class FilterAndSearchComponent implements OnInit {
         // LEFT SIDE
         this.workerDetails = [
           ...data.devoteeProfileInAccommodation.filter(
-            (i: any) => i.isPrimaryDevotee
+            (i: any) => i.isPrimaryDevotee,
           ),
           ...data.devoteeProfileInAccommodation.filter(
-            (i: any) => !i.isPrimaryDevotee
+            (i: any) => !i.isPrimaryDevotee,
           ),
         ];
 
@@ -103,5 +107,23 @@ export class FilterAndSearchComponent implements OnInit {
     this.workerDetails = [];
     this.philanthropyMembers = [];
     this.showDetails = false;
+  }
+  editName(item: any): void {
+    this.dialog.open(EditNameComponent, {
+      width: '420px',
+      data: {
+        selected: `${item.devoteeFirstName} ${item.devoteeLastName}`,
+        list: this.philanthropyMembers,
+      },
+    });
+  }
+
+  editAadhaar(item: any): void {
+    this.dialog.open(EditAdhaarComponent, {
+      width: '420px',
+      data: {
+        aadhaar: item.idNumber,
+      },
+    });
   }
 }

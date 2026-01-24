@@ -1,0 +1,24 @@
+<div class="edit-page">
+  <div class="visitor">
+    <button class="close" (click)="close()">
+      <img class="cross-icon" src="icons/profile-close.svg" />
+    </button>
+    <span class="visitor-txt">Edit Aadhaar</span>
+  </div>
+
+  <p class="form-header">
+    Update Aadhaar number
+  </p>
+
+  <input
+    type="text"
+    maxlength="12"
+    class="ac-input-control"
+    [(ngModel)]="aadhaar"
+  />
+
+  <div class="action-row">
+    <button class="ac-secondary-btn" (click)="close()">Cancel</button>
+    <button class="primary-btn" (click)="continue()">Save</button>
+  </div>
+</div>
