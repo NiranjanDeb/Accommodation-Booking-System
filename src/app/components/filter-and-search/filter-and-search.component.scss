@@ -110,9 +110,9 @@ tbody tr:hover {
 
 .card-details {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 25vw 1fr;
   gap: 20px;
-  height: 75vh;
+  // height: 75vh;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -131,7 +131,7 @@ tbody tr:hover {
   padding: 16px;
   display: grid;
   gap: 16px;
-  width: 61%;
+  // width: 61%;
 }
 
 .family-details.is-primary {

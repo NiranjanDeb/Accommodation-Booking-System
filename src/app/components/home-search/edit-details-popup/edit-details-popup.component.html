@@ -15,7 +15,7 @@
             <span class="mem-txt">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' +
                 data.devoteeLastName}}</span>
             @if(!data.isPrimaryDevotee){
-            <div class="toggle-group">
+            <div class="toggle-group" >
                 <div class="toggle-div" [class.active-div]="!isActive" (click)="toggle()">
                     <span>Active</span>
                 </div>
@@ -161,10 +161,10 @@
                 data.devoteeLastName}}</span>
             @if(!data.isPrimaryDevotee){
             <div class="toggle-group">
-                <div class="toggle-div" [class.active-div]="!isActive">
+                <div class="toggle-div" [class.active-div]="!showEdit">
                     <span>Active</span>
                 </div>
-                <div class="toggle-div" [class.active-div]="isActive">
+                <div class="toggle-div" [class.active-div]="showEdit">
                     <span>Inactive</span>
                 </div>
             </div>
@@ -306,11 +306,11 @@
         <span class="title">Please verify to save the changes.</span>
       <div class="each-div">
                 <span class="drop-title">Verify Otp*</span>
-                <input type="text" class="date-inp"  maxlength="6" placeholder="Enter the otp" [formControl]="otp" (keydown)="allowNum($event)">
+                <input type="text" class="date-inp"  maxlength="7" placeholder="Enter the otp" [formControl]="otp" (keydown)="allowNum($event)">
     </div>
       <div class="btn-div">
         <button class="ac-danger-btn" (click)="otpDialog()">Cancel</button>
-        <button class="ac-primary-btn">Submit</button>
+        <button class="ac-primary-btn" (click)="updateDetails()">Submit & Exit</button>
     </div>
     </div>
   </div>

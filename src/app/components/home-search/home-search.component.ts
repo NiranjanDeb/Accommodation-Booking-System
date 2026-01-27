@@ -402,11 +402,18 @@ export class HomeSearchComponent implements OnInit {
   }
 
   editDetails(id: any, item: any) {
-    this.dialog.open(EditDetailsPopupComponent, {
+    const dialogRef = this.dialog.open(EditDetailsPopupComponent, {
       width: '800px',
       maxWidth: '90vw',
       data: item,
       disableClose: true
+    })
+    dialogRef.afterClosed().subscribe({
+      next: (res) =>{
+         if(res != undefined){
+          this.getProfileDetails(res.data.familyCode, res.data.type)
+         }
+      }
     })
   }
 }

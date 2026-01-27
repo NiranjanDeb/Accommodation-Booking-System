@@ -121,7 +121,7 @@
 
 .text-box-active {
     background-color: transparent !important;
-    width: 100%;
+    width: 92%;
     border: 1px solid var(--bg-overlay);
     border-radius: 6px !important;
     color: var(--text-secondary) !important;
@@ -139,6 +139,7 @@
 
 .inline-div {
     display: flex;
+    // width: 30vw;
 }
 
 .icon {

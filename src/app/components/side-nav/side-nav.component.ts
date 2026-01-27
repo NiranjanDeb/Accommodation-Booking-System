@@ -19,8 +19,11 @@ export class SideNavComponent implements OnInit{
 
   }
 
+  name: string | null = null
+
   menuItems = MENU_ITEMS
   ngOnInit(): void {
+    this.name = localStorage.getItem('fullName')
   }
 
   logOut(){

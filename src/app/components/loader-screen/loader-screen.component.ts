@@ -65,6 +65,7 @@ export class LoaderScreenComponent implements OnInit {
 
             // this.toaster.success(response.message || 'Login Successful!');
             localStorage.setItem('userToken', response.data.token);
+            localStorage.setItem('fullName', response.data.operatorDetails.name)
             localStorage.setItem('isLoggedIn', 'true');
             this.authService.initTimer();
 
