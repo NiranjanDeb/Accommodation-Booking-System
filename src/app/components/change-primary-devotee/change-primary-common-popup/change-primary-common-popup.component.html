@@ -1,0 +1,42 @@
+<div class="edit-page">
+  <div class="top-line"></div>
+
+  <div class="visitor">
+    <button class="close" (click)="close()">
+      <img class="cross-icon" src="icons/profile-close.svg" />
+    </button>
+
+    <span class="visitor-txt">
+      {{ data.title }}
+    </span>
+  </div>
+
+  <p class="form-header">
+    {{ data.message }}
+    <span *ngIf="data.highlightText" class="active">
+      {{ data.highlightText }}
+    </span>
+    <ng-container *ngIf="data.showActions">?</ng-container>
+  </p>
+
+  @if(data.showActions){
+    <div class="action-row">
+      <button class="ac-secondary-btn" (click)="close()">
+        Cancel
+      </button>
+
+      <button class="primary-btn" (click)="continue()">
+        {{ data.confirmText || 'Continue' }}
+      </button>
+    </div>
+  }
+
+  <div class="action-row">
+  
+  <button class="primary-btn" (click)="close()">
+  Okay
+  </button>
+</div>
+
+  <div class="down-line"></div>
+</div>
