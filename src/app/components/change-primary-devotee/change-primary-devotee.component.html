@@ -75,7 +75,8 @@
   <div class="card-details">
     @for(item of profileDetails; track item){
 
-    <div class="family-details" [class.is-primary]="item.isPrimaryDevotee">
+    <div class="family-details" [class.is-primary]="item.isPrimaryDevotee"
+    (click)="!item.isPrimaryDevotee && confirmPrimaryChange(item, $event)">
 
       <!-- NAME ROW -->
       <div class="details">
@@ -102,14 +103,14 @@
 
           </div>
           }
-          @else {
-          <span class="common-text">
-            {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
-            @if(item.workerType){
-            <span class="worker-type">({{ item.workerType }})</span>
-            }
-          </span>
-          }
+          @else { 
+          <div class="selectable-devotee">
+            <span class="custom-radio"></span>
+            <span class="common-text">
+              {{ item.devoteeFirstName }} {{ item.devoteeLastName }}
+            </span>
+          </div>
+        }
 
         </div>
       </div>

@@ -1,15 +1,114 @@
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
+import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
+import { EditDetailsPopupComponent } from '../home-search/edit-details-popup/edit-details-popup.component';
+import { EditAdhaarComponent } from '../../atoms/edit-adhaar/edit-adhaar.component';
 
 @Component({
-  selector: 'app-compare-devotee',
+  selector: 'app-change-primary-devotee',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
   templateUrl: './compare-devotee.component.html',
   styleUrl: './compare-devotee.component.scss',
 })
-export class CompareDevoteeComponent {
+export class CompareDevoteeComponent implements OnInit {
+  searchForm!: FormGroup;
   fc = new FormControl('');
+
+
+  profileList: any[] = [];
+  profileDetails: any[] = [];
+
+  showEdit = false;
+  primaryMemberName: string = '';
+  primaryFC: string = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private advanceService: AdvanceSearchService,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      familyCode: ['', [Validators.required, Validators.minLength(4)]],
+    });
+  }
+
+ selectedDevoteeId: string | null = null;
+
+onSelectDevotee(devoteeId: string): void {
+  this.selectedDevoteeId = devoteeId;
+}
+
+
+
+
+
+  searchByFamilyCode(): void {
+    if (this.searchForm.invalid) return;
+
+    const payload = {
+      key: this.searchForm.value.familyCode,
+      keyType: 'familyCode',
+      page: 1,
+    };
+
+    this.advanceService.fetchProfile(payload).subscribe({
+      next: (res) => {
+        this.profileList = res?.data || [];
+      },
+      error: () => {
+        this.profileList = [];
+      },
+    });
+  }
+
+ getProfileDetails(row: any): void {
+  // store primary member name from profile search API
+  this.primaryMemberName =
+    `${row.devoteeFirstName} ${row.devoteeMiddleName || ''} ${row.devoteeLastName}`.trim();
+  this.primaryFC=row.devoteeFamilyCode
+
+  this.advanceService.fetchVisitorsDetails(row.devoteeFamilyCode).subscribe({
+    next: (res) => {
+      this.profileDetails = res.data || [];
+      this.showEdit = true;
+    },
+  });
+}
+
+
+  back(): void {
+    this.showEdit = false;
+  }
+
+  editDetails(item: any): void {
+    this.dialog.open(EditDetailsPopupComponent, {
+      width: '800px',
+      maxWidth: '90vw',
+      data: item,
+    });
+  }
+
+  reset(): void {
+    this.searchForm.reset();
+    this.profileList = [];
+    this.showEdit = false;
+  }
+ confirmPrimaryChange(item: any, event: MouseEvent): void {
+  event.preventDefault();
+ 
+}
 
   allowNum(e: Event) {
     const input = e.target as HTMLInputElement;
@@ -21,4 +120,15 @@ export class CompareDevoteeComponent {
       this.fc.setValue(filtered, { emitEvent: false });
     }
   }
+
+  editAadhaar(item: any): void {
+      this.dialog.open(EditAdhaarComponent, {
+        width: '420px',
+        data: {
+          aadhaar: item.idNumber,
+        },
+      });
+    }
+  
 }
+

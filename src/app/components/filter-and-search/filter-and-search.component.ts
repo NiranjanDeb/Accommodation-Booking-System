@@ -9,8 +9,8 @@ import {
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
-import { EditNameComponent } from '../filter-and-search/edit-name/edit-name.component';
-import { EditAdhaarComponent } from '../filter-and-search/edit-adhaar/edit-adhaar.component';
+import { EditNameComponent } from '../../atoms/edit-adhaar/edit-name/edit-name.component';
+import { EditAdhaarComponent } from '../../atoms/edit-adhaar/edit-adhaar.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -64,7 +64,6 @@ export class FilterAndSearchComponent implements OnInit {
     });
   }
 
-  /** 🔥 SINGLE API CALL */
   getWorkerDetails(familyCode: string): void {
     this.workerDetails = [];
     this.philanthropyMembers = [];

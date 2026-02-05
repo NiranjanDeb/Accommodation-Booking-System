@@ -520,4 +520,10 @@ tbody tr:hover {
 .family-details.is-primary {
   border: 1px solid var(--brand-primary);
   background-color: var(--bg-secondary);
+  cursor: default;
 }
+
+.family-details:not(.is-primary) {
+  cursor: pointer;
+}
+

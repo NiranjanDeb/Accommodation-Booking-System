@@ -24,6 +24,10 @@ export class AdvanceSearchService {
   return this.http.get(`${ROUTES.FC_DETAILS}/${fc}?profile=y`);
   };
 
+  fetchVisitorsDetails(fc: any): Observable<any> {
+  return this.http.get(`${ROUTES.VISITORS_DETAILS}/${fc}`);
+  }
+
   fetchPincode(pin: any): Observable<any>{
     return this.http.get(`${ROUTES.PINCODE}/${pin}`);
   };

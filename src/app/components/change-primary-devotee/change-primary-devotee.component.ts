@@ -12,6 +12,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
 import { EditDetailsPopupComponent } from '../home-search/edit-details-popup/edit-details-popup.component';
 import { ChangePrimaryConfirmationPopupComponent } from './change-primary-confirmation-popup/change-primary-confirmation-popup.component';
+import { ChangePrimaryCommonPopupComponent } from './change-primary-common-popup/change-primary-common-popup.component';
 
 
 @Component({
@@ -71,11 +72,11 @@ onSelectDevotee(devoteeId: string): void {
   }
 
   getProfileDetails(familyCode: string): void {
-    this.advanceService.fetchProfileDetails(familyCode).subscribe({
+    this.advanceService.fetchProfileDetailsWithProfileY(familyCode).subscribe({
       next: (res) => {
         this.profileDetails = [
-          ...res.data.filter((i: any) => i.isPrimaryDevotee),
-          ...res.data.filter((i: any) => !i.isPrimaryDevotee),
+          ...res.data.devoteeProfileInAccommodation.filter((i: any) => i.isPrimaryDevotee),
+          ...res.data.devoteeProfileInAccommodation.filter((i: any) => !i.isPrimaryDevotee),
         ];
         this.showEdit = true;
       },
@@ -99,29 +100,55 @@ onSelectDevotee(devoteeId: string): void {
     this.profileList = [];
     this.showEdit = false;
   }
-  confirmPrimaryChange(item: any, event: MouseEvent): void {
-  event.preventDefault(); // stops radio auto selection
-
- const dialogRef = this.dialog.open(
-  ChangePrimaryConfirmationPopupComponent,
-  {
-    width: '420px',
-    maxWidth: '90vw',
-    disableClose: true,
-    data: {
-      name: `${item.devoteeFirstName} ${item.devoteeLastName}`,
-      selectedPrimary: item,
-      familyMembers: this.profileDetails
-    },
+ confirmPrimaryChange(item: any, event: MouseEvent): void {
+  event.preventDefault();
+  if (item.status === 'INACTIVE') {
+    this.dialog.open(ChangePrimaryCommonPopupComponent, {
+      width: '420px',
+      maxWidth: '90vw',
+      disableClose: true,
+      data: {
+        title: 'Action Not Allowed',
+        message: 'You can’t select this person as the primary member because their status is inactive. Please change the status to Active and try again.',
+        showActions: false
+      }
+    });
+    return;
   }
-);
+  if ( item.devoteeMemberCode.length < 12) {
+    this.dialog.open(ChangePrimaryCommonPopupComponent, {
+      width: '420px',
+      maxWidth: '90vw',
+      disableClose: true,
+      data: {
+        title: 'Invalid Member Code',
+        message: 'You can’t select this person as the primary member because their name doesn’t match the name on the Arghya Praswasti. Please correct the devotee name and try again.',
+        showActions: false
+      }
+    });
+    return;
+  }
 
+  const dialogRef = this.dialog.open(
+    ChangePrimaryConfirmationPopupComponent,
+    {
+      width: '420px',
+      maxWidth: '90vw',
+      disableClose: true,
+      data: {
+        title: 'Confirm Primary Devotee',
+        message: 'Are you sure you want to make',
+        highlightText: `${item.devoteeFirstName} ${item.devoteeLastName}`,
+        showActions: true,
+        selectedPrimary: item,
+        familyMembers: this.profileDetails
+      },
+    }
+  );
 
   dialogRef.afterClosed().subscribe((confirmed: boolean) => {
     if (confirmed) {
       this.selectedDevoteeId = item.devoteeId;
-
-      // 👉 call API here (if required)
       this.onSelectDevotee(item.devoteeId);
     }
   });
@@ -137,4 +164,5 @@ onSelectDevotee(devoteeId: string): void {
       this.fc.setValue(filtered, { emitEvent: false });
     }
   }
+  
 }

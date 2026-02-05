@@ -7,6 +7,7 @@ export const ROUTES = {
     LOG_OUT: `${BASE_URL}/auth/logout`,
     PROFILE_SEARCH: `${BASE_URL}/devotee/profile-search`,
     PROFILE_DETAILS: `${BASE_URL}/devotee/profile`,
+    VISITORS_DETAILS: `${BASE_URL}/devotee/visitors`,
     FC_DETAILS: `${BASE_URL}/devotee/fc`,
     PINCODE: `${BASE_URL}/common/pincode`,
     STATES: `${BASE_URL}/common/states`,
