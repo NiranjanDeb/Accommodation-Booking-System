@@ -2,7 +2,7 @@
 
   <!-- HEADER -->
   <div class="visitor">
-    <span class="visitor-txt">Choose Relations (Family)</span>
+    <span class="visitor-txt">Choose Relations (Visitors)</span>
   </div>
 
   <!-- INFO -->
@@ -17,10 +17,10 @@
   <!-- RELATION LIST -->
   <div class="relation-list">
     @for(member of otherMembers; track member){
-      <div class="relation-row">
-        <span class="common-text">
-          {{ member.devoteeFirstName }} {{ member.devoteeLastName }}
-        </span>
+    <div class="relation-row">
+      <span class="common-text">
+        {{ member.fullName }}
+      </span>
 
       <select class="relation-select" [(ngModel)]="member.relationshipWithPrimaryDevotee">
         <option value="">Select relation</option>
@@ -28,7 +28,7 @@
           {{ r }}
         </option>
       </select>
-      </div>
+    </div>
     }
   </div>
 
@@ -38,11 +38,7 @@
       Cancel
     </button>
 
-    <button
-      class="primary-btn"
-      [disabled]="isSaveDisabled()"
-      (click)="continue()"
-    >
+    <button class="primary-btn" (click)="continue()">
       Continue
     </button>
   </div>

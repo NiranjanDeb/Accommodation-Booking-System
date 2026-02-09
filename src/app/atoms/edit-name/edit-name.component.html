@@ -1,0 +1,29 @@
+<div class="edit-page">
+  <div class="visitor">
+    <button class="close" (click)="close()">
+      <img class="cross-icon" src="icons/profile-close.svg" />
+    </button>
+    <span class="visitor-txt">Edit Name</span>
+  </div>
+
+  <p class="form-header">
+    Select a name from philanthropy members
+  </p>
+
+  <select
+    class="ac-input-control"
+    [(ngModel)]="selectedName"
+  >
+    <option
+      *ngFor="let m of data.list"
+      [value]="m.fullName"
+    >
+      {{ m.fullName }}
+    </option>
+  </select>
+
+  <div class="action-row">
+    <button class="ac-secondary-btn" (click)="close()">Cancel</button>
+    <button class="primary-btn" (click)="continue()">Save</button>
+  </div>
+</div>

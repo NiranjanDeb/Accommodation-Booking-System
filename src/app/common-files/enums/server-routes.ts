@@ -14,5 +14,9 @@ export const ROUTES = {
     BOOKING_DETAILS: `${BASE_URL}/booking/list`,
     BOOKING_ID: `${BASE_URL}/booking/details`,
     VISIT_DETAILS: `${BASE_URL}/booking/visits`,
-    SEND_REQ_OTP: `${BASE_URL}/devotee/profile-req`
+    SEND_REQ_OTP: `${BASE_URL}/devotee/profile-req`,
+    CONTACT_NUMBERS: `${BASE_URL}/devotee/contact-numbers`,
+    AVAILABLE_CONTACT_NUMBERS: `${BASE_URL}/devotee/contact-number-availability`,
+    PRIMARY_REQ:`${BASE_URL}/devotee/primary-req`,
+    PRIMARY_VERIFY:`${BASE_URL}/devotee/primary-verify`,
 }

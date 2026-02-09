@@ -56,5 +56,20 @@ export class AdvanceSearchService {
     return this.http.put(ROUTES.PROFILE_DETAILS, payload)
   }
 
+  fetchContactNumbers(fc: any): Observable<any> {
+    return this.http.get(`${ROUTES.CONTACT_NUMBERS}/${fc}`);
+  }
+
+  fetchAvailableContactNumber(payload:any): Observable<any>{
+     return this.http.post(ROUTES.AVAILABLE_CONTACT_NUMBERS, payload);
+  }
+
+  fetchPrimaryRequest(payload:any): Observable<any>{
+     return this.http.put(ROUTES.PRIMARY_REQ, payload);
+  }
+
+  verifyPrimaryOtp(payload:any): Observable<any>{
+     return this.http.put(ROUTES.PRIMARY_VERIFY, payload);
+  }
 
 }

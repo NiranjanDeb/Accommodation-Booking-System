@@ -18,18 +18,17 @@ export class ChangePrimaryConfirmationPopupComponent {
       name: string;
       selectedPrimary: any;
       familyMembers: any[];
+      
     }
-  ) {}
+    
+  ) {console.log('Confirmation Popup Data:', data);}
 
   close(): void {
     this.dialogRef.close(false); // Cancel
   }
 
   continue(): void {
-    // Close current confirmation popup
     this.dialogRef.close(true);
-
-    // Open next popup
     this.dialog.open(ChangePrimaryRelationsPopupComponent, {
       width: '520px',
       maxWidth: '95vw',

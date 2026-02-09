@@ -14,7 +14,6 @@ import { EditDetailsPopupComponent } from '../home-search/edit-details-popup/edi
 import { ChangePrimaryConfirmationPopupComponent } from './change-primary-confirmation-popup/change-primary-confirmation-popup.component';
 import { ChangePrimaryCommonPopupComponent } from './change-primary-common-popup/change-primary-common-popup.component';
 
-
 @Component({
   selector: 'app-change-primary-devotee',
   standalone: true,
@@ -26,7 +25,6 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
   searchForm!: FormGroup;
   fc = new FormControl('');
 
-
   profileList: any[] = [];
   profileDetails: any[] = [];
 
@@ -35,7 +33,7 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private advanceService: AdvanceSearchService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +42,11 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
     });
   }
 
- selectedDevoteeId: string | null = null;
+  selectedDevoteeId: string | null = null;
 
-onSelectDevotee(devoteeId: string): void {
-  this.selectedDevoteeId = devoteeId;
-}
-
-
+  onSelectDevotee(devoteeId: string): void {
+    this.selectedDevoteeId = devoteeId;
+  }
 
   searchByFamilyCode(): void {
     if (this.searchForm.invalid) return;
@@ -75,8 +71,12 @@ onSelectDevotee(devoteeId: string): void {
     this.advanceService.fetchProfileDetailsWithProfileY(familyCode).subscribe({
       next: (res) => {
         this.profileDetails = [
-          ...res.data.devoteeProfileInAccommodation.filter((i: any) => i.isPrimaryDevotee),
-          ...res.data.devoteeProfileInAccommodation.filter((i: any) => !i.isPrimaryDevotee),
+          ...res.data.devoteeProfileInAccommodation.filter(
+            (i: any) => i.isPrimaryDevotee,
+          ),
+          ...res.data.devoteeProfileInAccommodation.filter(
+            (i: any) => !i.isPrimaryDevotee,
+          ),
         ];
         this.showEdit = true;
       },
@@ -100,59 +100,62 @@ onSelectDevotee(devoteeId: string): void {
     this.profileList = [];
     this.showEdit = false;
   }
- confirmPrimaryChange(item: any, event: MouseEvent): void {
-  event.preventDefault();
-  if (item.status === 'INACTIVE') {
-    this.dialog.open(ChangePrimaryCommonPopupComponent, {
-      width: '420px',
-      maxWidth: '90vw',
-      disableClose: true,
-      data: {
-        title: 'Action Not Allowed',
-        message: 'You can’t select this person as the primary member because their status is inactive. Please change the status to Active and try again.',
-        showActions: false
-      }
-    });
-    return;
-  }
-  if ( item.devoteeMemberCode.length < 12) {
-    this.dialog.open(ChangePrimaryCommonPopupComponent, {
-      width: '420px',
-      maxWidth: '90vw',
-      disableClose: true,
-      data: {
-        title: 'Invalid Member Code',
-        message: 'You can’t select this person as the primary member because their name doesn’t match the name on the Arghya Praswasti. Please correct the devotee name and try again.',
-        showActions: false
-      }
-    });
-    return;
-  }
+  confirmPrimaryChange(item: any, event: MouseEvent): void {
+    event.preventDefault();
+    if (item.status === 'INACTIVE') {
+      this.dialog.open(ChangePrimaryCommonPopupComponent, {
+        width: '420px',
+        maxWidth: '90vw',
+        disableClose: true,
+        data: {
+          title: 'Action Not Allowed',
+          message:
+            'You can’t select this person as the primary member because their status is inactive. Please change the status to Active and try again.',
+          showActions: false,
+        },
+      });
+      return;
+    }
+    if (item.devoteeMemberCode.length < 12) {
+      this.dialog.open(ChangePrimaryCommonPopupComponent, {
+        width: '420px',
+        maxWidth: '90vw',
+        disableClose: true,
+        data: {
+          title: 'Invalid Member Code',
+          message:
+            'You can’t select this person as the primary member because their name doesn’t match the name on the Arghya Praswasti. Please correct the devotee name and try again.',
+          showActions: false,
+        },
+      });
+      return;
+    }
 
-  const dialogRef = this.dialog.open(
-    ChangePrimaryConfirmationPopupComponent,
-    {
-      width: '420px',
-      maxWidth: '90vw',
-      disableClose: true,
-      data: {
-        title: 'Confirm Primary Devotee',
-        message: 'Are you sure you want to make',
-        highlightText: `${item.devoteeFirstName} ${item.devoteeLastName}`,
-        showActions: true,
-        selectedPrimary: item,
-        familyMembers: this.profileDetails
+    const dialogRef = this.dialog.open(
+      ChangePrimaryConfirmationPopupComponent,
+      {
+        width: '420px',
+        maxWidth: '90vw',
+        disableClose: true,
+        data: {
+          title: 'Confirm Primary Devotee',
+          message: 'Are you sure you want to make',
+          highlightText: `${item.devoteeFirstName} ${item.devoteeLastName}`,
+          showActions: true,
+          selectedPrimary: item,
+          familyMembers: this.profileDetails,
+        },
       },
-    }
-  );
+    );
 
-  dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-    if (confirmed) {
-      this.selectedDevoteeId = item.devoteeId;
-      this.onSelectDevotee(item.devoteeId);
-    }
-  });
-}
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.selectedDevoteeId = item.devoteeId;
+        this.onSelectDevotee(item.devoteeId);
+      }
+    });
+  }
 
   allowNum(e: Event) {
     const input = e.target as HTMLInputElement;
@@ -164,5 +167,4 @@ onSelectDevotee(devoteeId: string): void {
       this.fc.setValue(filtered, { emitEvent: false });
     }
   }
-  
 }
