@@ -14,5 +14,6 @@ export const ROUTES = {
     BOOKING_DETAILS: `${BASE_URL}/booking/list`,
     BOOKING_ID: `${BASE_URL}/booking/details`,
     VISIT_DETAILS: `${BASE_URL}/booking/visits`,
-    SEND_REQ_OTP: `${BASE_URL}/devotee/profile-req`
+    SEND_REQ_OTP: `${BASE_URL}/devotee/profile-req`,
+    EDIT_NAME: `${BASE_URL}/devotee/name`
 }

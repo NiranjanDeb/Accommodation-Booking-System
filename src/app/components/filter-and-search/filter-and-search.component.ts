@@ -108,13 +108,25 @@ export class FilterAndSearchComponent implements OnInit {
     this.showDetails = false;
   }
   editName(item: any): void {
-    this.dialog.open(EditNameComponent, {
+    const dialogRef = this.dialog.open(EditNameComponent, {
       width: '420px',
       data: {
         selected: `${item.devoteeFirstName} ${item.devoteeLastName}`,
+        familyCode: item.devoteeFamilyCode,
+        memberCode: item.devoteeMemberCode,
+        devoteeId: item.devoteeId,
         list: this.philanthropyMembers,
+        memberDetails: this.workerDetails
       },
     });
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if(res!==undefined){
+          this.getWorkerDetails(res)
+        }
+      }
+    })
+
   }
 
   editAadhaar(item: any): void {

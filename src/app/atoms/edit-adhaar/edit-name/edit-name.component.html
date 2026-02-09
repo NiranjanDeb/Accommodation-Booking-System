@@ -12,11 +12,11 @@
 
   <select
     class="ac-input-control"
-    [(ngModel)]="selectedName"
+    [(ngModel)]="selectedMemberCode"
   >
     <option
-      *ngFor="let m of data.list"
-      [value]="m.fullName"
+      *ngFor="let m of filterData"
+      [value]="m.memberCode"
     >
       {{ m.fullName }}
     </option>

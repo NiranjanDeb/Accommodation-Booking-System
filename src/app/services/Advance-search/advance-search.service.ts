@@ -56,5 +56,9 @@ export class AdvanceSearchService {
     return this.http.put(ROUTES.PROFILE_DETAILS, payload)
   }
 
+  updateName(payload: any): Observable<any>{
+    return this.http.patch(ROUTES.EDIT_NAME, payload)
+  }
+
 
 }
