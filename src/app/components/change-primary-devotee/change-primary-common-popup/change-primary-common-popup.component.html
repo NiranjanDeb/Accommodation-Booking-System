@@ -13,13 +13,15 @@
 
   <p class="form-header">
     {{ data.message }}
-    <span *ngIf="data.highlightText" class="active">
-      {{ data.highlightText }}
-    </span>
-    <ng-container *ngIf="data.showActions">?</ng-container>
+
+    @if (data.highlightText) {
+      <span class="active">
+        {{ data.highlightText }}
+      </span>
+    }
   </p>
 
-  @if(data.showActions){
+  @if (data.showActions) {
     <div class="action-row">
       <button class="ac-secondary-btn" (click)="close()">
         Cancel
@@ -29,14 +31,13 @@
         {{ data.confirmText || 'Continue' }}
       </button>
     </div>
+  } @else {
+    <div class="action-row">
+      <button class="primary-btn" (click)="close()">
+        Okay
+      </button>
+    </div>
   }
-
-  <div class="action-row">
-  
-  <button class="primary-btn" (click)="close()">
-  Okay
-  </button>
-</div>
 
   <div class="down-line"></div>
 </div>
