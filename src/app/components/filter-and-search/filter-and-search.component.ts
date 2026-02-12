@@ -72,7 +72,7 @@ export class FilterAndSearchComponent implements OnInit {
       next: (res) => {
         const data = res?.data;
 
-        // LEFT SIDE
+       
         this.workerDetails = [
           ...data.devoteeProfileInAccommodation.filter(
             (i: any) => i.isPrimaryDevotee,
@@ -82,7 +82,6 @@ export class FilterAndSearchComponent implements OnInit {
           ),
         ];
 
-        // RIGHT SIDE
         this.philanthropyMembers = data.devoteeDetailsInPhilanthropy || [];
 
         this.showDetails = true;

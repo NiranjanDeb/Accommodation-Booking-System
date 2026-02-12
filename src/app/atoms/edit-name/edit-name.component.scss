@@ -1,0 +1,137 @@
+::ng-deep .mat-mdc-dialog-surface {
+  background-color: var(--bg-tertiary) !important;
+  border-radius: 1rem;
+}
+
+.edit-page {
+  padding: 1.25rem;
+  background-color: var(--bg-secondary);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-radius: 1rem;
+  min-width: 20rem;
+}
+
+.visitor {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.visitor-txt {
+  font-family: var(--recoleta);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.close {
+  border-radius: 999px;
+  padding: 0.62rem;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: none;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.cross-icon {
+  width: 0.87rem;
+  height: 0.87rem;
+}
+
+.form-header {
+  font-family: var(--inter);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.active {
+  color: var(--brand-primary);
+  font-weight: 500;
+}
+
+.action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.primary-btn {
+  flex: 1;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  padding: 0.62rem 0.75rem;
+  background-color: var(--brand-primary);
+  border: none;
+  font-family: var(--inter);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--bg-primary);
+  cursor: pointer;
+}
+
+.ac-secondary-btn {
+  flex: 1;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.edit-page select.ac-input-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 2.5rem 0 0.75rem;
+
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+
+  border: 1px solid var(--bg-overlay);
+  border-radius: 0.5rem;
+
+  font-family: var(--inter);
+  font-size: 14px;
+
+  cursor: pointer;
+  outline: none;
+}
+
+.edit-page select.ac-input-control:hover {
+  border-color: var(--brand-primary);
+}
+
+.edit-page select.ac-input-control:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.edit-page select.ac-input-control {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23B5B5B5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px 8px;
+}
+
+.edit-page select.ac-input-control option {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-family: var(--inter);
+  font-size: 14px;
+}
+
+.edit-page select.ac-input-control option:checked {
+  background-color: var(--bg-tertiary);
+  color: var(--brand-primary);
+}

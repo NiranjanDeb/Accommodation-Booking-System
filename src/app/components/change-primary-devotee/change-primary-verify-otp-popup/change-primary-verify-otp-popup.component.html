@@ -1,0 +1,39 @@
+<div class="edit-page">
+    <div class="top-line"></div>
+
+    <!-- Header -->
+    <div class="visitor">
+        <span class="visitor-txt">
+            Verify OTP
+        </span>
+
+        <button class="close" (click)="otpDialog()">
+            <img class="cross-icon" src="icons/profile-close.svg" />
+        </button>
+    </div>
+
+    <!-- Title -->
+    <span class="title">
+        Please verify to save the changes.
+    </span>
+
+    <!-- OTP Input -->
+    <div class="each-div">
+        <span class="drop-title">Verify Otp*</span>
+        <input type="text" class="date-inp" maxlength="7" placeholder="Enter the otp" [formControl]="otp"
+            (keydown)="allowNum($event)" />
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-div action-row">
+        <button class="ac-danger-btn ac-secondary-btn" (click)="otpDialog()">
+            Cancel
+        </button>
+
+        <button class="ac-primary-btn primary-btn" (click)="updateDetails()" [disabled]="otp.invalid || isSubmitting">
+            Submit & Exit
+        </button>
+    </div>
+
+    <div class="down-line"></div>
+</div>

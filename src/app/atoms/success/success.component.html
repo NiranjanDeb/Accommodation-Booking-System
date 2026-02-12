@@ -1,0 +1,26 @@
+<div class="edit-page">
+  <div class="top-line"></div>
+
+  <div class="visitor">
+    <button class="close" (click)="close()">
+      <img class="cross-icon" src="icons/profile-close.svg" />
+    </button>
+
+    <span class="visitor-txt">
+      {{ data.title }}
+    </span>
+  </div>
+  <div>
+    <img class="cross-icon" src="icons/success-tick.png" />
+    <p class="form-header">
+      {{ data.message }}
+    </p>
+  </div>
+  <div class="action-row">
+    <button class="primary-btn" (click)="continue()">
+      {{ data.confirmText || 'Okay' }}
+    </button>
+  </div>
+
+  <div class="down-line"></div>
+</div>
