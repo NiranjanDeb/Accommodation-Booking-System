@@ -1,3 +1,4 @@
+@if(!showEditPrimary){
 @if(!showEdit){
 <div class="main-container">
   <div class="title">
@@ -149,3 +150,7 @@
 
 </div>
 }
+}
+<!-- @if(showEditPrimary){ -->
+<app-edit-primary-devotee [isOpen]="showEditPrimary" [devoteeDetails]="selectedDevoteeDetails" (close)="onCloseEdit($event)"></app-edit-primary-devotee>
+<!-- } -->

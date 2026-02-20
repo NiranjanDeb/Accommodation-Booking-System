@@ -13,11 +13,12 @@ import { AdvanceSearchService } from '../../services/Advance-search/advance-sear
 import { EditDetailsPopupComponent } from '../home-search/edit-details-popup/edit-details-popup.component';
 import { ChangePrimaryConfirmationPopupComponent } from './change-primary-confirmation-popup/change-primary-confirmation-popup.component';
 import { ChangePrimaryCommonPopupComponent } from './change-primary-common-popup/change-primary-common-popup.component';
+import { EditPrimaryDevoteeComponent } from "./edit-primary-devotee/edit-primary-devotee.component";
 
 @Component({
   selector: 'app-change-primary-devotee',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, EditPrimaryDevoteeComponent],
   templateUrl: './change-primary-devotee.component.html',
   styleUrl: './change-primary-devotee.component.scss',
 })
@@ -27,8 +28,9 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
 
   profileList: any[] = [];
   profileDetails: any[] = [];
-
   showEdit = false;
+  showEditPrimary: boolean = false
+  selectedDevoteeDetails: any [] = []
 
   constructor(
     private fb: FormBuilder,
@@ -103,6 +105,7 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
   confirmPrimaryChange(item: any, event: MouseEvent): void {
     event.preventDefault();
     if (item.status === 'INACTIVE') {
+      this.showEditPrimary = false
       this.dialog.open(ChangePrimaryCommonPopupComponent, {
         width: '420px',
         maxWidth: '90vw',
@@ -116,45 +119,54 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
       });
       return;
     }
-    if (item.devoteeMemberCode.length < 12) {
-      this.dialog.open(ChangePrimaryCommonPopupComponent, {
-        width: '420px',
-        maxWidth: '90vw',
-        disableClose: true,
-        data: {
-          title: 'Invalid Member Code',
-          message:
-            'You can’t select this person as the primary member because their name doesn’t match the name on the Arghya Praswasti. Please correct the devotee name and try again.',
-          showActions: false,
-        },
-      });
-      return;
-    }
+    // if (item.devoteeMemberCode.length < 12) {
+    this.showEditPrimary = true
+    console.log(item);
+    
+    this.selectedDevoteeDetails = [item, ...this.profileDetails]
+    console.log(this.selectedDevoteeDetails);
+    
+    
+    // }
+    // if (item.devoteeMemberCode.length < 12) {
+    //   this.dialog.open(ChangePrimaryCommonPopupComponent, {
+    //     width: '420px',
+    //     maxWidth: '90vw',
+    //     disableClose: true,
+    //     data: {
+    //       title: 'Invalid Member Code',
+    //       message:
+    //         'You can’t select this person as the primary member because their name doesn’t match the name on the Arghya Praswasti. Please correct the devotee name and try again.',
+    //       showActions: false,
+    //     },
+    //   });
+    //   return;
+    // }
 
-    const dialogRef = this.dialog.open(
-      ChangePrimaryConfirmationPopupComponent,
-      {
-        width: '420px',
-        maxWidth: '90vw',
-        disableClose: true,
-        data: {
-          title: 'Confirm Primary Devotee',
-          message: 'Are you sure you want to make',
-          highlightText: `${item.devoteeFirstName} ${item.devoteeLastName}`,
-          showActions: true,
-          selectedPrimary: item,
-          familyMembers: this.profileDetails,
-        },
-      },
-    );
+    // const dialogRef = this.dialog.open(
+    //   ChangePrimaryConfirmationPopupComponent,
+    //   {
+    //     width: '420px',
+    //     maxWidth: '90vw',
+    //     disableClose: true,
+    //     data: {
+    //       title: 'Confirm Primary Devotee',
+    //       message: 'Are you sure you want to make',
+    //       highlightText: `${item.devoteeFirstName} ${item.devoteeLastName}`,
+    //       showActions: true,
+    //       selectedPrimary: item,
+    //       familyMembers: this.profileDetails,
+    //     },
+    //   },
+    // );
 
 
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.selectedDevoteeId = item.devoteeId;
-        this.onSelectDevotee(item.devoteeId);
-      }
-    });
+    // dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+    //   if (confirmed) {
+    //     this.selectedDevoteeId = item.devoteeId;
+    //     this.onSelectDevotee(item.devoteeId);
+    //   }
+    // });
   }
 
   allowNum(e: Event) {
@@ -166,5 +178,10 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
     if (filtered !== val) {
       this.fc.setValue(filtered, { emitEvent: false });
     }
+  }
+
+  onCloseEdit(event: any){
+    this.showEditPrimary = event.value
+    this.showEdit = true
   }
 }

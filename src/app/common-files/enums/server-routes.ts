@@ -20,4 +20,6 @@ export const ROUTES = {
     AVAILABLE_CONTACT_NUMBERS: `${BASE_URL}/devotee/contact-number-availability`,
     PRIMARY_REQ:`${BASE_URL}/devotee/primary-req`,
     PRIMARY_VERIFY:`${BASE_URL}/devotee/primary-verify`,
+    DEVOTEE_ADDRESS: `${BASE_URL}/devotee/address`,
+    UPDATE_PRIMARY_DEVOTEE: `${BASE_URL}/devotee/primary-req`
 }

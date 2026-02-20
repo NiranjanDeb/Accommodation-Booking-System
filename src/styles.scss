@@ -192,3 +192,12 @@ body {
     font-size: 28px;
     color: var(--text-secondary);
 }
+
+.text-box-active {
+    background-color: var(--bg-primary) !important;
+    // width: 90%;
+    border: 1px solid var(--bg-overlay);
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+    padding: 10px;
+}
