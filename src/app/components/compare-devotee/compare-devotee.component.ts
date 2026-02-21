@@ -73,13 +73,18 @@ onSelectDevotee(devoteeId: string): void {
     });
   }
 
- getProfileDetails(row: any): void {
-  // store primary member name from profile search API
-  this.primaryMemberName =
+  onRowClick(row: any){
+     this.primaryMemberName =
     `${row.devoteeFirstName} ${row.devoteeMiddleName || ''} ${row.devoteeLastName}`.trim();
   this.primaryFC=row.devoteeFamilyCode
+    this.getProfileDetails(this.primaryFC)
+  }
 
-  this.advanceService.fetchVisitorsDetails(row.devoteeFamilyCode).subscribe({
+ getProfileDetails(fc: any): void {
+  // store primary member name from profile search API
+ 
+
+  this.advanceService.fetchVisitorsDetails(fc).subscribe({
     next: (res) => {
       this.profileDetails = res.data || [];
       this.showEdit = true;
@@ -122,12 +127,22 @@ onSelectDevotee(devoteeId: string): void {
   }
 
   editAadhaar(item: any): void {
-      this.dialog.open(EditAdhaarComponent, {
+      const dialogRef = this.dialog.open(EditAdhaarComponent, {
         width: '420px',
         data: {
-          aadhaar: item.idNumber,
+          familyCode: this.primaryFC,
+          visitorId: item.visitorId,
+          aadhaar: item.aadharNumber,
+          editType: 'Visitor'
         },
       });
+      dialogRef.afterClosed().subscribe({
+        next: (res) => {
+          if(res){
+           this.getProfileDetails(this.primaryFC)
+          }
+        }
+      })
     }
   
 }

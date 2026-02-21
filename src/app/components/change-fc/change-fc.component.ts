@@ -24,6 +24,7 @@ export class ChangeFcComponent implements OnInit {
 
   profileList: any[] = [];
   profileDetails: any[] = [];
+  newMemberCode: string = ''
   
 
   showEdit = false;
@@ -94,6 +95,7 @@ export class ChangeFcComponent implements OnInit {
         this.showEditFeature = true;
         this.accountExist = res.accntExist;
         this.newFc = res.newFc;
+        this.newMemberCode = res.newMemberCode
         this.selectedDevotee = item
         }
       }
@@ -104,5 +106,6 @@ export class ChangeFcComponent implements OnInit {
     onCloseEdit(event: any){
     this.showEditFeature = event.value
     this.showEdit = true
+    this.getProfileDetails(this.selectedDevotee.devoteeFamilyCode)
   }
 }

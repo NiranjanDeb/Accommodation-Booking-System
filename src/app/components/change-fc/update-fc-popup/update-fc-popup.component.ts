@@ -15,6 +15,9 @@ import { ToastService } from '../../../services/toast/toast.service';
 export class UpdateFcPopupComponent {
   fc!: string;
   isExist: boolean = false
+  philanthropyMembers: any[] = [];
+  selectedMemberCode: string = ''
+  isShow: boolean = false
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,10 +33,25 @@ export class UpdateFcPopupComponent {
   }
 
   continue(): void {
-    this.dialogRef.close({
-      accntExist: this.isExist,
-      newFc: this.fc
-  });
+    this.validateFC(this.fc)
+   
+  }
+
+  getWorkerDetails(familyCode: string): void {
+  if(familyCode?.length === 12 && familyCode !== this.data.devoteeFamilyCode){
+    this.philanthropyMembers = [];
+
+    this.advanceSearch.fetchPhilDetails(familyCode).subscribe({
+      next: (res) => {
+        const data = res?.data;
+        this.philanthropyMembers =  res?.data || [];
+        this.isShow = true
+      },
+      error: (err) => {
+        this.toaster.error(err.error.message)
+      },
+    });
+  }
   }
 
   validateFC(fc: string){
@@ -45,10 +63,14 @@ export class UpdateFcPopupComponent {
     }
     this.advanceSearch.ValidateDevoteeFc(payload).subscribe({
       next: (res) => {
-        this.isExist = res.data.accountExists        
+      this.dialogRef.close({
+      accntExist: res.data.accountExists,
+      newFc: this.fc,
+      newMemberCode: this.selectedMemberCode
+  });       
       }, 
       error: (err) =>{
-        this.toaster.error(err.message)
+        this.toaster.error(err.error.message)
       }
     })
   }

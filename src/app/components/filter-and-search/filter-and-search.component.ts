@@ -12,6 +12,7 @@ import { AdvanceSearchService } from '../../services/Advance-search/advance-sear
 import { EditNameComponent } from '../../atoms/edit-adhaar/edit-name/edit-name.component';
 import { EditAdhaarComponent } from '../../atoms/edit-adhaar/edit-adhaar.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EditNumberComponent } from '../../atoms/edit-number/edit-number.component';
 
 @Component({
   selector: 'app-filter-and-search',
@@ -129,11 +130,36 @@ export class FilterAndSearchComponent implements OnInit {
   }
 
   editAadhaar(item: any): void {
-    this.dialog.open(EditAdhaarComponent, {
+   const dialogRef =  this.dialog.open(EditAdhaarComponent, {
       width: '420px',
       data: {
+        devoteeDetails: item,
         aadhaar: item.idNumber,
       },
     });
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if(res){
+          this.getWorkerDetails(item.devoteeFamilyCode)
+        }
+      }
+    })
   }
+
+  editNumber(item: any): void {
+   const dialogRef =  this.dialog.open(EditNumberComponent, {
+      width: '420px',
+      data: {
+        devoteeDetails: item,
+      },
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if(res){
+          this.getWorkerDetails(item.devoteeFamilyCode)
+        }
+      }
+    })
+  }
+
 }

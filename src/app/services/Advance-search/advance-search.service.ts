@@ -81,11 +81,29 @@ export class AdvanceSearchService {
   };
 
   UpdatePrimaryDevotee(payload: any): Observable<any>{
-    return this.http.post(ROUTES.PRIMARY_VERIFY, payload)
+    return this.http.put(ROUTES.UPDATE_DEVOTEE_FC, payload)
   }
 
   ValidateDevoteeFc(payLoad: any): Observable<any>{
     return this.http.post(ROUTES.VALIDATE_DEVOTEE_FC, payLoad)
   }
+
+  
+  fetchPhilDetails(fc: any): Observable<any>{
+    return this.http.get(`${ROUTES.FC_DETAILS}/${fc}`);
+  };
+
+   
+  UpdateDevoteeAadhar(payLoad: any): Observable<any>{
+    return this.http.patch(ROUTES.UPDATE_DEVOTEE_AADHAR, payLoad);
+  };
+
+   UpdateVisitorAadhar(payLoad: any): Observable<any>{
+    return this.http.patch(ROUTES.UPDATE_VISITOR_AADHAR, payLoad);
+  };
+
+  UpdateDevoteeNumber(payLoad: any): Observable<any>{
+    return this.http.put(ROUTES.UPDATE_CONTACT_DEVOTEE, payLoad);
+  };
 
 }

@@ -21,6 +21,9 @@ export const ROUTES = {
     PRIMARY_REQ:`${BASE_URL}/devotee/primary-req`,
     PRIMARY_VERIFY:`${BASE_URL}/devotee/primary-verify`,
     DEVOTEE_ADDRESS: `${BASE_URL}/devotee/address`,
-    UPDATE_PRIMARY_DEVOTEE: `${BASE_URL}/devotee/primary-req`,
+    UPDATE_DEVOTEE_FC: `${BASE_URL}/devotee/family-code-change-req`,
     VALIDATE_DEVOTEE_FC: `${BASE_URL}/devotee/validate-new-familycode`,
+    UPDATE_DEVOTEE_AADHAR: `${BASE_URL}/devotee/aadhaar`,
+    UPDATE_VISITOR_AADHAR: `${BASE_URL}/devotee/visitor-aadhaar-req`,
+    UPDATE_CONTACT_DEVOTEE: `${BASE_URL}/devotee/contact-number`
 }

@@ -13,9 +13,33 @@
   <input
     type="text"
     maxlength="12"
-    class="ac-input-control"
+    class="date-inp"
     [(ngModel)]="aadhaar"
   />
+
+  @if(errorMessage !== '' && data.editType !== 'Visitor'){
+  <div class="error">
+    <span class="err-message">{{errorMessage}}</span>
+
+    <div class="err-content">
+      <div class="err-detail">
+
+        <span class="detail-title">Name:</span> 
+        <span class="detail-txt">{{errData.name}}</span>
+      </div>
+       <div class="err-detail">
+
+        <span class="detail-title">Contact:</span> 
+        <span class="detail-txt">{{errData.contactNumber}}</span>
+      </div>
+       <div class="err-detail">
+
+        <span class="detail-title">FamilyCode:</span> 
+        <span class="detail-txt copy-fc" (click)="copy(errData.familyCode)" title="Click to copy">{{errData.familyCode}}</span>
+      </div>
+    </div>
+  </div>
+}
 
   <div class="action-row">
     <button class="ac-secondary-btn" (click)="close()">Cancel</button>

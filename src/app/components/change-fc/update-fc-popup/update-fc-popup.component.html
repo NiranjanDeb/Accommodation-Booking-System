@@ -15,12 +15,26 @@
     maxlength="12"
     class="date-inp"
     [(ngModel)]="fc"
-    (input)="validateFC(fc)"
+    (input)="getWorkerDetails(fc)"
   />
+
+  @if(isShow){
+  <select
+    class="date-inp"
+    [(ngModel)]="selectedMemberCode"
+  >
+    <option
+      *ngFor="let m of philanthropyMembers"
+      [value]="m.memberCode"
+    >
+      {{ m.fullName }}
+    </option>
+  </select>
+}
 
   <div class="action-row">
     <button class="ac-secondary-btn" (click)="close()">Cancel</button>
-    <button class="primary-btn" (click)="continue()">Continue</button>
+    <button class="primary-btn" [disabled]="!selectedMemberCode" (click)="continue()">Continue</button>
   </div>
 </div>
 

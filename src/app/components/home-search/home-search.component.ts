@@ -103,8 +103,10 @@ export class HomeSearchComponent implements OnInit {
   }
 
   onScroll() {
+    if(this.profileData.length > 15){
     this.pageNo += 1;
     this.searchProfile(false)
+    }
 
   }
 

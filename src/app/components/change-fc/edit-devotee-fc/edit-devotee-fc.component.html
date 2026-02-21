@@ -37,7 +37,7 @@
                                 </span>
 
                                 <select class="relation-select" [(ngModel)]="selectedRelation"
-                                     #relation="ngModel" >
+                                     #relation="ngModel" (change)="getPrimaryRelation(selectedRelation)">
                                     <option value="">Select relation</option>
                                     @for(r of getRelations(devoteeDetails); track r){
                                     <option [value]="r">

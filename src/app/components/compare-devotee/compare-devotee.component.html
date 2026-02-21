@@ -37,7 +37,7 @@
 
       <tbody class="table-body">
         @for(row of profileList; track row){
-        <tr (click)="getProfileDetails(row)">
+        <tr (click)="onRowClick(row)">
           <td>
             {{row.devoteeFirstName}} {{row.devoteeMiddleName || ''}}
             {{row.devoteeLastName}}

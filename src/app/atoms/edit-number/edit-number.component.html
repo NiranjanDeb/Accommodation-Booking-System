@@ -1,1 +1,35 @@
-<p>edit-number works!</p>
+<div class="edit-page">
+    <div class="visitor">
+        <button class="close" (click)="close()">
+            <img class="cross-icon" src="icons/profile-close.svg" />
+        </button>
+        <span class="visitor-txt">Edit Aadhaar</span>
+    </div>
+
+    <p class="form-header">
+        Update Aadhaar number
+    </p>
+
+    <div class="number-list">
+        <div class="relation-row">
+            <span class="common-text">
+                Contact Number
+            </span>
+            <select class="relation-select" [(ngModel)]="contactNumber" (ngModelChange)="onNumberChange()"
+                [ngModelOptions]="{standalone: true}">
+                <option value="">Select number</option>
+                @for(num of contactNumbers; track num){
+                <option [value]="num">
+                    {{ num }}
+                </option>
+                }
+            </select>
+
+        </div>
+    </div>
+
+    <div class="action-row">
+        <button class="ac-secondary-btn" (click)="close()">Cancel</button>
+        <button class="primary-btn" (click)="continue()">Save</button>
+    </div>
+</div>

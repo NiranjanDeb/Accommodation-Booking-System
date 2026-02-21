@@ -17,6 +17,7 @@ export class EditDevoteeFcComponent {
   @Input() isAccntExist: boolean = false
   @Input() devoteeDetails: any = {}
   @Input() updatedFc!: string
+  @Input() newMemberCode!: string
   @Output () close = new EventEmitter<boolean>()
 
     maleRelations: string[] = [
@@ -77,7 +78,7 @@ export class EditDevoteeFcComponent {
   selectedRelation: string = '';
 
 
-  // @ViewChild('relation') relation!: NgModel;
+  @ViewChild('relation') relation!: NgModel;
 
   constructor(
     private advanceService: AdvanceSearchService,
@@ -113,7 +114,7 @@ export class EditDevoteeFcComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if(this.isOpen){
 
-       if((this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee) || this.isAccntExist && !this.devoteeDetails?.isPrimaryDevotee){
+       if((this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee) || (this.isAccntExist && !this.devoteeDetails?.isPrimaryDevotee)){
       this.steppers = [
         'Choose Relations',
       ];
@@ -129,7 +130,7 @@ export class EditDevoteeFcComponent {
    }else{
         this.steppers = [
           'Address details',
-          'Agreement to guidelines',
+          'Agreement to guidelines(on behalf of the requestor)',
           'Change Contact NO.',
         ]
       this.isChecking = false
@@ -180,7 +181,7 @@ export class EditDevoteeFcComponent {
 
   getContactNumbers(){
     this.advanceService
-      .fetchContactNumbers(this.devoteeDetails?.devoteeFamilyCode)
+      .fetchContactNumbers(this.updatedFc)
       .subscribe({
         next: (res: any) => {
           this.contactNumbers = res?.data.contactNumbers || [];
@@ -243,15 +244,7 @@ export class EditDevoteeFcComponent {
 
     }
 
-    if(this.steppers.length === 1 && (this.isAccntExist && (this.devoteeDetails.isPrimaryDevotee || !this.devoteeDetails.isPrimaryDevotee))){
-      if(this.selectedRelation !== ''){
-        this.isValidNumber = true
-      }
-    }else{
-      if(this.selectedNumber !== ''){
-        this.isValidNumber = true
-      }
-    }
+
     
     // if (this.step === 0){
     //   // if(!this.relation.invalid && this.relation.touched){
@@ -288,6 +281,22 @@ export class EditDevoteeFcComponent {
     this.step = this.step - 1
   }
 
+  getPrimaryRelation(val: string){
+        if(this.steppers.length === 1 && ((this.isAccntExist && this.devoteeDetails.isPrimaryDevotee) || (this.isAccntExist && !this.devoteeDetails.isPrimaryDevotee))){
+        console.log(this.selectedRelation);
+
+      if(!this.relation.invalid){
+        console.log(this.selectedRelation);
+        
+        this.isValidNumber = true
+      }
+    }else{
+      if(this.selectedNumber !== ''){
+        this.isValidNumber = true
+      }
+    }
+  }
+
    onNumberChange(): void {
     if (!this.selectedNumber) {
       this.isValidNumber = false;
@@ -302,7 +311,9 @@ export class EditDevoteeFcComponent {
     this.advanceService
       .fetchAvailableContactNumber({
         contactNumber: this.selectedNumber,
-        familyCode: this.devoteeDetails.devoteeFamilyCode,
+        familyCode: this.updatedFc,
+        isPrimaryDevotee: this.devoteeDetails.isPrimaryDevotee,
+        oldFamilyCode: this.devoteeDetails.devoteeFamilyCode
       })
       .subscribe({
         next: (res: any) => {
@@ -319,7 +330,7 @@ export class EditDevoteeFcComponent {
         error: (err: any) => {
           this.isChecking = false;
           this.isValidNumber = false;
-          this.errorMessage = err?.error?.message || err?.message;
+          this.toaster.error(err.error.message)
         },
       });
   }
@@ -409,7 +420,10 @@ export class EditDevoteeFcComponent {
     if(!this.isAccntExist && !this.devoteeDetails?.isPrimaryDevotee){
     payload = {
     devoteeId: this.devoteeDetails.devoteeId,
-    familyCode: this.updatedFc,
+    familyCode: this.devoteeDetails.devoteeFamilyCode,
+    newFamilyCode: this.updatedFc,
+    newMemberCode:this.newMemberCode,
+    gender: this.devoteeDetails.gender,
     contactNumber: this.selectedNumber,
     relationship: 'SELF',
     // visitorRelationship: [
@@ -431,27 +445,32 @@ export class EditDevoteeFcComponent {
     devoteeId: this.devoteeDetails.devoteeId,
     familyCode: this.devoteeDetails.familyCode,
     contactNumber: this.selectedNumber,
+    gender: this.devoteeDetails.gender,
     relationship: 'SELF'
+
     
   }
-}else if((this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee) || (this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee)){
+}else if((this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee) || (this.isAccntExist && !this.devoteeDetails?.isPrimaryDevotee)){
    payload = {
     devoteeId: this.devoteeDetails.devoteeId,
-    familyCode: this.devoteeDetails.familyCode,
+    familyCode: this.devoteeDetails.devoteeFamilyCode,
+    newFamilyCode: this.updatedFc,
+    newMemberCode:this.newMemberCode,
     // contactNumber: this.selectedNumber,
+    gender: this.devoteeDetails.gender,
     relationship: this.selectedRelation
     
   }
 }
-
-console.log(payload);
-
-
-    // this.advanceService.UpdatePrimaryDevotee(payload).subscribe({
-    //   next: (res) => {
-        
-    //   }
-    // })
+    this.advanceService.UpdatePrimaryDevotee(payload).subscribe({
+      next: (res) => {
+        this.close.emit(false)
+        this.toaster.success('Family code successfully updated')
+      },
+      error: (err) => {
+        this.toaster.error(err.error.message)
+      }
+    })
   }
 
 
