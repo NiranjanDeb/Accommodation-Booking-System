@@ -9,11 +9,13 @@ import {
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
+import { UpdateFcPopupComponent } from './update-fc-popup/update-fc-popup.component';
+import { EditDevoteeFcComponent } from "./edit-devotee-fc/edit-devotee-fc.component";
 
 @Component({
   selector: 'app-change-fc',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, EditDevoteeFcComponent],
   templateUrl: './change-fc.component.html',
   styleUrl: './change-fc.component.scss',
 })
@@ -22,8 +24,13 @@ export class ChangeFcComponent implements OnInit {
 
   profileList: any[] = [];
   profileDetails: any[] = [];
+  
 
   showEdit = false;
+  accountExist: boolean = false;
+  showEditFeature: boolean = false;
+  newFc: string = '';
+  selectedDevotee: any;
 
   constructor(
     private fb: FormBuilder,
@@ -77,7 +84,25 @@ export class ChangeFcComponent implements OnInit {
 
   /** 🔥 placeholder for update FC logic */
   updateFamilyCode(item: any): void {
-    console.log('UPDATE FC FOR', item);
+    const dialogRef = this.dialog.open(UpdateFcPopupComponent, {
+      data: item
+    })
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if(res !== undefined){
+        this.showEditFeature = true;
+        this.accountExist = res.accntExist;
+        this.newFc = res.newFc;
+        this.selectedDevotee = item
+        }
+      }
+    })
     // open popup / navigate / call API here
+  }
+
+    onCloseEdit(event: any){
+    this.showEditFeature = event.value
+    this.showEdit = true
   }
 }

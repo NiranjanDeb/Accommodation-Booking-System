@@ -1,0 +1,453 @@
+.stepper {
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.header-text {
+    //   margin-top: 40px;
+    color: var(--text-primary);
+    font-size: 20px;
+    font-family: var(--recoleta);
+    font-weight: 500;
+    line-height: 21px;
+}
+
+a {
+    color: var(--brand-primary);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    //   width: 100%;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 10px;
+    padding: 30px;
+    //   width: 850px;
+    font-family: var(--inter);
+}
+
+.content-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.common-text {
+    color: var(--text-secondary);
+    font-style: var(--inter);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+}
+
+.step {
+    width: 4.4375rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    border-radius: 0.625rem;
+    font-family: var(--inter);
+    color: var(--text-tertiary);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.32%;
+    background-color: var(--bg-overlay);
+}
+
+.active-step {
+    color: var(--text-secondary);
+    font-family: var(--inter);
+}
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    color: var(--text-tertiary);
+    font-size: 14px;
+    gap: 0.25rem;
+    font-family: var(--inter);
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.32%;
+    text-align: center;
+}
+
+.bread {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.form-relation {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 49%;
+}
+
+.group {
+    display: flex;
+    gap: 20px;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.form-header {
+    font-family: var(--inter);
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--text-tertiary);
+    margin: 0;
+    line-height: 2.4;
+}
+
+/* Highlighted name */
+.active {
+    color: var(--brand-primary);
+    font-weight: 500;
+}
+
+.verify {
+    color: var(--brand-primary);
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.get-btn {
+    width: 10vw;
+    height: 32px;
+    border: 1px solid var(--bg-primary);
+    border-radius: 6px;
+    background-color: var(--brand-primary);
+    cursor: pointer;
+    color: var(--bg-primary)
+}
+
+// input {
+//   border-radius: 10px !important;
+// }
+
+// select {
+//   width: 100%;
+//   height: 6vh;
+//   border-radius: 0.5rem;
+//   padding: 0.62rem 1rem 0.62rem 1rem;
+//   gap: 0.25rem;
+//   background-color: var(--bg-tertiary);
+//   color: var(--text-primary);
+//   font-family: var(--inter);
+//   font-weight: 400;
+//   font-size: 14px;
+//   border: 1px solid var(--bg-tertiary);
+//   border-right: 1rem solid var(--bg-tertiary);
+// }
+
+.custom-checkbox input[type='checkbox'] {
+    display: none;
+}
+
+.custom-checkbox .checkmark {
+    height: 20px;
+    width: 20px;
+    // background-color: #eee;
+    border: 2px solid var(--bg-tertiary);
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 4px;
+    /* Optional: makes it rounded */
+}
+
+/* When checked, add a background and tick */
+.custom-checkbox input[type='checkbox']:checked+.checkmark {
+    border-color: var(--brand-primary);
+}
+
+/* Create a checkmark */
+.custom-checkbox .checkmark::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--brand-primary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox input[type='checkbox']:checked+.checkmark::after {
+    display: block;
+}
+
+.gap {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.btn-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.text-disabled {
+    background-color: var(--bg-secondary);
+}
+
+.btn-disabled {
+    background-color: var(--bg-tertiary);
+    width: 15vw;
+    height: 5vh;
+    cursor: pointer;
+    border: 1px solid var(--bg-primary);
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background-color: var(--brand-primary);
+    height: 40px;
+    min-width: 100px;
+    cursor: pointer;
+    border: 1px solid var(--bg-primary);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.btn-secondary {
+    background-color: var(--bg-primary);
+    color: var(--brand-primary);
+    height: 40px;
+    min-width: 100px;
+    cursor: pointer;
+    border: 1px solid var(--brand-primary);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.agreement-text {
+    color: var(--text-secondary);
+    font-family: var(--inter);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.error-text {
+    color: var(--brand-destructive);
+    font-family: var(--inter);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Hide scrollbars */
+::-webkit-scrollbar {
+    display: none;
+}
+
+.relation-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* RELATION LIST */
+.relation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    // height: 50vh;
+    overflow-y: auto;
+}
+
+.number-list {
+     display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ROW */
+.relation-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-tertiary);
+}
+
+/* MEMBER NAME */
+.relation-row .common-text {
+    font-family: var(--inter);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* DROPDOWN */
+.relation-select {
+    min-width: 160px;
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-primary);
+    background-color: var(--bg-secondary);
+    font-family: var(--inter);
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    outline: none;
+}
+
+/* DROPDOWN STATES */
+.relation-select:hover {
+    border-color: var(--brand-primary);
+}
+
+.relation-select:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 2px rgba(88, 74, 245, 0.15);
+}
+
+.relation-select option {
+    font-family: var(--inter);
+    font-size: 14px;
+}
+
+
+@media (max-width: 999px) {
+    .main-container {
+        max-width: 80vw;
+        height: auto;
+        // padding: 20px;
+    }
+
+
+    .group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .get-btn {
+        width: 30%;
+        height: 42px;
+    }
+
+    .btn-display {
+        justify-content: space-between;
+    }
+
+    .form,
+    .display {
+        width: 100%;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    .progress {
+        flex-wrap: wrap;
+    }
+
+    .bread {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-text {
+        font-size: 20px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .content {
+        padding: 15px;
+        width: 85vw;
+    }
+
+    .group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .get-btn,
+    .btn-primary,
+    .btn-secondary,
+    .btn-disabled {
+        font-size: 14px;
+    }
+
+    .btn-display {
+        justify-content: space-between;
+    }
+
+    .form {
+        gap: 16px;
+        height: 54vh;
+        overflow-y: auto;
+    }
+
+    .step {
+        font-size: 12px;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .agreement-text {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .common-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    input,
+    select {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
+    .bread {
+        gap: 4px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 370px) {
+    .form {
+        height: 37vh;
+    }
+}
+
+@media (min-width: 371px) and (max-width: 375px) {
+    .form {
+        height: 34vh;
+    }
+}
+
+
+@media (min-width: 380px) and (max-width: 390px) {
+    .form {
+        height: 47vh;
+    }
+}

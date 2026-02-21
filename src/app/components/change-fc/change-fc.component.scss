@@ -221,7 +221,7 @@ tbody > tr > td {
   flex-wrap: wrap;
   // margin-top: 20px;
   gap: 20px;
-  height: 78vh;
+  // height: 78vh;
   overflow-y: auto;
   scrollbar-width: none;
   padding: 40px;
@@ -229,8 +229,8 @@ tbody > tr > td {
 
 .family-details {
   display: grid;
-  height: 40vh;
-  flex: 0 0 calc(50% - 16px);
+  // height: 40vh;
+  flex: 0 0 calc(33.5% - 16px);
   border-radius: 1rem;
   border: 1px solid var(--bg-tertiary);
   padding: 16px;

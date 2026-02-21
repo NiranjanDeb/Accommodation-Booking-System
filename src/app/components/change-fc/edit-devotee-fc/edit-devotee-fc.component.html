@@ -1,0 +1,305 @@
+@if(isOpen){
+<div class="main-container" style="gap: 20px">
+    <span class="header-text">Edit Devotee Details</span>
+
+    <div class="content">
+        <div class="content-header">
+            <span class="common-text stepper">Step {{step + 1}}/{{steppers.length}}</span>
+            <img src="icons/close-icon.svg" alt="close" (click)="onClose()">
+        </div>
+        <div class="progress">
+            @for(item of steppers; track $index) {
+            <div class="bread">
+                <span [class.active-step]="$index==step" (click)="selectStep(item)">{{item}}</span>
+                @if($index < steppers.length - 1) { <span><img src="icons/breadcrumb.svg" alt="breadcrumb"> </span>
+                    }
+            </div>
+            }
+        </div>
+        <!-- <form> -->
+            @if(step==0 && isRelation){
+            <div class="stepper-1">
+                <p class="form-header">
+                    Select relationship with
+                    <span class="active">
+                        <!-- {{ primaryDevotee.devoteeFirstName }}
+                        {{ primaryDevotee.devoteeLastName }} -->
+                    </span>
+                </p>
+                <div class="relation-div">
+                    <div class="form-relation">
+                        <!-- <span class="common-text"> </span> -->
+                        <div class="relation-list">
+                            <!-- @for(member of otherMembers; track member){ -->
+                            <div class="relation-row">
+                                <span class="common-text">
+                                    {{ devoteeDetails.devoteeFirstName }} {{devoteeDetails.devoteeMiddleName || ''}} {{ devoteeDetails.devoteeLastName }}
+                                </span>
+
+                                <select class="relation-select" [(ngModel)]="selectedRelation"
+                                     #relation="ngModel" >
+                                    <option value="">Select relation</option>
+                                    @for(r of getRelations(devoteeDetails); track r){
+                                    <option [value]="r">
+                                        {{ r }}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                            <!-- } -->
+
+                        </div>
+                    </div>
+                    <!-- <div class="form-relation">
+                        <span class="common-text">(For visitor)</span>
+                        <div class="relation-list">
+                            @for(member of visitor; track member){
+                            <div class="relation-row">
+                                <span class="common-text">
+                                    {{ member.fullName }}
+                                </span>
+
+                                <select class="relation-select" [(ngModel)]="member.relationship"
+                                    #relation="ngModel" (change)="getVisitorRelation(member)">
+                                    <option value="">Select relation</option>
+                                    @for(r of getRelations(member); track r){
+                                    <option [value]="r">
+                                        {{ r }}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                            }
+
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            }@else if(isChecking && step==0 && !isRelation){
+                 <div class="stepper-2">
+                <div>
+                    <div class="form">
+                            <p class="form-header">
+                                Please select the primary contact number
+                            </p>
+
+                            <!-- DROPDOWN -->
+                            <div class="number-list">
+                                <div class="relation-row">
+                                    <span class="common-text">
+                                        Contact Number
+                                    </span>
+                                    <select class="relation-select" [(ngModel)]="selectedNumber"
+                                        (ngModelChange)="onNumberChange()" [ngModelOptions]="{standalone: true}">
+                                        <option value="">Select number</option>
+                                        @for(num of contactNumbers; track num){
+                                        <option [value]="num">
+                                            {{ num }}
+                                        </option>
+                                    }
+                                    </select>
+
+                                </div>
+                            </div>
+                            <!-- <p class="error-text" *ngIf="errorMessage">
+                                {{ errorMessage }}
+                            </p> -->
+
+
+                    </div>
+                </div>
+            </div>
+            }@else if(steppers.length === 3 && step === 0){
+                <div class="stepper-3">
+                    <div [formGroup]="addressfields">
+                        <div class="form">
+                            <div class="group">
+                                <div class="display">
+                                    <label class="common-text" for="mobileNumber">House number/Street*</label>
+                                    <input type="text" id="firstname" formControlName="houseNo" class="text-box-active"
+                                        required>
+                                    <!-- @if(mainForm.get('addressDetails.houseNo')?.value && !validAddress(mainForm.get('addressDetails.houseNo')?.value)){<span class="error-text">Enter a valid address. Remove *s if any</span>} -->
+                                </div>
+                                <div class="display">
+                                    <label class="common-text" for="firstname">Locality/Area*</label>
+                                    <input type="text" id="firstname" formControlName="locality" class="text-box-active"
+                                        required>
+                                    <!-- @if(mainForm.get('addressDetails.locality')?.value && !validAddress(mainForm.get('addressDetails.locality')?.value)){<span class="error-text">Enter a valid address. Remove *s if any</span>} -->
+                                </div>
+                                <div class="display">
+                                    <label class="common-text" for="lastname">Landmark</label>
+                                    <input type="text" id="lastname" formControlName="landmark" class="text-box-active">
+                                </div>
+                            </div>
+
+                            <div class="group">
+
+
+                                <div class="display">
+                                    <label class="common-text" for="dateOfBirth">City/Village*</label>
+
+                                    <input type="text" id="lastname" formControlName="city" class="text-box-active"
+                                        required>
+
+                                </div>
+
+                                <div class="display">
+                                    <label class="common-text" for="dateOfBirth">Pin/Zip Code*</label>
+
+                                    <input type="text" id="lastname" formControlName="pincode" class="text-box-active"
+                                    (keydown)="getPin()" maxlength="6" required>
+                                </div>
+                            </div>
+                            <div class="group">
+
+                                <div class="display">
+                                    <label class="common-text" for="cardNumber">District*</label>
+                                    <!-- @if(pinDetails.length == 0 || pinDetails.length == 1){ -->
+                                     @if(districtList.length <= 1){
+                                    <input type="text" id="cardNumber" formControlName="district"
+                                        class="text-box-active" required readOnly>
+                                     }@else {
+                                           <mat-select formControlName="district">
+                        @for(dist of districtList; track dist){
+                        <mat-option [value]="dist">{{dist}}</mat-option>
+                        }
+                    </mat-select>
+                                     }
+                                    <!-- }@else{
+                                <app-phil-select placeholder="(Select District)"
+                                    [control]="getFormControlByname('addressDetails.district')"
+                                    [options]="pinDetails"></app-phil-select>
+                                } -->
+                                </div>
+
+                                <div class="display">
+                                    <label class="common-text" for="cardNumber">State*</label>
+                                    <input type="text" id="cardNumber" formControlName="state" class="text-box-active"
+                                        required readOnly>
+                                </div>
+
+                                <div class="display">
+                                    <label class="common-text" for="cardNumber">Country*</label>
+                                    <input type="text" id="cardNumber" formControlName="country" class="text-box-active"
+                                        required>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(step==1){
+                <div class="stepper-4">
+                    <div [formGroup]="agreementDetails">
+                        <div class="display">
+                            <div class="agreement-text" style="text-align: justify;">By checking the below box, I agree
+                                that
+                                I have read all the terms
+                                and
+                                conditions, as present
+                                in
+                                the
+                                link <a class="report">Terms & Conditions</a> and have also read the
+                                general
+                                guidelines
+                                of
+                                accommodation and it's various
+                                processes to be followed, as described in the link <a class="report">Guidelines</a>
+                                and
+                                I
+                                hereby consent that I have
+                                understood and would abide by it in full and also hereby declare that I would convey the
+                                information
+                                present in the aforementioned link to all the visitors visiting the Satsang Ashram,
+                                Deoghar
+                                through
+                                the
+                                booking made using this online Accommodation System to abide by the same terms and
+                                conditions
+                                and
+                                guidelines without any deviations. Moreover, I further declare that I would be fully
+                                responsible
+                                for
+                                any
+                                inappropriate conduct or deviations from the information shared in the aforementioned
+                                link,
+                                and
+                                would
+                                not held Satsang Deoghar or any of it's associates responsible for whatsoever.
+                            </div>
+                            <div class="agreement-text">I,
+                                <input type="text" id="cardNumber" formControlName="fullName"
+                                    class="text-box-active gap" required>
+                                <input type="radio" formControlName="relation" value="son" name="relation">
+                                Son Of
+                                <input type="radio" formControlName="relation" value="daughter" name="relation">
+                                Daughter Of
+                                <input type="radio" formControlName="relation" value="wife" name="relation">
+                                Wife Of
+                                <input type="text" id="cardNumber" autocomplete="off" formControlName="guardianName"
+                                    class="text-box-active gap" required>
+                                from place
+                                <input type="text" id="cardNumber" formControlName="place" class="text-box-active gap"
+                                    required>
+                                agree to the above mentioned terms and conditions and guidelines.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                @if(step==2){
+                  <div class="stepper-2">
+                <div>
+                    <div class="form">
+                            <p class="form-header">
+                                Please select the primary contact number
+                            </p>
+
+                            <!-- DROPDOWN -->
+                            <div class="number-list">
+                                <div class="relation-row">
+                                    <span class="common-text">
+                                        Contact Number
+                                    </span>
+                                    <select class="relation-select" [(ngModel)]="selectedNumber"
+                                        (ngModelChange)="onNumberChange()" [ngModelOptions]="{standalone: true}">
+                                        <option value="">Select number</option>
+                                        @for(num of contactNumbers; track num){
+                                        <option [value]="num">
+                                            {{ num }}
+                                        </option>
+                                    }
+                                    </select>
+
+                                </div>
+                            </div>
+                            <!-- <p class="error-text" *ngIf="errorMessage">
+                                {{ errorMessage }}
+                            </p> -->
+
+
+                    </div>
+                </div>
+            </div>
+                }
+               
+        <!-- </form> -->
+        <div class="btn-display">
+            @if(step!=0 && steppers.length === 3){
+            <button class="ac-secondary-btn" (click)="decrementStep()">Back to previous Step</button>
+            }
+            @if(step!=2 && steppers.length === 3){
+            <button class="ac-primary-btn" (click)="incrementStep()">Continue to next step</button>
+            }
+            @if((step === 2 && steppers.length === 3) || (step === 0 && steppers.length === 1)){
+            <button class="ac-primary-btn" [disabled]="!isValidNumber" (click)="finalSubmit()">Submit</button>
+            }
+        </div>
+    </div>
+
+</div>
+}

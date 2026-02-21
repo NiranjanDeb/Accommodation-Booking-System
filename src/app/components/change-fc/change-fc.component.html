@@ -1,3 +1,4 @@
+@if(!showEditFeature){
 @if(!showEdit){
 <div class="main-container">
     <div class="title">
@@ -122,14 +123,19 @@
                 <span class="common-header">Aadhaar</span>
                 <span class="common-text">{{ item.idNumber }}</span>
             </div>
-
+            @if((profileDetails.length === 1 && item.isPrimaryDevotee) || (profileDetails.length > 1 && !item.isPrimaryDevotee) 
+            || (profileDetails.length > 1 && item.status === 'INACTIVE' && item.isPrimaryDevotee) ){
             <div class="edit">
                 <button class="ac-primary-btn" (click)="updateFamilyCode(item)">
                     Update Family Code
                 </button>
             </div>
+        }
         </div>
         }
     </div>
 </div>
 }
+}
+
+<app-edit-devotee-fc [isOpen]="showEditFeature"  [isAccntExist]="accountExist" [devoteeDetails]="selectedDevotee" [updatedFc]="newFc" (close)="onCloseEdit($event)"></app-edit-devotee-fc>

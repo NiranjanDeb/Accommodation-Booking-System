@@ -76,4 +76,16 @@ export class AdvanceSearchService {
      return this.http.put(ROUTES.PRIMARY_VERIFY, payload);
   }
 
+  fetchDevoteeAddress(id: any): Observable<any>{
+    return this.http.get(`${ROUTES.DEVOTEE_ADDRESS}/${id}`);
+  };
+
+  UpdatePrimaryDevotee(payload: any): Observable<any>{
+    return this.http.post(ROUTES.PRIMARY_VERIFY, payload)
+  }
+
+  ValidateDevoteeFc(payLoad: any): Observable<any>{
+    return this.http.post(ROUTES.VALIDATE_DEVOTEE_FC, payLoad)
+  }
+
 }

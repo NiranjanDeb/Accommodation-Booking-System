@@ -1,0 +1,26 @@
+<div class="edit-page">
+  <div class="visitor">
+    <button class="close" (click)="close()">
+      <img class="cross-icon" src="icons/profile-close.svg" />
+    </button>
+    <span class="visitor-txt">Edit Family Code</span>
+  </div>
+
+  <p class="form-header">
+    Update Family Code of <span class="active">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' + data.devoteeLastName}}</span>
+  </p>
+
+  <input
+    type="text"
+    maxlength="12"
+    class="date-inp"
+    [(ngModel)]="fc"
+    (input)="validateFC(fc)"
+  />
+
+  <div class="action-row">
+    <button class="ac-secondary-btn" (click)="close()">Cancel</button>
+    <button class="primary-btn" (click)="continue()">Continue</button>
+  </div>
+</div>
+
