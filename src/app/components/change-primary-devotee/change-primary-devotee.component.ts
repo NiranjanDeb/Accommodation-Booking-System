@@ -31,6 +31,7 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
   showEdit = false;
   showEditPrimary: boolean = false
   selectedDevoteeDetails: any [] = []
+  oldDevoteeDetails: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -124,6 +125,7 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
     console.log(item);
     
     this.selectedDevoteeDetails = [item, ...this.profileDetails]
+    this.oldDevoteeDetails = [...this.profileDetails]
     console.log(this.selectedDevoteeDetails);
     
     
@@ -181,7 +183,13 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
   }
 
   onCloseEdit(event: any){
+    if(event.value){
     this.showEditPrimary = event.value
     this.showEdit = true
+    }else{
+    this.showEditPrimary = false
+    this.showEdit = true
+    this.getProfileDetails(this.selectedDevoteeDetails[0].devoteeFamilyCode)
+    }
   }
 }

@@ -1,11 +1,11 @@
 ::ng-deep .mat-mdc-dialog-surface {
-  background-color: var(--bg-tertiary) !important;
+  background-color: var(--bg-primary) !important;
   border-radius: 1rem;
 }
 
 .edit-page {
   padding: 1.25rem;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   position: relative;
   display: flex;
   flex-direction: column;

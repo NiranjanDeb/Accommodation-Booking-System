@@ -152,5 +152,5 @@
 }
 }
 @if(showEditPrimary){
-<app-edit-primary-devotee [isOpen]="showEditPrimary" [devoteeDetails]="selectedDevoteeDetails" (close)="onCloseEdit($event)"></app-edit-primary-devotee>
+<app-edit-primary-devotee [isOpen]="showEditPrimary" [oldDevoteeDetails]="oldDevoteeDetails" [devoteeDetails]="selectedDevoteeDetails" (close)="onCloseEdit($event)"></app-edit-primary-devotee>
 }

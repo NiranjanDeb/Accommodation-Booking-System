@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AdvanceSearchService } from '../../../services/Advance-search/advance-search.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessComponent } from '../../../atoms/success/success.component';
+import { ToastService } from '../../../services/toast/toast.service';
 
 @Component({
   selector: 'app-change-primary-verify-otp-popup',
@@ -27,6 +28,7 @@ export class ChangePrimaryVerifyOtpPopupComponent {
     private dialogRef: MatDialogRef<ChangePrimaryVerifyOtpPopupComponent>,
     private advanceService: AdvanceSearchService,
     private dialog: MatDialog,
+    private toaster: ToastService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       sessionId: string;
@@ -77,7 +79,7 @@ export class ChangePrimaryVerifyOtpPopupComponent {
         this.isSubmitting = false;
 
         if (res?.success) {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
 
           this.dialog.open(SuccessComponent, {
             width: '420px',
@@ -93,6 +95,7 @@ export class ChangePrimaryVerifyOtpPopupComponent {
         }
       },
       error: (err: any) => {
+        this.toaster.error(err.error.message)
         this.isSubmitting = false;
         this.errorMessage = err?.error?.message || 'OTP verification failed';
       },

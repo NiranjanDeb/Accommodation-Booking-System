@@ -17,6 +17,7 @@ import { ChangePrimaryVerifyOtpPopupComponent } from '../change-primary-verify-o
 export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   @Input() isOpen: boolean = false;
   @Input() devoteeDetails: any[] = [];
+  @Input() oldDevoteeDetails: any[] = []
   @Output() close = new EventEmitter<boolean>();
 
   maleRelations: string[] = [
@@ -54,15 +55,15 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   ];
 
   steppers: any[] = [
-    'Choose Relations',
-    'Change Contact NO.',
+    'Choose Family Relations',
+    'Choose Visitor Relations',
+    'Change Contact No.',
     'Address details',
-    'Agreement to guidelines',
+    'Agreement to guidelines(on behalf of the requestor)',
   ];
   step: number = 0;
   primaryDevotee: any;
   otherMembers: any[] = [];
-  familyRelationPrimaryDevotee = new FormControl('');
   visitor: any[] = [];
   contactNumbers: any[] = [];
   addressDetails: any[] = [];
@@ -77,10 +78,17 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   pincodeList: any = [];
   districtList: any[] = [];
   stateList: any[] = [];
+  oldPrimaryDevotee: any[] = [];
+  allMembers: any[] = [];
+  editMembers: any[] = [];
+  primaryRelation: string = 'SELF';
+  familyRelation: string = ''
+  visitorRelation: string = ''
 
 
-  @ViewChild('relation') relation!: NgModel;
-  @ViewChild('visitorRelation') visitorRelation!: NgModel;
+
+  // @ViewChild('relation') relation!: NgModel;
+  // @ViewChild('visitorRelation') visitorRelation!: NgModel;
 
   // @ViewChildren('relation') relations!: QueryList<NgModel>;
 
@@ -90,7 +98,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
 
     private toaster: ToastService,
     private dialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.addressfields = this.fb.group({
@@ -114,23 +122,39 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isOpen) {
-    this.step = 0
-//     this.relations.forEach(r => {
-//   console.log(r, 'fff');
-// });
-    // console.log(this.relationMapperList);
-    
-    // this.relationMapperList.forEach(elm => {
-    //   elm.relationship = ''
-    // })
-    // this.visitorMapperList = []
-    // this.addressDetails = []
-    // this.contactNumbers = []
-    // this.selectedNumber = ''
+      this.step = 0
+      //     this.relations.forEach(r => {
+      //   console.log(r, 'fff');
+      // });
+      // console.log(this.relationMapperList);
+
+      // this.relationMapperList.forEach(elm => {
+      //   elm.relationship = ''
+      // })
+      // this.visitorMapperList = []
+      // this.addressDetails = []
+      // this.contactNumbers = []
+      // this.selectedNumber = ''
       this.primaryDevotee = this.devoteeDetails[0];
+      this.relationMapperList.push({
+        id: this.primaryDevotee.devoteeId,
+        gender: this.primaryDevotee.gender,
+        relationship: 'SELF',
+      })
+
+      this.editMembers = [...new Set(this.devoteeDetails)]
+      
+      // const filterPrimary = this.allMembers.filter(item => item.devoteeId === this.primaryDevotee.devoteeId)
+      // this.primaryRelation = filterPrimary[0].relationshipWithPrimaryDevotee
+      console.log(this.devoteeDetails);
+
 
       this.otherMembers = this.devoteeDetails.filter(
         (m) => m.devoteeId !== this.primaryDevotee.devoteeId,
+      );
+
+      this.oldPrimaryDevotee = this.devoteeDetails.filter(
+        (m) => m.isPrimaryDevotee,
       );
       this.getVisitor(this.primaryDevotee.devoteeFamilyCode);
     }
@@ -179,25 +203,35 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       });
   }
 
-  getMemberRelation(item: any) {
-    
-    const id =  {
-      id: item.devoteeId,
-      gender: item.gender,
-      relationship: item.relationshipWithPrimaryDevotee,
-    }
-    
-    this.relationMapperList = [id]
- 
-}
+  getMemberRelation(item: any, currValue: any) {
 
-  getVisitorRelation(item: any) {
-    const visitorList = {
-       id: item.visitorId,
-      gender: item.gender,
-      relationship: item.relationship,
+    const exists = this.relationMapperList.some(m => m.id === item.devoteeId);
+
+    if (!exists) {
+      this.relationMapperList.push({
+        id: item.devoteeId,
+        gender: item.gender,
+        relationship: currValue,
+      });
     }
-    this.visitorMapperList = [visitorList]
+
+    console.log(this.relationMapperList, 'relation');
+    
+
+  }
+
+  getVisitorRelation(item: any, currValue: any) {
+    const exists = this.visitorMapperList.some(m => m.id === item.visitorId);
+    if (!exists) {
+      this.visitorMapperList.push({
+        id: item.visitorId,
+        gender: item.gender,
+        relationship: currValue,
+      })
+    }
+
+    console.log(this.visitorMapperList, 'visitor');
+    
   }
 
   incrementStep() {
@@ -208,21 +242,34 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
           m.relationshipWithPrimaryDevotee !== '',
       );
 
-      const allVisitorSelected = this.visitor.every(
-        (v) => v.relationship && v.relationship !== '',
-      );
 
-      if (!allFamilySelected || !allVisitorSelected) {
+
+      if (!allFamilySelected) {
         return;
       }
 
       if (this.relationMapperList.length > 0) {
         this.step = this.step + 1;
-        this.getContactNumbers();
       }
     }
 
     if (this.step === 1) {
+      const allVisitorSelected = this.visitor.every(
+        (v) => v.relationship && v.relationship !== '',
+      );
+
+      if (!allVisitorSelected) {
+        return;
+      }
+
+      if (this.visitorMapperList.length > 0) {
+        this.step = this.step + 1;
+        this.getContactNumbers();
+      }
+
+    }
+
+    if (this.step === 2) {
       if (!this.selectedNumber) return;
       if (!this.isValidNumber) return;
 
@@ -232,7 +279,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.step === 2) {
+    if (this.step === 3) {
       if (this.addressfields.invalid) {
         this.addressfields.markAllAsTouched();
         return;
@@ -243,7 +290,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.step === 3) {
+    if (this.step === 4) {
       this.agreementDetails.patchValue({
         fullName:
           this.primaryDevotee.devoteeFirstName +
@@ -335,7 +382,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
     this.advanceService.fetchPrimaryRequest(payload).subscribe({
       next: (res: any) => {
         if (res?.success) {
-          this.dialog.open(ChangePrimaryVerifyOtpPopupComponent, {
+          const dialogRef = this.dialog.open(ChangePrimaryVerifyOtpPopupComponent, {
             width: '400px',
             disableClose: true,
             data: {
@@ -344,13 +391,20 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
               contactNumber: this.selectedNumber,
             },
           });
-          this.step = 0
+          dialogRef.afterClosed().subscribe({
+            next: (res) => {
+              if (res) {
+                this.close.emit(true)
+              }
+            }
+          })
         } else {
           this.errorMessage =
             res?.message || 'Failed to initiate OTP verification';
         }
       },
       error: (err: any) => {
+        this.toaster.error(err.error.message)
         this.errorMessage =
           err?.error?.message || 'Failed to change primary devotee';
       },
@@ -407,8 +461,8 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
               this.addressfields.get('state')?.setValue(this.stateList[0]);
               this.districtList.length == 1
                 ? this.addressfields
-                    .get('district')
-                    ?.setValue(this.districtList[0])
+                  .get('district')
+                  ?.setValue(this.districtList[0])
                 : this.districtList;
               if (this.districtList.length > 1) {
                 this.addressfields.get('district')?.enable();
