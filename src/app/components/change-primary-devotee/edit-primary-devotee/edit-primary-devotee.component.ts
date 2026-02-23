@@ -216,7 +216,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
         return;
       }
 
-      if (!this.relation.invalid && !this.visitorRelation.invalid) {
+      if (this.relationMapperList.length > 0) {
         this.step = this.step + 1;
         this.getContactNumbers();
       }
