@@ -137,6 +137,15 @@
     padding: 10px;
 }
 
+.preview-text-inp{
+    background-color: var(--bg-overlay);
+    width: -webkit-fill-available;
+    border: 1px solid var(--bg-overlay);
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+    padding: 10px;
+}
+
 .inline-div {
     display: flex;
     // width: 30vw;

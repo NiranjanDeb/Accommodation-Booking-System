@@ -159,7 +159,7 @@
         <div class="drop-div">
             <span class="mem-txt">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' +
                 data.devoteeLastName}}</span>
-            @if(!data.isPrimaryDevotee){
+            @if(!data.isPrimaryDevotee && this.statusActive.dirty){
             <div class="toggle-group">
                 <div class="toggle-div" [class.active-div]="!showEdit">
                     <span>Active</span>
@@ -178,9 +178,9 @@
                 @if(editDetails.get('gender')?.dirty){
                 <div class="edit-div">
                     <label class="form-txt" for="lastname">Gender</label>
-                    <div class="inline-div">
+                    <!-- <div class="inline-div"> -->
                         <!-- @if(type != 'gender'){ -->
-                        <input type="text" id="lastname" formControlName="gender" class="disable-text-inp"
+                        <input type="text" id="lastname" formControlName="gender" class="preview-text-inp"
                              readonly>
                         <!-- <img (click)="edit('gender')" class="icon" src="icons/pencil-line.svg"
                             style="height: 20px; width: 20px;" alt="editImg">
@@ -193,7 +193,7 @@
                         </mat-select>
                         } -->
 
-                    </div>
+                    <!-- </div> -->
                 </div>
             }
 
@@ -201,12 +201,12 @@
                 <div class="edit-div">
                     <label class="form-txt" for="dateOfBirth">Date of Birth</label>
                     <!-- @if(!isDob){ -->
-                    <div class="inline-div">
+                    <!-- <div class="inline-div"> -->
 
-                        <input type="text" id="dob" formControlName="dob" class="disable-text-inp" required readonly> 
+                        <input type="text" id="dob" formControlName="dob" class="preview-text-inp" required readonly> 
                         <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
                             (click)="edit('dob')"> -->
-                    </div>
+                    <!-- </div> -->
                     <!-- }@else{
                     <input type="date" id="dob" formControlName="dob" class="text-box-active" required>
                     } -->
@@ -218,9 +218,9 @@
                 <div class="edit-div">
                     <div>
                         <label class="form-txt" for="identityType">Marital Status</label>
-                        <div class="inline-div">
+                        <!-- <div class="inline-div"> -->
                             <!-- @if(type != 'status'){ -->
-                            <input type="text" id="lastname" formControlName="maritalStatus" class="disable-text-inp"
+                            <input type="text" id="lastname" formControlName="maritalStatus" class="preview-text-inp"
                                readonly>
                             <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;"
                                 alt="editImg" (click)="edit('status')">
@@ -232,7 +232,7 @@
                                
                             </mat-select>
                             } -->
-                        </div>
+                        <!-- </div> -->
 
                     </div>
 
@@ -242,9 +242,9 @@
                 @if(editDetails.get('physicallyChallenge')?.dirty){
                 <div class="edit-div">
                     <label class="form-txt" for="lastname">Physically Challenges</label>
-                    <div class="inline-div">
+                    <!-- <div class="inline-div"> -->
                         <!-- @if(type != 'challenge'){ -->
-                        <input type="text" id="lastname" formControlName="physicallyChallenge" class="disable-text-inp"
+                        <input type="text" id="lastname" formControlName="physicallyChallenge" class="preview-text-inp"
                             readonly>
                         <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
                             (click)="edit('challenge')">
@@ -256,16 +256,16 @@
 
                         </mat-select>
                         } -->
-                    </div>
+                    <!-- </div> -->
                 </div>
             }
 
             @if(editDetails.get('relation')?.dirty){
                 <div class="edit-div">
                     <label class="form-txt" for="lastname">Relation</label>
-                    <div class="inline-div">
+                    <!-- <div class="inline-div"> -->
                         <!-- @if(type != 'relation'){ -->
-                        <input type="text" id="lastname" formControlName="relation" class="disable-text-inp"
+                        <input type="text" id="lastname" formControlName="relation" class="preview-text-inp"
                            readonly>
                         <!-- <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
                             (click)="edit('relation')">
@@ -283,7 +283,7 @@
 
                         </mat-select>
                         } -->
-                    </div>
+                    <!-- </div> -->
                 </div>
             }
             </div>

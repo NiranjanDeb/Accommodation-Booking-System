@@ -126,7 +126,7 @@
             @if((profileDetails.length === 1 && item.isPrimaryDevotee) || (profileDetails.length > 1 && !item.isPrimaryDevotee) 
             || (profileDetails.length > 1 && item.status === 'INACTIVE' && item.isPrimaryDevotee) ){
             <div class="edit">
-                <button class="ac-primary-btn" (click)="updateFamilyCode(item)">
+                <button class="ac-secondary-btn" (click)="updateFamilyCode(item)">
                     Update Family Code
                 </button>
             </div>
