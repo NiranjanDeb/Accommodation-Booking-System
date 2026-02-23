@@ -50,6 +50,7 @@
 
                         </div>
                     </div>
+                    @if(visitor.length > 0){
                     <div class="form-relation">
                         <span class="common-text">(For visitor)</span>
                         <div class="relation-list">
@@ -60,7 +61,7 @@
                                 </span>
 
                                 <select class="relation-select" [(ngModel)]="member.relationship"
-                                    #relation="ngModel" (change)="getVisitorRelation(member)">
+                                    #visitorRelation="ngModel" (change)="getVisitorRelation(member)">
                                     <option value="">Select relation</option>
                                     @for(r of getRelations(member); track r){
                                     <option [value]="r">
@@ -73,6 +74,7 @@
 
                         </div>
                     </div>
+                }
                 </div>
             </div>
 

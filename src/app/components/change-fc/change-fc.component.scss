@@ -141,6 +141,7 @@ input:focus {
   overflow-y: auto;
   height: 60vh;
   scrollbar-width: none;
+  margin-top: 20px;
 }
 
 .table .table-body tr {
@@ -221,7 +222,7 @@ tbody > tr > td {
   flex-wrap: wrap;
   // margin-top: 20px;
   gap: 20px;
-  height: 78vh;
+  // height: 78vh;
   overflow-y: auto;
   scrollbar-width: none;
   padding: 40px;
@@ -229,7 +230,7 @@ tbody > tr > td {
 
 .family-details {
   display: grid;
-  height: 40vh;
+  // height: 40vh;
   flex: 0 0 calc(50% - 16px);
   border-radius: 1rem;
   border: 1px solid var(--bg-tertiary);

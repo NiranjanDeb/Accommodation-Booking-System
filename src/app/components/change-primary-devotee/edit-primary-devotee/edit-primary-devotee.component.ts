@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AdvanceSearchService } from '../../../services/Advance-search/advance-search.service';
 import { ToastService } from '../../../services/toast/toast.service';
@@ -78,7 +78,11 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   districtList: any[] = [];
   stateList: any[] = [];
 
+
   @ViewChild('relation') relation!: NgModel;
+  @ViewChild('visitorRelation') visitorRelation!: NgModel;
+
+  // @ViewChildren('relation') relations!: QueryList<NgModel>;
 
   constructor(
     private advanceService: AdvanceSearchService,
@@ -110,6 +114,19 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isOpen) {
+    this.step = 0
+//     this.relations.forEach(r => {
+//   console.log(r, 'fff');
+// });
+    // console.log(this.relationMapperList);
+    
+    // this.relationMapperList.forEach(elm => {
+    //   elm.relationship = ''
+    // })
+    // this.visitorMapperList = []
+    // this.addressDetails = []
+    // this.contactNumbers = []
+    // this.selectedNumber = ''
       this.primaryDevotee = this.devoteeDetails[0];
 
       this.otherMembers = this.devoteeDetails.filter(
@@ -120,7 +137,9 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   }
 
   onClose() {
+
     this.close.emit(false);
+
   }
 
   selectStep(stepName: string) {
@@ -161,19 +180,24 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   }
 
   getMemberRelation(item: any) {
-    this.relationMapperList.push({
+    
+    const id =  {
       id: item.devoteeId,
       gender: item.gender,
       relationship: item.relationshipWithPrimaryDevotee,
-    });
-  }
+    }
+    
+    this.relationMapperList = [id]
+ 
+}
 
   getVisitorRelation(item: any) {
-    this.visitorMapperList.push({
-      id: item.visitorId,
+    const visitorList = {
+       id: item.visitorId,
       gender: item.gender,
       relationship: item.relationship,
-    });
+    }
+    this.visitorMapperList = [visitorList]
   }
 
   incrementStep() {
@@ -192,23 +216,23 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
         return;
       }
 
-      if (!this.relation.invalid && this.relation.touched) {
+      if (!this.relation.invalid && !this.visitorRelation.invalid) {
         this.step = this.step + 1;
+        this.getContactNumbers();
       }
     }
 
     if (this.step === 1) {
-      this.getContactNumbers();
       if (!this.selectedNumber) return;
       if (!this.isValidNumber) return;
 
       if (this.selectedNumber !== '') {
         this.step = this.step + 1;
+        this.getDevoteeAddress();
       }
     }
 
     if (this.step === 2) {
-      this.getDevoteeAddress();
       if (this.addressfields.invalid) {
         this.addressfields.markAllAsTouched();
         return;
@@ -320,6 +344,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
               contactNumber: this.selectedNumber,
             },
           });
+          this.step = 0
         } else {
           this.errorMessage =
             res?.message || 'Failed to initiate OTP verification';

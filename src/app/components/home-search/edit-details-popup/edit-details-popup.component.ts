@@ -24,9 +24,9 @@ export class EditDetailsPopupComponent implements OnInit {
     private date: DatePipe,
     private toastService: ToastService,
     private advanceService: AdvanceSearchService,
-    
+
   ) { }
-  
+
   status: string[] = ['Married', 'Single', 'Others'];
 
   genderArr: string[] = ['Male', 'Female'];
@@ -94,34 +94,35 @@ export class EditDetailsPopupComponent implements OnInit {
 
     });
     console.log(this.data);
-    
+
     const devoteeDate = new Date(this.data.dateOfBirth)
     console.log(devoteeDate);
-    
+
     const tempDate = this.date.transform(devoteeDate, 'dd/MM/yyyy');
-     this.editDetails.get("gender")?.setValue(this.data.gender);
+    this.editDetails.get("gender")?.setValue(this.data.gender);
     this.editDetails.get('dob')?.setValue(tempDate)
     this.editDetails.get('maritalStatus')?.setValue(this.data.isMarried)
     this.editDetails.get('physicallyChallenge')?.setValue(this.data.physicallyChallenges)
     this.editDetails.get('relation')?.setValue(this.data.relationshipWithPrimaryDevotee)
 
     this.initalData = {
-    gender: this.editDetails.get("gender")?.value,
-    dateOfBirth: this.editDetails.get('dob')?.value,
-    isMarried: this.editDetails.get('maritalStatus')?.value,
-    physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
-    relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value
+      gender: this.editDetails.get("gender")?.value,
+      dateOfBirth: this.editDetails.get('dob')?.value,
+      isMarried: this.editDetails.get('maritalStatus')?.value,
+      physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
+      relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value
     }
     console.log(this.initalData);
-    
-   
+
+
     this.editDetails.disable()
     this.editDetails.get('isSwastayani')?.enable()
-
-    if (this.data.gender == 'Male') {
-      this.isMale = true
-    } else {
-      this.isMale = false
+    if (!this.data.isPrimaryDevotee) {
+      if (this.data.gender == 'Male') {
+        this.isMale = true
+      } else {
+        this.isMale = false
+      }
     }
   }
 
@@ -139,10 +140,12 @@ export class EditDetailsPopupComponent implements OnInit {
   }
 
   getGender(event: any) {
-    this.type = 'relation'
-    this.editDetails.get('relation')?.enable()
-    this.editDetails.get('relation')?.setValue('')
-    event.value == 'Male' ? this.isMale = true : this.isMale = false
+    if (!this.data.isPrimaryDevotee) {
+      this.type = 'relation'
+      this.editDetails.get('relation')?.enable()
+      this.editDetails.get('relation')?.setValue('')
+      event.value == 'Male' ? this.isMale = true : this.isMale = false
+    }
   }
 
   toggle() {
@@ -184,91 +187,103 @@ export class EditDetailsPopupComponent implements OnInit {
     }
   }
 
-  submit(){
+  submit() {
     console.log(this.statusActive.dirty);
-    
-    if((this.editDetails.dirty && this.statusActive.dirty) || (this.editDetails.dirty || this.statusActive.dirty)){
 
-      if(!this.editDetails.get('gender')?.dirty){
-      this.showEdit = this.isActive
-    this.isSubmitted = !this.isSubmitted
+    if ((this.editDetails.dirty && this.statusActive.dirty) || (this.editDetails.dirty || this.statusActive.dirty)) {
 
-    }else {
+      if (!this.editDetails.get('gender')?.dirty) {
+        this.showEdit = this.isActive
+        this.isSubmitted = !this.isSubmitted
 
-      if(this.editDetails.get('relation')?.value !== ''){
-       this.showEdit = this.isActive
-      this.isSubmitted = !this.isSubmitted
+      } else {
 
-      }else{
-       this.toastService.error('Please select the relation')
+        if (this.editDetails.get('relation')?.value !== '') {
+          this.showEdit = this.isActive
+          this.isSubmitted = !this.isSubmitted
+
+        } else {
+          this.toastService.error('Please select the relation')
+        }
+
       }
-       
+    } else {
+      this.toastService.error('Please change any one field to proceed')
     }
-  }else{
-    this.toastService.error('Please change any one field to proceed')
-  }
-    
+
   }
 
-  otpDialog(){
+  otpDialog() {
     this.showOtp = false
   }
 
-  finalSubmission(){
-    
-    let payload = {}
-    if(this.statusActive.dirty){
-    payload = {
-      devoteeId: this.data.devoteeId,
-      dateOfBirth: this.date.transform(this.editDetails.get('dob')?.value, 'yyyy-MM-dd'),
-      gender: this.editDetails.get('gender')?.value,
-      isMarried: this.editDetails.get('maritalStatus')?.value,
-      physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
-      relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
-      status: this.statusActive?.value ? 'ACTIVE' : 'INACTIVE'
-    }
-  }else{
-     payload = {
-      devoteeId: this.data.devoteeId,
-      dateOfBirth: this.date.transform(this.editDetails.get('dob')?.value, 'yyyy-MM-dd'),
-      gender: this.editDetails.get('gender')?.value,
-      isMarried: this.editDetails.get('maritalStatus')?.value,
-      physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
-      relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
-      // status: this.statusActive?.value ? 'ACTIVE' : 'INACTIVE'
-    }
+  finalSubmission() {
+    const dobValue = this.editDetails.get('dob')?.value;
+
+let formattedDate = null;
+
+if (dobValue) {
+  const parsedDate = new Date(dobValue);
+
+  if (!isNaN(parsedDate.getTime())) {
+    formattedDate = this.date.transform(parsedDate, 'yyyy-MM-dd');
   }
+}
+
+    let payload = {}
+    if (!this.data.isPrimaryDevotee) {
+      payload = {
+        devoteeId: this.data.devoteeId,
+        dateOfBirth: formattedDate,
+        gender: this.editDetails.get('gender')?.value,
+        isMarried: this.editDetails.get('maritalStatus')?.value,
+        physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
+        relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
+        status: this.statusActive?.value ? 'ACTIVE' : 'INACTIVE'
+      }
+    } else {
+      debugger
+      payload = {
+        devoteeId: this.data.devoteeId,
+        dateOfBirth: formattedDate,
+        gender: this.editDetails.get('gender')?.value,
+        isMarried: this.editDetails.get('maritalStatus')?.value,
+        physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
+        relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
+        // status: this.statusActive?.value ? 'ACTIVE' : 'INACTIVE'
+      }
+    }
     const cleanObj = Object.fromEntries(
       Object.entries(payload).filter(
         ([Key, value]) => {
-        const initialValue = this.initalData[Key];
+          const initialValue = this.initalData[Key];
 
-    return (
-      value !== null &&
-      value !== undefined &&
-      value !== '' &&
-      value !== initialValue
-    );
-  }
+          return (
+            value !== null &&
+            value !== undefined &&
+            value !== '' &&
+            value !== initialValue
+          );
+        }
       )
     );
     console.log(cleanObj);
     console.log(this.initalData);
-    
-
-  this.advanceService.updateMemDetails(cleanObj).subscribe({
-    next: (res) => {
-      this.showOtp = true
-      this.sessionId = res.data.sessionId
-      
 
 
-    }
-  })
-    
+    this.advanceService.updateMemDetails(cleanObj).subscribe({
+      next: (res) => {
+        this.showOtp = true
+        this.sessionId = res.data.sessionId
+
+
+
+      }
+    })
+
   }
 
-  updateDetails(){
+  updateDetails() {
     const payload = {
       otp: Number(this.otp.value),
       sessionId: this.sessionId
@@ -285,7 +300,7 @@ export class EditDetailsPopupComponent implements OnInit {
     })
   }
 
-   allowNum(e: Event) {
+  allowNum(e: Event) {
     const input = e.target as HTMLInputElement;
     const val = input?.value;
     if (!val) return;
