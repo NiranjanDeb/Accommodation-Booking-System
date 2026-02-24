@@ -247,8 +247,10 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       if (!allFamilySelected) {
         return;
       }
+      console.log(this.editMembers.length ,this.relationMapperList.length );
+      
 
-      if (this.relationMapperList.length == this.allMembers.length && (this.visitorMapperList.length == this.visitor.length || this.visitor.length === 0)) {
+      if (this.relationMapperList.length == this.editMembers.length && (this.visitorMapperList.length == this.visitor.length || this.visitor.length === 0)) {
           this.step = this.step + 1;
          this.getContactNumbers();
       }else{
