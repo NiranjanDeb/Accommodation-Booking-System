@@ -56,7 +56,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
 
   steppers: any[] = [
     'Choose Family Relations',
-    // 'Choose Visitor Relations',
+    'Choose Visitor Relations',
     'Change Contact No.',
     'Address details',
     'Agreement to guidelines(on behalf of the requestor)',
@@ -81,6 +81,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
   oldPrimaryDevotee: any[] = [];
   allMembers: any[] = [];
   editMembers: any[] = [];
+  editVisitor: any[] = [];
   primaryRelation: string = 'SELF';
   familyRelation: string = ''
   visitorRelation: string = ''
@@ -142,11 +143,17 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
         relationship: 'SELF',
       })
 
-      this.editMembers = [...new Set(this.devoteeDetails)]
-      
+      this.editMembers = structuredClone([...new Set(this.devoteeDetails)])
+      this.editMembers = this.editMembers.map(val => {
+        return {
+          ...val,
+          relationshipWithPrimaryDevotee: ''
+        };
+      })
+
+
       // const filterPrimary = this.allMembers.filter(item => item.devoteeId === this.primaryDevotee.devoteeId)
       // this.primaryRelation = filterPrimary[0].relationshipWithPrimaryDevotee
-      console.log(this.devoteeDetails);
 
 
       this.otherMembers = this.devoteeDetails.filter(
@@ -182,6 +189,19 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
     this.advanceService.fetchVisitorsDetails(fc).subscribe({
       next: (res) => {
         this.visitor = res?.data || [];
+        if(this.visitor.length == 0){
+          this.steppers.splice(1, 1)
+          console.log(this.steppers);
+          
+        }else{
+          this.editVisitor = structuredClone([...this.visitor]);
+          this.editVisitor = this.editVisitor.map(val => {
+            return {
+              ...val,
+              relationship: ''
+            }
+          })
+        }
         console.log(this.visitor);
       },
       error: (err) => {
@@ -216,7 +236,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
     }
 
     console.log(this.relationMapperList, 'relation');
-    
+
 
   }
 
@@ -231,7 +251,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
     }
 
     console.log(this.visitorMapperList, 'visitor');
-    
+
   }
 
   incrementStep() {
@@ -242,39 +262,39 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
           m.relationshipWithPrimaryDevotee !== '',
       );
 
-
-
       if (!allFamilySelected) {
         return;
       }
-      console.log(this.editMembers.length ,this.relationMapperList.length );
-      
 
-      if (this.relationMapperList.length == this.editMembers.length && (this.visitorMapperList.length == this.visitor.length || this.visitor.length === 0)) {
-          this.step = this.step + 1;
-         this.getContactNumbers();
-      }else{
-        this.toaster.error('Kindly specify the relationship of each family member and visitor with the requestor to proceed further.')
+      if (this.relationMapperList.length == this.editMembers.length ) {
+        this.step = this.step + 1;
+        if(this.visitor.length == 0){
+        this.getContactNumbers();
+        }
+      } else {
+        this.toaster.error('Kindly specify the relationship of each family member with the requestor to proceed further.')
       }
     }
 
-    // if (this.step === 1) {
-    //   const allVisitorSelected = this.visitor.every(
-    //     (v) => v.relationship && v.relationship !== '',
-    //   );
+    if (this.step === 1 && this.visitor.length != 0) {
+      const allVisitorSelected = this.visitor.every(
+        (v) => v.relationship && v.relationship !== '',
+      );
 
-    //   if (!allVisitorSelected) {
-    //     return;
-    //   }
+      if (!allVisitorSelected) {
+        return;
+      }
 
-    //   if () {
-    //     this.step = this.step + 1;
-    //     this.getContactNumbers();
-    //   }
+      if (this.visitorMapperList.length == this.visitor.length) {
+        this.step = this.step + 1;
+        this.getContactNumbers();
+      } else {
+        this.toaster.error('Kindly specify the relationship of each visitor member with the requestor to proceed further.')
+      }
 
-    // }
+    }
 
-    if (this.step === 1) {
+    if ((this.step === 2 && this.visitor.length != 0) || (this.step === 1 && this.steppers.length === 4))  {
       if (!this.selectedNumber) return;
       if (!this.isValidNumber) return;
 
@@ -284,7 +304,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.step === 2) {
+    if ((this.step === 3 && this.visitor.length != 0) || (this.step === 2 && this.steppers.length === 4)) {
       if (this.addressfields.invalid) {
         this.addressfields.markAllAsTouched();
         return;
@@ -295,7 +315,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.step === 3) {
+    if ((this.step === 4 && this.visitor.length != 0) || (this.step === 3 && this.steppers.length === 4)) {
       this.agreementDetails.patchValue({
         fullName:
           this.primaryDevotee.devoteeFirstName +

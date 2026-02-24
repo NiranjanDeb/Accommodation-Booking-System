@@ -192,7 +192,7 @@
                 </div>
             }
 
-            @if(step==1){
+            @if(step==1 && !isChecking && !isRelation){
                 <div class="stepper-4">
                     <div [formGroup]="agreementDetails">
                         <div class="display">
