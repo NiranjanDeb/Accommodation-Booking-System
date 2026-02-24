@@ -65,6 +65,11 @@
   }
 }
 
+.menu.active {
+  background: var(--bg-overlay);
+  border-radius: 10px;
+}
+
 .footer-sidebar {
   display: flex;
   flex-direction: column;

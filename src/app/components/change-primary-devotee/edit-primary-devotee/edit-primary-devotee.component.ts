@@ -248,7 +248,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
         return;
       }
 
-      if (this.relationMapperList.length > 0 && (this.visitorMapperList.length > 0 || this.visitor.length === 0)) {
+      if (this.relationMapperList.length == this.allMembers.length && (this.visitorMapperList.length == this.visitor.length || this.visitor.length === 0)) {
           this.step = this.step + 1;
          this.getContactNumbers();
       }else{
@@ -348,6 +348,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
           }
         },
         error: (err: any) => {
+          this.toaster.error(err.error.message)
           this.isChecking = false;
           this.isValidNumber = false;
           this.errorMessage = err?.error?.message || err?.message;
@@ -432,7 +433,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
           });
         },
         error: (err) => {
-          this.toaster.error(err.message);
+          this.toaster.error(err.error.message);
         },
       });
   }
