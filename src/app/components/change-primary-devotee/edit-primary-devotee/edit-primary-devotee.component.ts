@@ -56,7 +56,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
 
   steppers: any[] = [
     'Choose Family Relations',
-    'Choose Visitor Relations',
+    // 'Choose Visitor Relations',
     'Change Contact No.',
     'Address details',
     'Agreement to guidelines(on behalf of the requestor)',
@@ -248,28 +248,31 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
         return;
       }
 
-      if (this.relationMapperList.length > 0) {
-        this.step = this.step + 1;
+      if (this.relationMapperList.length > 0 && (this.visitorMapperList.length > 0 || this.visitor.length === 0)) {
+          this.step = this.step + 1;
+         this.getContactNumbers();
+      }else{
+        this.toaster.error('Kindly specify the relationship of each family member and visitor with the requestor to proceed further.')
       }
     }
+
+    // if (this.step === 1) {
+    //   const allVisitorSelected = this.visitor.every(
+    //     (v) => v.relationship && v.relationship !== '',
+    //   );
+
+    //   if (!allVisitorSelected) {
+    //     return;
+    //   }
+
+    //   if () {
+    //     this.step = this.step + 1;
+    //     this.getContactNumbers();
+    //   }
+
+    // }
 
     if (this.step === 1) {
-      const allVisitorSelected = this.visitor.every(
-        (v) => v.relationship && v.relationship !== '',
-      );
-
-      if (!allVisitorSelected) {
-        return;
-      }
-
-      if (this.visitorMapperList.length > 0) {
-        this.step = this.step + 1;
-        this.getContactNumbers();
-      }
-
-    }
-
-    if (this.step === 2) {
       if (!this.selectedNumber) return;
       if (!this.isValidNumber) return;
 
@@ -279,7 +282,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.step === 3) {
+    if (this.step === 2) {
       if (this.addressfields.invalid) {
         this.addressfields.markAllAsTouched();
         return;
@@ -290,7 +293,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.step === 4) {
+    if (this.step === 3) {
       this.agreementDetails.patchValue({
         fullName:
           this.primaryDevotee.devoteeFirstName +
@@ -373,7 +376,7 @@ export class EditPrimaryDevoteeComponent implements OnInit, OnChanges {
       pin: addressData.pincode,
       state: addressData.state,
       district: addressData.district,
-      agreementContent: 'test content',
+      agreementContent: `By checking the below box, I agree that I have read all the terms and conditions, as present in the Terms & Conditions link https://app.acco.satsangphilanthropy.com/#/termsnconditions  and have also read the general guidelines of accomodation and it'\''s various processes to be followed, as described in the link Guidelines https://app.acco.satsangphilanthropy.com/#/guidelinesnfaqs and I hereby consent that I have understood and would abide by it in full and also hereby declare that I would convey the information present in the aforementioned link to all the visitors visiting the Satsang Ashram, Deoghar through the booking made using this online Accomodation System to abide by the same terms and conditions and guidelines without any deviations. Moreover, I further declare that I would be fully responsible for any inappropriate conduct or deviations from the information shared in the aforementioned link, and would not held Satsang Deoghar or any of it'\''s associates responsible for whatsoever.I,  S/O or D/O or W/O ${this.agreementDetails.get('guardianName')?.value} from place ${this.agreementDetails.get('place')?.value} agree to the above mentioned terms and conditions and guidelines.`,
       place: this.agreementDetails.get('place')?.value,
     };
 

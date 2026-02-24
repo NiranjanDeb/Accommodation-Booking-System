@@ -96,15 +96,49 @@
                         </div>
                     </div>
                 </div>
+                  @if(visitor.length > 0){
+                <div class="relation-content">
+                    <p class="form-header">
+                        Selecting visitor relationship with
+                        <span class="active">
+                            {{ primaryDevotee.devoteeFirstName }}
+                            {{ primaryDevotee.devoteeLastName }}
+                        </span>
+                    </p>
+                    <div class="form-relation">
+                        <!-- <span class="common-text">(For visitor)</span> -->
+                        <div class="relation-list">
+                            @for(member of visitor; track member){
+                            <div class="relation-row">
+                                <span class="common-text">
+                                    {{ member.fullName }}
+                                </span>
+
+                                <select class="relation-select" [(ngModel)]="member.relationship"
+                                    #visitorRelation="ngModel" (change)="getVisitorRelation(member, member.relationship)">
+                                    <option value="">Select relation</option>
+                                    @for(r of getRelations(member); track r){
+                                    <option [value]="r">
+                                        {{ r }}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                }
             </div>
         </div>
         }
 
         <!-- } -->
 
-        @if(step==1){
+        <!-- @if(step==1){
         <div class="stepper-1">
-            <div class="relation-div">
+            <div class="relation-div"> -->
                 <!-- <div class="relation-content">
                     <p class="form-header">
                         Existing visitor relationship with
@@ -143,18 +177,18 @@
                         </div>
                     </div>
                 </div> -->
-                @if(visitor.length > 0){
+                <!-- @if(visitor.length > 0){
                 <div class="relation-content">
                     <p class="form-header">
-                        Existing visitor relationship with
+                        Selecting visitor relationship with
                         <span class="active">
                             {{ primaryDevotee.devoteeFirstName }}
                             {{ primaryDevotee.devoteeLastName }}
                         </span>
                     </p>
-                    <div class="form-relation">
+                    <div class="form-relation"> -->
                         <!-- <span class="common-text">(For visitor)</span> -->
-                        <div class="relation-list">
+                        <!-- <div class="relation-list">
                             @for(member of visitor; track member){
                             <div class="relation-row">
                                 <span class="common-text">
@@ -180,9 +214,9 @@
             </div>
         </div>
 
-        }
+        } -->
 
-        @if(step==2){
+        @if(step==1){
         <div class="stepper-2">
             <div>
                 <div class="form">
@@ -217,7 +251,7 @@
             </div>
         </div>
         }
-        @if(step==3){
+        @if(step==2){
         <div class="stepper-3">
             <div [formGroup]="addressfields">
                 <div class="form">
@@ -296,7 +330,7 @@
             </div>
         </div>
         }
-        @if(step==4){
+        @if(step==3){
 
         <div class="stepper-4">
             <div [formGroup]="agreementDetails">
@@ -360,10 +394,10 @@
             @if(step!=0){
             <button class="ac-secondary-btn" (click)="decrementStep()">Back to previous Step</button>
             }
-            @if(step!=4){
+            @if(step!=3){
             <button class="ac-primary-btn" (click)="incrementStep()">Continue to next step</button>
             }
-            @if(step==4){
+            @if(step==3){
             <button class="ac-primary-btn" [disabled]="isChecking" (click)="finalSubmit()">Submit</button>
             }
         </div>
