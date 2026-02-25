@@ -204,6 +204,7 @@ export class HomeSearchComponent implements OnInit {
     this.profileData = [];
     this.visitData = []
     this.bookingList = []
+    this.getStates()
   }
 
   searchProfile(value?: boolean) {

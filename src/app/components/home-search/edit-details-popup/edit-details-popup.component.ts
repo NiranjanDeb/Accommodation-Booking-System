@@ -105,9 +105,20 @@ export class EditDetailsPopupComponent implements OnInit {
     this.editDetails.get('physicallyChallenge')?.setValue(this.data.physicallyChallenges)
     this.editDetails.get('relation')?.setValue(this.data.relationshipWithPrimaryDevotee)
 
+    const dobValue = this.editDetails.get('dob')?.value;
+    let formattedDate = null;
+
+    if (dobValue) {
+      const parsedDate = new Date(dobValue);
+
+      if (!isNaN(parsedDate.getTime())) {
+        formattedDate = this.date.transform(parsedDate, 'yyyy-MM-dd');
+      }
+    }
+
     this.initalData = {
       gender: this.editDetails.get("gender")?.value,
-      dateOfBirth: this.editDetails.get('dob')?.value,
+      dateOfBirth: formattedDate,
       isMarried: this.editDetails.get('maritalStatus')?.value,
       physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
       relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value
@@ -137,6 +148,7 @@ export class EditDetailsPopupComponent implements OnInit {
     this.editDetails.get('physicallyChallenge')?.setValue(this.data.physicallyChallenges)
     this.editDetails.get('relation')?.setValue(this.data.relationshipWithPrimaryDevotee)
     this.editDetails.markAsPristine()
+    this.isActive = this.isActive ? !this.isActive : this.isActive
   }
 
   getGender(event: any) {
@@ -220,15 +232,15 @@ export class EditDetailsPopupComponent implements OnInit {
   finalSubmission() {
     const dobValue = this.editDetails.get('dob')?.value;
 
-let formattedDate = null;
+    let formattedDate = null;
 
-if (dobValue) {
-  const parsedDate = new Date(dobValue);
+    if (dobValue) {
+      const parsedDate = new Date(dobValue);
 
-  if (!isNaN(parsedDate.getTime())) {
-    formattedDate = this.date.transform(parsedDate, 'yyyy-MM-dd');
-  }
-}
+      if (!isNaN(parsedDate.getTime())) {
+        formattedDate = this.date.transform(parsedDate, 'yyyy-MM-dd');
+      }
+    }
 
     let payload = {}
     if (!this.data.isPrimaryDevotee) {
@@ -239,10 +251,9 @@ if (dobValue) {
         isMarried: this.editDetails.get('maritalStatus')?.value,
         physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
         relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
-        status: this.statusActive?.value ? 'ACTIVE' : 'INACTIVE'
+        status: !this.isActive ? 'ACTIVE' : 'INACTIVE'
       }
     } else {
-      debugger
       payload = {
         devoteeId: this.data.devoteeId,
         dateOfBirth: formattedDate,
@@ -267,8 +278,8 @@ if (dobValue) {
         }
       )
     );
-    console.log(cleanObj);
-    console.log(this.initalData);
+    console.log(cleanObj, 'clearedData');
+    console.log(this.initalData, 'InitialData');
 
 
     this.advanceService.updateMemDetails(cleanObj).subscribe({
@@ -278,6 +289,9 @@ if (dobValue) {
 
 
 
+      },
+      error: (err) => {
+        this.toastService.error(err.error.message)
       }
     })
 
@@ -296,6 +310,9 @@ if (dobValue) {
             type: 'profile'
           }
         })
+      },
+      error: (error) => {
+        this.toastService.error(error.error.message)
       }
     })
   }
