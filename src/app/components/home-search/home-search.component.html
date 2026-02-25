@@ -1,3 +1,4 @@
+<app-loader [isLoading]="isLoading"></app-loader>
 @if(!showEdit ){
 <div class="main-container">
     <div class="title">
@@ -32,7 +33,8 @@
                         <mat-option value="aadhaarNumber">Search by Aadhaar Number</mat-option>
                         }
                     </mat-select>
-                    <input type="text" class="filter-inp" [formControl]="referenceInput" [maxlength]="searchMaxLen" (input)="filterReg($event)" placeholder="Enter search key">
+                    <input type="text" class="filter-inp" [formControl]="referenceInput" [maxlength]="searchMaxLen"
+                        (input)="filterReg($event)" placeholder="Enter search key">
                 </div>
             </div>
         </div>
@@ -70,14 +72,14 @@
         <div class="dropdown-div">
             <div class="each-div">
                 <span class="drop-title">Pincode</span>
-                <input type="text" class="date-inp" [formControl]="pin" maxlength="6" (input)="onPinInput($event, pin)"
-                    placeholder="Enter the pincode">
+                <input type="text" class="text-box-active" [formControl]="pin" maxlength="6"
+                    (input)="onPinInput($event, pin)" placeholder="Enter the pincode">
             </div>
 
             <div class="each-div">
                 <span class="drop-title">State</span>
-                @if(stateList?.length <= 1){ <input type="text" id='state' class="date-inp" [placeholder]="'Select State'" [formControl]="state"
-                    readOnly>
+                @if(stateList?.length <= 1){ <input type="text" id='state' class="text-box-active"
+                    [placeholder]="'Select State'" [formControl]="state" readOnly>
                     }@else {
 
                     <mat-select [formControl]="state" (selectionChange)="getDistrict($event)"
@@ -91,7 +93,7 @@
             <div class="each-div">
                 <span class="drop-title">District</span>
                 @if(districtList?.length <= 1){ <input type="text" id='district' placeholder='Select state first'
-                    class="date-inp" [formControl]="district" readOnly>
+                    class="text-box-active" [formControl]="district" readOnly>
                     }@else {
 
                     <mat-select [formControl]="district">
@@ -108,11 +110,11 @@
         <div class="dropdown-div">
             <div class="each-div">
                 <span class="drop-title">From Date</span>
-                <input type="date" class="date-inp" [formControl]="fromDate">
+                <input type="date" class="text-box-active" [formControl]="fromDate">
             </div>
             <div class="each-div">
                 <span class="drop-title">To Date</span>
-                <input type="date" class="date-inp" [formControl]="toDate">
+                <input type="date" class="text-box-active" [formControl]="toDate">
             </div>
         </div>
         }
@@ -398,29 +400,29 @@
                     <span class="pending">Primary Member</span>
                 </div>
                 } -->
-               @if(!item.isPrimaryDevotee){
+            @if(!item.isPrimaryDevotee){
             <div class="details">
                 <span class="common-text"> {{item.devoteeFirstName}}{{item.devoteeMiddleName || ''}}
                     {{item.devoteeLastName}}
                 </span>
             </div>
-        }@else {
+            }@else {
             <div class="details">
                 <div class="primary-devotee">
-               <span class="common-text">{{item.devoteeFirstName}}{{item.devoteeMiddleName || ''}}
-                    {{item.devoteeLastName}}</span>
+                    <span class="common-text">{{item.devoteeFirstName}}{{item.devoteeMiddleName || ''}}
+                        {{item.devoteeLastName}}</span>
                     <img src="icons/verified-badge-line.png" style="width: 20px; height: 20px;" alt="badge-img">
                     <div class="pending-design">
-                    <span class="pending">Primary Devotee</span>
+                        <span class="pending">Primary Devotee</span>
                     </div>
                 </div>
             </div>
-        }
+            }
             <div class="details">
                 <span class="common-header">Status</span>
                 <div class="{{item.status == 'ACTIVE' ? 'confirmed-design' : 'pending-design'  }}">
-                <span class="{{item.status == 'ACTIVE' ? 'confirmed' : 'pending' }} "> {{item.status}}
-                </span>
+                    <span class="{{item.status == 'ACTIVE' ? 'confirmed' : 'pending' }} "> {{item.status}}
+                    </span>
                 </div>
             </div>
             <!-- <div class="details">

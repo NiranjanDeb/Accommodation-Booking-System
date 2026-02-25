@@ -88,9 +88,6 @@ tbody tr:hover {
   border-bottom: 2px solid var(--bg-overlay);
 }
 
-.section-header.right {
-  border-bottom-color: rgba(255, 215, 0, 0.6);
-}
 
 .section-title {
   font-family: var(--inter);
@@ -99,14 +96,6 @@ tbody tr:hover {
   color: var(--text-secondary);
 }
 
-.count-badge {
-  background-color: rgba(255, 215, 0, 0.25);
-  color: #8a6d00;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-}
 
 .card-details {
   display: grid;
@@ -224,8 +213,8 @@ tbody tr:hover {
 
 .names-only-card {
   border-radius: 1rem;
-  border: 1px solid rgba(255, 215, 0, 0.6);
-  background: linear-gradient(to bottom, rgba(255, 215, 0, 0.08), transparent);
+  border: 1px solid var(--bg-overlay);
+  background: linear-gradient(to bottom, var(--bg-overlay), transparent);
   padding: 16px;
 }
 
@@ -255,6 +244,7 @@ tbody tr:hover {
   font-style: italic;
   color: var(--text-tertiary);
 }
+
 .img-div {
   display: flex;
   justify-content: center;
@@ -262,12 +252,14 @@ tbody tr:hover {
   align-items: center;
   margin-top: 36px;
 }
+
 .drop-title {
   color: var(--text-secondary);
   font-size: 16px;
   font-family: var(--manrope);
   margin: 5px;
 }
+
 .edit-icon {
   width: 16px;
   height: 16px;

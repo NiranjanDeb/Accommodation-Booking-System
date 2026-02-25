@@ -50,47 +50,14 @@
     height: 30px !important;
     width: 100%;
     color: var(--text-secondary) !important;
-    border: none
+    border: none;
+    padding-left: 10px;
+    font-size: 16px;
+    font-family: 'Manrope';
 }
 
-::ng-deep .mat-mdc-select-value {
-    background-color: var(--bg-overlay) !important;
-    height: 37px !important;
-    // width: 370px !important;
-    border-radius: 6px !important;
-    color: var(--text-secondary) !important;
-    padding: 0px 10px !important;
-}
 
-::ng-deep .mat-mdc-select-arrow svg {
-    // left: 0% !important;
-    // right: 10%;
-    transform: translate(-150%, -50%) !important;
-    color: var(--text-secondary);
-}
 
-::ng-deep .mat-mdc-select-min-line {
-    padding: 4px;
-}
-
-::ng-deep .mat-mdc-select-placeholder{
-    color: var(--text-secondary) !important;
-    display: flex !important;
-}
-
-::ng-deep .mat-mdc-select-value-text {
-    display: flex !important;
-    padding: 2px !important;
-}
-
-.date-inp {
-    background-color: var(--bg-primary) !important;
-    // width: 90%;
-    border: 1px solid var(--bg-overlay);
-    border-radius: 6px !important;
-    color: var(--text-secondary) !important;
-    padding: 10px;
-}
 
 input:focus {
     outline: none;
@@ -114,19 +81,19 @@ input:focus {
     flex-direction: column;
 }
 
-.table-container{
-       overflow-y: auto;
+.table-container {
+    overflow-y: auto;
     height: 60vh;
     scrollbar-width: none;
 }
 
-.table .table-body tr{
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.table .table-body tr {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .table .table-body tr:hover {
-  background-color: var(--bg-overlay) !important;
+    background-color: var(--bg-overlay) !important;
 }
 
 table {
@@ -194,13 +161,14 @@ tbody>tr>td {
 }
 
 .address-cell {
-  max-width: 220px;       /* adjust as needed */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    max-width: 220px;
+    /* adjust as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.card-details{
+.card-details {
     display: flex;
     flex-wrap: wrap;
     // margin-top: 20px;
@@ -223,7 +191,7 @@ tbody>tr>td {
     box-sizing: border-box;
 }
 
-.primary-devotee{
+.primary-devotee {
     display: flex;
     align-items: center;
     gap: 8px
@@ -414,6 +382,7 @@ tbody>tr>td {
     text-align: center;
     border: 1px solid var(--bg-tertiary);
 }
+
 .mem-details-div {
     display: flex;
     flex-direction: column;
@@ -429,8 +398,8 @@ tbody>tr>td {
     color: var(--text-tertiary);
 }
 
-.mem-details{
-     display: flex;
+.mem-details {
+    display: flex;
     flex-wrap: wrap;
     gap: 20px;
     height: 38vh;
@@ -438,8 +407,8 @@ tbody>tr>td {
     scrollbar-width: none;
 }
 
-.acco-details{
-        display: flex;
+.acco-details {
+    display: flex;
     flex-direction: column;
     gap: 20px;
     border: 1px solid var(--bg-overlay);
@@ -447,19 +416,20 @@ tbody>tr>td {
     padding: 20px;
 }
 
-.acco-heading{
+.acco-heading {
     display: flex;
     gap: 40px;
     justify-content: space-between;
 }
 
-.acco-status{
+.acco-status {
     display: flex;
     gap: 8px;
     /* align-items: center; */
     flex-direction: column;
 }
-.mem-status{
+
+.mem-status {
     display: flex;
     flex-direction: column;
     gap: 4px

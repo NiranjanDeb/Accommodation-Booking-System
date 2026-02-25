@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AdvanceSearchService } from '../../../services/Advance-search/advance-search.service';
 import { ToastService } from '../../../services/toast/toast.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-update-fc-popup',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSelectModule],
   templateUrl: './update-fc-popup.component.html',
-  styleUrl: './update-fc-popup.component.scss'
+  styleUrls: ['./update-fc-popup.component.scss', '../../../../common-style/dropdown.scss']
 })
 export class UpdateFcPopupComponent {
   fc!: string;
@@ -43,9 +44,13 @@ export class UpdateFcPopupComponent {
 
     this.advanceSearch.fetchPhilDetails(familyCode).subscribe({
       next: (res) => {
-        const data = res?.data;
+        if(res.data.length > 0){
         this.philanthropyMembers =  res?.data || [];
+
         this.isShow = true
+        }else{
+          this.toaster.success('Result not found')
+        }
       },
       error: (err) => {
         this.toaster.error(err.error.message)

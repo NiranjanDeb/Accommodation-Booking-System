@@ -1,0 +1,44 @@
+// dropdown css
+
+::ng-deep .mat-mdc-select-value {
+    background-color: var(--bg-overlay) !important;
+    height: 40px !important;
+    // width: 370px !important;
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+    padding: 0px 10px !important;
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+    // left: 0% !important;
+    // right: 10%;
+    transform: translate(-150%, -50%) !important;
+    color: var(--text-secondary);
+}
+
+::ng-deep .mat-mdc-select-min-line {
+    padding: 8px;
+}
+
+::ng-deep .mat-mdc-select-placeholder{
+    color: var(--text-secondary) !important;
+    display: flex !important;
+}
+
+::ng-deep .mat-mdc-select-value-text {
+    display: flex !important;
+    padding: 0px !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+    width: 0px !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+    background-color: var(--bg-secondary) !important;
+    scrollbar-width: none !important;
+}
+
+::ng-deep .mat-mdc-select-panel .mat-mdc-option{
+    color: var(--text-secondary) !important;
+}

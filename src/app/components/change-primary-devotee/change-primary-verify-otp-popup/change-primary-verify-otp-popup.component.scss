@@ -173,7 +173,7 @@
 }
 
 /* OTP input */
-.date-inp {
+.text-box-active {
   height: 40px;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
@@ -185,11 +185,11 @@
   outline: none;
 }
 
-.date-inp::placeholder {
+.text-box-active::placeholder {
   color: var(--text-tertiary);
 }
 
-.date-inp:focus {
+.text-box-active:focus {
   border-color: var(--brand-primary);
   box-shadow: 0 0 0 2px rgba(88, 74, 245, 0.15);
 }

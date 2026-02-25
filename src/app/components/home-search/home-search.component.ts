@@ -8,14 +8,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { EditDetailsPopupComponent } from './edit-details-popup/edit-details-popup.component';
 import { ToastService } from '../../services/toast/toast.service';
+import { LoaderComponent } from '../../atoms/loader/loader.component';
 
 @Component({
   selector: 'app-home-search',
   standalone: true,
   imports: [MatSelectModule,
-    MatFormFieldModule, ReactiveFormsModule, InfiniteScrollDirective],
+    MatFormFieldModule, ReactiveFormsModule, InfiniteScrollDirective, LoaderComponent],
   templateUrl: './home-search.component.html',
-  styleUrl: './home-search.component.scss',
+  styleUrls: ['./home-search.component.scss', '../../../common-style/dropdown.scss'],
   providers: [DatePipe]
 })
 export class HomeSearchComponent implements OnInit {
@@ -49,6 +50,7 @@ export class HomeSearchComponent implements OnInit {
   pageNo: number = 1
   payload: any = {}
   isAllDataLoaded: boolean = false
+  isLoading: boolean = false
 
   searchMaxLen: string | number = 200;
 
@@ -68,30 +70,30 @@ export class HomeSearchComponent implements OnInit {
       this.reference.setValue('familyCode');
     }
     // console.log(this.referenceInput.value);
-    
-    this.referenceInput.valueChanges.subscribe(item=>{
-      if(this.reference.value == 'name'){
-      if(typeof item == 'string' && item.length < 3){
-        this.profileData = []
-        this.bookingList = []
-        this.visitData = []
-        console.log(item);
+
+    this.referenceInput.valueChanges.subscribe(item => {
+      if (this.reference.value == 'name') {
+        if (typeof item == 'string' && item.length < 3) {
+          this.profileData = []
+          this.bookingList = []
+          this.visitData = []
+          console.log(item);
+        }
+      } else if (this.reference.value == 'mobileNumber') {
+        if (typeof item == 'string' && item.length < 10) {
+          this.profileData = []
+          this.bookingList = []
+          this.visitData = []
+          console.log('contact', item);
+        }
+      } else {
+        if (typeof item == 'string' && item.length < 12) {
+          this.profileData = []
+          this.bookingList = []
+          this.visitData = []
+          console.log('family', item);
+        }
       }
-    }else if(this.reference.value == 'mobileNumber'){
-      if(typeof item == 'string' && item.length < 10){
-        this.profileData = []
-        this.bookingList = []
-        this.visitData = []
-        console.log('contact', item);
-      }
-    }else{
-       if(typeof item == 'string' && item.length < 12){
-        this.profileData = []
-        this.bookingList = []
-        this.visitData = []
-        console.log('family', item);
-      }
-    }
     })
   }
 
@@ -103,9 +105,9 @@ export class HomeSearchComponent implements OnInit {
   }
 
   onScroll() {
-    if(this.profileData.length > 15){
-    this.pageNo += 1;
-    this.searchProfile(false)
+    if (this.profileData.length > 15) {
+      this.pageNo += 1;
+      this.searchProfile(false)
     }
 
   }
@@ -170,8 +172,8 @@ export class HomeSearchComponent implements OnInit {
   }
 
   onSelectType(event: any) {
-     this.pageNo = 1;
-     this.reset();
+    this.pageNo = 1;
+    this.reset();
     if (event.value == 'profile') {
       console.log(event.value);
       this.isHide = this.isprofile = true;
@@ -208,7 +210,8 @@ export class HomeSearchComponent implements OnInit {
   }
 
   searchProfile(value?: boolean) {
-    if(value) this.profileData = this.bookingList = this.visitData = []
+    this.isLoading = true
+    if (value) this.profileData = this.bookingList = this.visitData = []
     this.payload = {
       page: this.pageNo,
       key: this.referenceInput?.value,
@@ -232,7 +235,8 @@ export class HomeSearchComponent implements OnInit {
     if (this.searchType.value == 'profile') {
       this.advanceService.fetchProfile(cleanObj).subscribe({
         next: (res) => {
-          if (this.profileData.length == 0 ) {
+          this.isLoading = false
+          if (this.profileData.length == 0) {
             // this.profileData = []
             this.profileData = [...res.data];
             this.isAllDataLoaded = true;
@@ -245,6 +249,7 @@ export class HomeSearchComponent implements OnInit {
         },
         error: (err) => {
           if (err) {
+            this.isLoading = false
             this.toastService.error(err.error.message);
           }
         },
@@ -252,6 +257,7 @@ export class HomeSearchComponent implements OnInit {
     } else if (this.searchType.value == 'visit') {
       this.advanceService.fetchVisitDetails(cleanObj).subscribe({
         next: (res) => {
+          this.isLoading = false
           if (this.visitData.length == 0) {
             this.visitData = res.data;
           }
@@ -259,10 +265,11 @@ export class HomeSearchComponent implements OnInit {
             this.visitData = [...this.visitData, ...res.data];
             console.log(this.visitData);
           }
-           this.toastService.success(res.message);
+          this.toastService.success(res.message);
         },
-         error: (err) => {
+        error: (err) => {
           if (err) {
+            this.isLoading = false
             this.toastService.error(err.error.message);
           }
         },
@@ -270,6 +277,7 @@ export class HomeSearchComponent implements OnInit {
     } else {
       this.advanceService.fetchBookingDetails(cleanObj).subscribe({
         next: (res) => {
+          this.isLoading = false
           if (this.bookingList.length == 0) {
             this.bookingList = res.data;
             // }else{
@@ -281,8 +289,9 @@ export class HomeSearchComponent implements OnInit {
           // }
           this.toastService.success(res.message);
         },
-         error: (err) => {
+        error: (err) => {
           if (err) {
+            this.isLoading = false
             this.toastService.error(err.error.message);
           }
         },
@@ -298,30 +307,30 @@ export class HomeSearchComponent implements OnInit {
           this.stateList = [];
           this.districtList = [];
           this.pincodeList = res.data;
-          
-          if(this.pincodeList !== undefined){
 
-          this.stateList = this.pincodeList?.state;
+          if (this.pincodeList !== undefined) {
 
-          this.districtList = this.pincodeList?.district;
-          if (this.stateList?.length == 1) {
-            this.state.setValue(this.stateList[0]);
-            this.districtList.length == 1
-              ? this.district.setValue(this.districtList[0])
-              : this.districtList;
+            this.stateList = this.pincodeList?.state;
+
+            this.districtList = this.pincodeList?.district;
+            if (this.stateList?.length == 1) {
+              this.state.setValue(this.stateList[0]);
+              this.districtList.length == 1
+                ? this.district.setValue(this.districtList[0])
+                : this.districtList;
+            }
+
+          } else {
+            this.state.setValue('');
+            this.district.setValue('');
           }
-          
-        }else{
-           this.state.setValue('');
-           this.district.setValue('');
-        }
 
           this.toastService.success(res.message);
         },
-         error: (err) => {
+        error: (err) => {
           if (err) {
             this.state.setValue('');
-           this.district.setValue('');
+            this.district.setValue('');
             this.toastService.error(err.error.message);
           }
         },
@@ -352,18 +361,21 @@ export class HomeSearchComponent implements OnInit {
   }
 
   getStates() {
+    this.isLoading = true
     this.advanceService.fetchStates().subscribe({
       next: (res) => {
+        this.isLoading = false
         this.allStateDistrict = res.data
-        this.stateList = Object.keys(this.allStateDistrict).sort((a , b)=>a.localeCompare(b))
+        this.stateList = Object.keys(this.allStateDistrict).sort((a, b) => a.localeCompare(b))
         console.log(this.stateList);
 
       },
-       error: (err) => {
-          if (err) {
-            this.toastService.error(err.error.message);
-          }
-        },
+      error: (err) => {
+        if (err) {
+          this.isLoading = false
+          this.toastService.error(err.error.message);
+        }
+      },
     })
   }
 
@@ -373,16 +385,19 @@ export class HomeSearchComponent implements OnInit {
 
   getProfileDetails(event: any, type: string) {
     // console.log(fc);
+    this.isLoading = true
     if (type == 'profile') {
       this.advanceService.fetchProfileDetails(event).subscribe({
         next: (res) => {
+          this.isLoading = false
           this.profileDetails = [...res.data.filter((item: any) => item.isPrimaryDevotee), ...res.data.filter((item: any) => !item.isPrimaryDevotee)]
           this.showEdit = true
           console.log(this.profileDetails);
 
         },
-         error: (err) => {
+        error: (err) => {
           if (err) {
+            this.isLoading = false
             this.toastService.error(err.error.message);
           }
         },
@@ -390,13 +405,15 @@ export class HomeSearchComponent implements OnInit {
     } else {
       this.advanceService.fetchBookingId(event).subscribe({
         next: (res) => {
+          this.isLoading = false
           this.bookingIdDetails = res.data
           this.showEdit = true
           console.log(this.bookingIdDetails);
 
         },
-         error: (err) => {
+        error: (err) => {
           if (err) {
+            this.isLoading = false
             this.toastService.error(err.error.message);
           }
         },
@@ -412,10 +429,10 @@ export class HomeSearchComponent implements OnInit {
       disableClose: true
     })
     dialogRef.afterClosed().subscribe({
-      next: (res) =>{
-         if(res != undefined){
+      next: (res) => {
+        if (res != undefined) {
           this.getProfileDetails(res.data.familyCode, res.data.type)
-         }
+        }
       }
     })
   }

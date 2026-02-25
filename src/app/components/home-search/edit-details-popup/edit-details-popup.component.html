@@ -116,8 +116,10 @@
                         @if(type != 'relation'){
                         <input type="text" id="lastname" formControlName="relation" class="disable-text-inp"
                             [class.text-box-active]="type === 'relation'">
+                            @if(!data.isPrimaryDevotee){
                         <img class="icon" src="icons/pencil-line.svg" style="height: 20px; width: 20px;" alt="editImg"
                             (click)="edit('relation')">
+                            }
                         }@else if(type == 'relation'){
                         <mat-select formControlName="relation" placeholder="(Select Relation)">
                             @if(isMale){
@@ -306,7 +308,7 @@
         <span class="title">Please verify to save the changes.</span>
       <div class="each-div">
                 <span class="drop-title">Verify Otp*</span>
-                <input type="text" class="date-inp"  maxlength="7" placeholder="Enter the otp" [formControl]="otp" (keydown)="allowNum($event)">
+                <input type="text" class="text-box-active"  maxlength="7" placeholder="Enter the otp" [formControl]="otp" (keydown)="allowNum($event)">
     </div>
       <div class="btn-div">
         <button class="ac-danger-btn" (click)="otpDialog()">Cancel</button>

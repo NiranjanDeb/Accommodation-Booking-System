@@ -7,20 +7,24 @@
   </div>
 
   <p class="form-header">
-    Update Family Code of <span class="active">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' + data.devoteeLastName}}</span>
+    Update Family Code of <span class="active">{{data.devoteeFirstName + ' ' + (data.devoteeMiddleName || '') + ' ' +
+      data.devoteeLastName}}</span>
   </p>
 
-  <input
-    type="text"
-    maxlength="12"
-    class="date-inp"
-    [(ngModel)]="fc"
-    (input)="getWorkerDetails(fc)"
-  />
+  <input type="text" maxlength="12" class="text-box-active" placeholder="Enter new family code" [(ngModel)]="fc"
+    (input)="getWorkerDetails(fc)" />
 
   @if(isShow){
-  <select
-    class="date-inp"
+  <mat-select (ngModel)]="selectedMemberCode" placeholder="Select member to update">
+    <!-- <mat-option value="fc">N/A</mat-option> -->
+    <mat-option *ngFor="let m of philanthropyMembers" [value]="m.memberCode">
+      {{ m.fullName }}
+    </mat-option>
+
+  </mat-select>
+  <!-- <select
+    class="text-box-active"
+    aria-placeholder="Select member to update"
     [(ngModel)]="selectedMemberCode"
   >
     <option
@@ -29,12 +33,11 @@
     >
       {{ m.fullName }}
     </option>
-  </select>
-}
+  </select> -->
+  }
 
   <div class="action-row">
     <button class="ac-secondary-btn" (click)="close()">Cancel</button>
     <button class="primary-btn" [disabled]="!selectedMemberCode" (click)="continue()">Continue</button>
   </div>
 </div>
-

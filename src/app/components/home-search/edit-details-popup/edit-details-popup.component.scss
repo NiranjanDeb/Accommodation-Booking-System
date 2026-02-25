@@ -1,5 +1,5 @@
 ::ng-deep .mat-mdc-dialog-surface {
-    background-color: var(--bg-tertiary) !important;
+    background-color: var(--bg-primary) !important;
 }
 
 ::ng-deep .mat-mdc-select-min-line {
@@ -10,7 +10,7 @@
     // width: 27.5rem;
     // height: 37.5rem;
     padding: 1.25rem;
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-primary);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -267,7 +267,7 @@
     margin: 5px;
 }
 
-.date-inp {
+.text-box-active {
     background-color: var(--bg-tertiary) !important;
     // width: 90%;
     border: 1px solid var(--bg-overlay);

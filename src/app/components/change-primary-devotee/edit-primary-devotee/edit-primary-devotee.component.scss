@@ -29,7 +29,7 @@ a {
     font-family: var(--inter);
 }
 
-.content-header{
+.content-header {
     display: flex;
     justify-content: space-between;
 }
@@ -264,7 +264,7 @@ a {
 
 .relation-div {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 /* RELATION LIST */
@@ -277,7 +277,7 @@ a {
 }
 
 .number-list {
-     display: flex;
+    display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
