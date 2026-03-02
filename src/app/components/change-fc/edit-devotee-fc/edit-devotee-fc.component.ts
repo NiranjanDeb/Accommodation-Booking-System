@@ -119,6 +119,7 @@ export class EditDevoteeFcComponent {
         'Choose Relations',
       ];
       this.isRelation = true
+      this.isValidNumber = true
       // this.getRelations(this.devoteeDetails)
    }else if(!this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee){
        this.steppers = [
@@ -126,6 +127,8 @@ export class EditDevoteeFcComponent {
       ];
       this.isChecking = true
       this.isRelation = false
+      this.isValidNumber = true
+
 
    }else{
         this.steppers = [
@@ -444,6 +447,7 @@ export class EditDevoteeFcComponent {
    payload = {
     devoteeId: this.devoteeDetails.devoteeId,
     familyCode: this.devoteeDetails.familyCode,
+    newMemberCode:this.newMemberCode,
     contactNumber: this.selectedNumber,
     gender: this.devoteeDetails.gender,
     relationship: 'SELF'
