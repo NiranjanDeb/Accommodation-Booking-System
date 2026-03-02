@@ -61,6 +61,8 @@ export class UpdateFcPopupComponent {
 
   validateFC(fc: string){
     if(fc?.length === 12 && fc !== this.data.devoteeFamilyCode){
+      console.log(fc);
+      
     const payload = {
       devoteeId:this.data.devoteeId,
       familyCode: this.data.devoteeFamilyCode,
