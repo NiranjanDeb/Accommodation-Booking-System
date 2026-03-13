@@ -11,7 +11,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { AdvanceSearchService } from '../../services/Advance-search/advance-search.service';
 import { EditDetailsPopupComponent } from '../home-search/edit-details-popup/edit-details-popup.component';
-import { ChangePrimaryConfirmationPopupComponent } from './change-primary-confirmation-popup/change-primary-confirmation-popup.component';
 import { ChangePrimaryCommonPopupComponent } from './change-primary-common-popup/change-primary-common-popup.component';
 import { EditPrimaryDevoteeComponent } from "./edit-primary-devotee/edit-primary-devotee.component";
 
@@ -122,53 +121,10 @@ export class ChangePrimaryDevoteeComponent implements OnInit {
     }
     // if (item.devoteeMemberCode.length < 12) {
     this.showEditPrimary = true
-    console.log(item);
     
     this.selectedDevoteeDetails = [item, ...this.profileDetails]
     this.oldDevoteeDetails = [...this.profileDetails]
-    console.log(this.selectedDevoteeDetails);
-    
-    
-    // }
-    // if (item.devoteeMemberCode.length < 12) {
-    //   this.dialog.open(ChangePrimaryCommonPopupComponent, {
-    //     width: '420px',
-    //     maxWidth: '90vw',
-    //     disableClose: true,
-    //     data: {
-    //       title: 'Invalid Member Code',
-    //       message:
-    //         'You can’t select this person as the primary member because their name doesn’t match the name on the Arghya Praswasti. Please correct the devotee name and try again.',
-    //       showActions: false,
-    //     },
-    //   });
-    //   return;
-    // }
 
-    // const dialogRef = this.dialog.open(
-    //   ChangePrimaryConfirmationPopupComponent,
-    //   {
-    //     width: '420px',
-    //     maxWidth: '90vw',
-    //     disableClose: true,
-    //     data: {
-    //       title: 'Confirm Primary Devotee',
-    //       message: 'Are you sure you want to make',
-    //       highlightText: `${item.devoteeFirstName} ${item.devoteeLastName}`,
-    //       showActions: true,
-    //       selectedPrimary: item,
-    //       familyMembers: this.profileDetails,
-    //     },
-    //   },
-    // );
-
-
-    // dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-    //   if (confirmed) {
-    //     this.selectedDevoteeId = item.devoteeId;
-    //     this.onSelectDevotee(item.devoteeId);
-    //   }
-    // });
   }
 
   allowNum(e: Event) {

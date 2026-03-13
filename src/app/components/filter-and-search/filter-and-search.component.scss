@@ -269,3 +269,9 @@ tbody tr:hover {
     opacity 0.2s ease,
     transform 0.2s ease;
 }
+
+.back-btn{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}

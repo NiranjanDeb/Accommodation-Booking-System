@@ -389,7 +389,9 @@
 <div class="main-container">
     @if(isprofile){
     <div class="title">
-        <span style="color: var(--brand-primary); cursor: pointer;" (click)="back()"> Go back</span>
+        <span class="back-btn" style="color: var(--brand-primary); cursor: pointer;" (click)="back()">
+            <img src="icons/back-arrow-icon.svg" style="height: 15px; width: 15px;">
+            Go back</span>
         <span class="title-text">Edit Members - ({{profileDetails[0].devoteeFamilyCode}})</span>
     </div>
     <div class="card-details">

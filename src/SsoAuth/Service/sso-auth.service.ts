@@ -21,20 +21,20 @@ export class SsoAuthService {
     private router: Router,
     private http: HttpClient,
     private idleTimerService: IdleTimerService
-  ) {}
+  ) { }
 
   public logOut(isAllLogout: boolean = true) {
     this.clearTimer();
     localStorage.clear();
     this.idleTimerService.stopWatching();
-    if(isAllLogout){
+    if (isAllLogout) {
       const redirectUrl = `${environment.SSO_URL}?logout=true`;
       window.location.href = redirectUrl;
     }
-    else{
+    else {
       // may be show a pop up that session has expired due to inactivity
     }
-    
+
     // this.router.navigate(['/']);
   }
 
@@ -47,8 +47,10 @@ export class SsoAuthService {
         const accessPayloadPart = accessTokenSplit[1];
         const decodedPayload = JSON.parse(window.atob(accessPayloadPart));
         const tokenExpiryTimestamp = decodedPayload.exp;
+        console.log(tokenExpiryTimestamp, 'tokenexpirytime');
+
         const timeRemainingInSeconds = Math.round(
-          new Date(tokenExpiryTimestamp).getTime() - new Date().getTime() / 1000
+          tokenExpiryTimestamp - Date.now() / 1000
         );
         this.tokenExpiresInSecond.next(timeRemainingInSeconds);
         this.timerInterval = setInterval(() => {
@@ -72,7 +74,7 @@ export class SsoAuthService {
       next: (response: any) => {
         // console.log('REFRESH');
         // if already logged in then only accept the new token
-        if(localStorage.getItem('auth')){
+        if (localStorage.getItem('userToken')) {
           localStorage.setItem('userToken', response?.data?.token);
           this.initTimer();
         }
