@@ -17,7 +17,7 @@
   @if(isShow){
   <mat-select [(ngModel)]="selectedMemberCode" placeholder="Select member to update">
     <!-- <mat-option value="fc">N/A</mat-option> -->
-    <mat-option *ngFor="let m of philanthropyMembers" [value]="m.memberCode">
+    <mat-option *ngFor="let m of philanthropyMembers" [value]="m">
       {{ m.fullName }}
     </mat-option>
 

@@ -17,7 +17,7 @@ export class UpdateFcPopupComponent {
   fc!: string;
   isExist: boolean = false
   philanthropyMembers: any[] = [];
-  selectedMemberCode: string = ''
+  selectedMemberCode: any
   isShow: boolean = false
 
   constructor(
@@ -73,7 +73,8 @@ export class UpdateFcPopupComponent {
       this.dialogRef.close({
       accntExist: res.data.accountExists,
       newFc: this.fc,
-      newMemberCode: this.selectedMemberCode
+      newMemberCode: this.selectedMemberCode.memberCode,
+      updateMember: res.data.newFcDevoteeName
   });       
       }, 
       error: (err) =>{

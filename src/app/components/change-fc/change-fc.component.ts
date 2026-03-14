@@ -25,6 +25,7 @@ export class ChangeFcComponent implements OnInit {
   profileList: any[] = [];
   profileDetails: any[] = [];
   newMemberCode: string = ''
+  updateMember: string = ''
   
 
   showEdit = false;
@@ -83,7 +84,6 @@ export class ChangeFcComponent implements OnInit {
     this.showEdit = false;
   }
 
-  /** 🔥 placeholder for update FC logic */
   updateFamilyCode(item: any): void {
     const dialogRef = this.dialog.open(UpdateFcPopupComponent, {
       data: item
@@ -97,6 +97,7 @@ export class ChangeFcComponent implements OnInit {
         this.newFc = res.newFc;
         this.newMemberCode = res.newMemberCode
         this.selectedDevotee = item
+        this.updateMember = res.updateMember
         }
       }
     })

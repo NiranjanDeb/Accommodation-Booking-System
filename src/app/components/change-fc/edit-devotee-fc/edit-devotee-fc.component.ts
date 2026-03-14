@@ -18,6 +18,7 @@ export class EditDevoteeFcComponent {
   @Input() devoteeDetails: any = {}
   @Input() updatedFc!: string
   @Input() newMemberCode!: string
+  @Input() updateMember!: string
   @Output () close = new EventEmitter<boolean>()
 
     maleRelations: string[] = [
@@ -119,6 +120,7 @@ export class EditDevoteeFcComponent {
         'Choose Relations',
       ];
       this.isRelation = true
+      this.isChecking = false
       this.isValidNumber = true
       // this.getRelations(this.devoteeDetails)
    }else if(!this.isAccntExist && this.devoteeDetails?.isPrimaryDevotee){

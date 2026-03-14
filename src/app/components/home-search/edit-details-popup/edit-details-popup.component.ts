@@ -94,6 +94,7 @@ export class EditDetailsPopupComponent implements OnInit {
 
     });
     console.log(this.data);
+    this.isActive = this.data.status==='ACTIVE' ? false : true
 
     const devoteeDate = new Date(this.data.dateOfBirth)
     console.log(devoteeDate);
@@ -148,7 +149,8 @@ export class EditDetailsPopupComponent implements OnInit {
     this.editDetails.get('physicallyChallenge')?.setValue(this.data.physicallyChallenges)
     this.editDetails.get('relation')?.setValue(this.data.relationshipWithPrimaryDevotee)
     this.editDetails.markAsPristine()
-    this.isActive = this.isActive ? !this.isActive : this.isActive
+    this.isActive = this.data.status==='ACTIVE' ? false : true
+
   }
 
   getGender(event: any) {

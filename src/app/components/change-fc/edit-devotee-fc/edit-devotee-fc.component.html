@@ -17,10 +17,10 @@
             }
         </div>
         <!-- <form> -->
-            @if(step==0 && isRelation){
+            @if(step==0 && isRelation && !isChecking){
             <div class="stepper-1">
                 <p class="form-header">
-                    Select relationship with
+                    Select relationship with {{updateMember}}
                     <span class="active">
                         <!-- {{ primaryDevotee.devoteeFirstName }}
                         {{ primaryDevotee.devoteeLastName }} -->
