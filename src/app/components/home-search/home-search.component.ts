@@ -214,7 +214,7 @@ export class HomeSearchComponent implements OnInit {
     if (value) this.profileData = this.bookingList = this.visitData = []
     this.payload = {
       page: this.pageNo,
-      key: this.referenceInput?.value,
+      key: this.reference?.value === 'bookingId' ? Number(this.referenceInput?.value) : this.referenceInput?.value,
       keyType: this.reference?.value,
       pincode: Number(this.pin?.value),
       state: this.state?.value,
