@@ -253,7 +253,7 @@ export class EditDetailsPopupComponent implements OnInit {
         isMarried: this.editDetails.get('maritalStatus')?.value,
         physicallyChallenges: this.editDetails.get('physicallyChallenge')?.value,
         relationshipWithPrimaryDevotee: this.editDetails.get('relation')?.value,
-        status: !this.isActive ? 'ACTIVE' : 'INACTIVE'
+        status: this.statusActive.dirty ? (!this.isActive ? 'ACTIVE' : 'INACTIVE') : ''
       }
     } else {
       payload = {
