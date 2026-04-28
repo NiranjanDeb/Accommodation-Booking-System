@@ -105,10 +105,27 @@ export class HomeSearchComponent implements OnInit {
   }
 
   onScroll() {
-    if (this.profileData.length > 15) {
-      this.pageNo += 1;
-      this.searchProfile(false)
-    }
+    // if (this.profileData.length > 15) {
+    //   this.pageNo += 1;
+    //   this.searchProfile(false)
+    // }
+
+     // Step 1: Figure out which list is currently active
+  let activeList = [];
+
+  if (this.isprofile) {
+    activeList = this.profileData;       
+  } else if (this.isVisit) {
+    activeList = this.visitData;        
+  } else {
+    activeList = this.bookingList;       
+  }
+
+ 
+  if (activeList.length > 0) {
+    this.pageNo += 1;
+    this.searchProfile(false);
+  }
 
   }
 
@@ -211,7 +228,11 @@ export class HomeSearchComponent implements OnInit {
 
   searchProfile(value?: boolean) {
     this.isLoading = true
-    if (value) this.profileData = this.bookingList = this.visitData = []
+    if (value) {
+      this.profileData = this.bookingList = this.visitData = []
+      this.pageNo = 1          
+      this.isAllDataLoaded = false  
+    }
     this.payload = {
       page: this.pageNo,
       key: this.reference?.value === 'bookingId' ? Number(this.referenceInput?.value) : this.referenceInput?.value,
