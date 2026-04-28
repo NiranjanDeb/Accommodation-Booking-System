@@ -114,14 +114,14 @@ export class HomeSearchComponent implements OnInit {
   let activeList = [];
 
   if (this.isprofile) {
-    activeList = this.profileData;       // Profile tab
+    activeList = this.profileData;       
   } else if (this.isVisit) {
-    activeList = this.visitData;         // Visit tab
+    activeList = this.visitData;        
   } else {
-    activeList = this.bookingList;       // Bookings tab ✅
+    activeList = this.bookingList;       
   }
 
-  // Step 2: If that list has items, load next page
+ 
   if (activeList.length > 0) {
     this.pageNo += 1;
     this.searchProfile(false);
